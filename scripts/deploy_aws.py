@@ -24,15 +24,40 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 
+def setup_aws_session(region):
+    """Initializes boto3 session with automatic prompt if credentials missing."""
+    try:
+        session = boto3.Session(region_name=region)
+        sts = session.client("sts")
+        sts.get_caller_identity()
+        return session
+    except Exception:
+        print("\n" + "=" * 60)
+        print("  [!] Please enter your AWS Credentials:")
+        print("  (From your AWS Free Tier or AWS Academy Learner Lab)")
+        print("=" * 60)
+        access_key = input("AWS Access Key ID: ").strip()
+        secret_key = input("AWS Secret Access Key: ").strip()
+        session_token = input("AWS Session Token (Press Enter if none / personal account): ").strip()
+
+        kwargs = {
+            "aws_access_key_id": access_key,
+            "aws_secret_access_key": secret_key,
+            "region_name": region
+        }
+        if session_token:
+            kwargs["aws_session_token"] = session_token
+
+        return boto3.Session(**kwargs)
+
+
 def get_current_account_id(sts_client):
     try:
         identity = sts_client.get_caller_identity()
         return identity["Account"]
     except Exception as e:
         print(f"Error authenticating with AWS: {e}")
-        print("\nPlease configure your AWS credentials using either:")
-        print("1. 'aws configure' in your command prompt, OR")
-        print("2. Set environment variables: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION")
+        print("\nPlease check your AWS Access Key and Secret Key and try again.")
         sys.exit(1)
 
 
@@ -43,6 +68,9 @@ def create_s3_bucket(s3_client, bucket_name, region):
             s3_client.create_bucket(Bucket=bucket_name)
         else:
             s3_client.create_bucket(
+                Bucket=bucket_name,
+                CreateBucketConfiguration={"LocationConstraint": region}
+            )
                 Bucket=bucket_name,
                 CreateBucketConfiguration={"LocationConstraint": region}
             )
@@ -212,13 +240,14 @@ def main():
     region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION") or "us-east-1"
     print(f"Target AWS Region: {region}")
 
-    sts = boto3.client("sts", region_name=region)
+    session = setup_aws_session(region)
+    sts = session.client("sts")
     account_id = get_current_account_id(sts)
     print(f"Authenticated as AWS Account: {account_id}")
 
-    s3 = boto3.client("s3", region_name=region)
-    iam = boto3.client("iam", region_name=region)
-    lam = boto3.client("lambda", region_name=region)
+    s3 = session.client("s3")
+    iam = session.client("iam")
+    lam = session.client("lambda")
 
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
