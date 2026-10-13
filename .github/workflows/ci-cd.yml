@@ -27,7 +27,6 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: "3.12"
-        cache: "pip"
 
     - name: Install dependencies
       run: |
@@ -120,17 +119,15 @@ jobs:
 
           if (match) {
             const issueNumber = parseInt(match[1], 10);
-            console.log(`Detected linked Agile Ticket: #${issueNumber}`);
+            console.log('Detected linked Agile Ticket: #' + issueNumber);
 
-            const commentBody = `### 🚀 DevOps CI/CD Deployment Verification
-
-**Traceability Matrix:**
-- **Trigger**: Commit \`${context.sha.substring(0, 7)}\`
-- **Commit Message**: "${commitMsg.trim()}"
-- **CI/CD Pipeline Run**: [#${context.runNumber}](${context.payload.repository.html_url}/actions/runs/${context.runId})
-- **Status**: Automated unit tests passed & code deployed to AWS production.
-
-✅ **Agile Sprint Status Update**: The bug has been resolved and verified. Marking Agile User Story as **Done** / **Closed**.`;
+            const commentBody = '### 🚀 DevOps CI/CD Deployment Verification\n\n' +
+              '**Traceability Matrix:**\n' +
+              '- **Trigger**: Commit `' + context.sha.substring(0, 7) + '`\n' +
+              '- **Commit Message**: "' + commitMsg.trim() + '"\n' +
+              '- **CI/CD Pipeline Run**: #' + context.runNumber + '\n' +
+              '- **Status**: Automated unit tests passed & code deployed to AWS production.\n\n' +
+              '✅ **Agile Sprint Status Update**: The bug has been resolved and verified. Marking Agile User Story as **Done** / **Closed**.';
 
             try {
               await github.rest.issues.createComment({
@@ -154,9 +151,9 @@ jobs:
                 state: 'closed'
               });
 
-              console.log(`Successfully updated and closed Agile Ticket #${issueNumber}`);
+              console.log('Successfully updated and closed Agile Ticket #' + issueNumber);
             } catch (err) {
-              console.error(`Failed to update ticket #${issueNumber}:`, err.message);
+              console.error('Failed to update ticket #' + issueNumber + ': ' + err.message);
             }
           } else {
             console.log('No ticket reference pattern found (e.g., "Fixes #101"). Auto-close skipped.');
