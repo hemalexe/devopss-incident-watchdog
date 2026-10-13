@@ -16,7 +16,7 @@ jobs:
   # STAGE 1: CONTINUOUS INTEGRATION (TESTING)
   # ==========================================
   test:
-    name: 🧪 Automated Unit & Integration Testing
+    name: Automated Unit Testing
     runs-on: ubuntu-latest
 
     steps:
@@ -36,16 +36,20 @@ jobs:
 
     - name: Run PyTest test suite
       run: |
-        python -m pytest tests/ -v --junitxml=pytest-results.xml
+        python -m pytest tests/ -v
 
   # ==========================================
   # STAGE 2: CONTINUOUS DELIVERY (AWS DEPLOY)
   # ==========================================
   deploy:
-    name: 🚀 Automated AWS Deployment
+    name: Automated AWS Deployment
     needs: test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: us-east-1
 
     steps:
     - name: Check out repository
@@ -57,14 +61,12 @@ jobs:
         python-version: "3.12"
 
     - name: Configure AWS Credentials
-      if: env.AWS_ACCESS_KEY_ID != ''
+      if: ${{ env.AWS_ACCESS_KEY_ID != '' }}
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-region: us-east-1
 
     - name: Package Application Code
       run: |
@@ -74,18 +76,16 @@ jobs:
         zip -r ../deployment_package.zip .
         cd ..
 
-    - name: Deploy to AWS Lambda (If AWS secrets configured)
-      if: env.AWS_ACCESS_KEY_ID != ''
+    - name: Deploy to AWS Lambda
+      if: ${{ env.AWS_ACCESS_KEY_ID != '' }}
       run: |
         echo "Deploying updated application package to AWS Lambda (watchdog-target-app)..."
         aws lambda update-function-code \
           --function-name watchdog-target-app \
           --zip-file fileb://deployment_package.zip || echo "Function will be created or updated via setup script."
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
-    - name: Deployment Simulation Notice (if running without AWS keys in repo)
-      if: env.AWS_ACCESS_KEY_ID == ''
+    - name: Deployment Simulation Notice
+      if: ${{ env.AWS_ACCESS_KEY_ID == '' }}
       run: |
         echo "=========================================================="
         echo "CI/CD Test Suite Passed Successfully."
@@ -97,7 +97,7 @@ jobs:
   # STAGE 3: AGILE TRACEABILITY & ZERO-TOUCH CLOSING
   # ==========================================
   agile-traceability:
-    name: 🎯 Agile Traceability & Ticket Closure
+    name: Agile Traceability and Ticket Closure
     needs: deploy
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -113,11 +113,9 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          // Extract commit message
           const commitMsg = context.payload.head_commit ? context.payload.head_commit.message : '';
           console.log('Processing commit message:', commitMsg);
 
-          // Regex matching: Fixes #123, Closes #123, Resolves #123
           const match = commitMsg.match(/(?:fix|fixes|fixed|close|closes|closed|resolve|resolves|resolved)\s+#(\d+)/i);
 
           if (match) {
@@ -135,7 +133,6 @@ jobs:
 ✅ **Agile Sprint Status Update**: The bug has been resolved and verified. Marking Agile User Story as **Done** / **Closed**.`;
 
             try {
-              // 1. Post deployment comment
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -143,7 +140,6 @@ jobs:
                 body: commentBody
               });
 
-              // 2. Add 'verified-deployment' and 'done' labels
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -151,7 +147,6 @@ jobs:
                 labels: ['verified-deployed', 'done']
               });
 
-              // 3. Close the issue
               await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
