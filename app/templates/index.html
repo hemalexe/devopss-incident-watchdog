@@ -37,16 +37,66 @@
             background-color: #f8fafc;
             color: var(--dark);
             min-height: 100vh;
-            padding-bottom: 90px;
+        }
+
+        /* Top Role Switcher Bar (Faculty Presentation Bar) */
+        .role-switcher-bar {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 8px 20px;
+            font-size: 12.5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .role-switcher-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .role-pill-group {
+            display: flex;
+            background: #1e293b;
+            padding: 3px;
+            border-radius: 30px;
+            border: 1px solid #334155;
+        }
+        .role-pill {
+            padding: 4px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #94a3b8;
+            border: none;
+            background: transparent;
+        }
+        .role-pill.active {
+            background: #6366f1;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+        }
+        .role-pill.active.customer {
+            background: #10b981;
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+        }
+        .student-tag {
+            color: #cbd5e1;
+            font-size: 12px;
         }
 
         /* Top Brand Navbar */
         .top-navbar {
             background: #ffffff;
             border-bottom: 1px solid var(--gray-200);
-            position: sticky;
-            top: 0;
-            z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
         .nav-inner {
@@ -144,17 +194,21 @@
             align-items: center;
             gap: 14px;
         }
-        .student-pill {
-            font-size: 11.5px;
-            background: #eff6ff;
-            color: #1d4ed8;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            border: 1px solid #bfdbfe;
+        .user-profile-badge {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            background: #f8fafc;
+            border: 1px solid var(--gray-200);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+        .user-profile-badge img {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
         }
         .cart-btn {
             background: var(--dark);
@@ -223,7 +277,7 @@
         .main-container {
             max-width: 1200px;
             margin: 20px auto;
-            padding: 0 20px;
+            padding: 0 20px 40px 20px;
         }
 
         /* Hero Flash Banner */
@@ -239,16 +293,6 @@
             box-shadow: 0 10px 25px rgba(49, 46, 129, 0.2);
             position: relative;
             overflow: hidden;
-        }
-        .flash-hero-banner::after {
-            content: '';
-            position: absolute;
-            right: -50px;
-            top: -50px;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(236,72,153,0.3) 0%, transparent 70%);
-            pointer-events: none;
         }
         .hero-left h3 {
             font-size: 24px;
@@ -355,7 +399,6 @@
             background: linear-gradient(180deg, #fffdfa 0%, #ffffff 100%);
         }
         
-        /* Product Image */
         .product-img-box {
             height: 180px;
             border-radius: 12px;
@@ -373,9 +416,6 @@
             object-fit: cover;
             transition: transform 0.3s ease;
         }
-        .product-card:hover .product-img-box img {
-            transform: scale(1.04);
-        }
         .badge-discount {
             position: absolute;
             top: 10px;
@@ -386,7 +426,6 @@
             font-weight: 800;
             padding: 3px 8px;
             border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
         }
         .badge-speed {
             position: absolute;
@@ -446,7 +485,6 @@
             gap: 3px;
         }
 
-        /* Price block */
         .price-row {
             display: flex;
             align-items: baseline;
@@ -464,7 +502,6 @@
             text-decoration: line-through;
         }
 
-        /* Stock status tags */
         .stock-indicator {
             font-size: 12px;
             font-weight: 600;
@@ -477,7 +514,6 @@
         .stock-warning { color: #d97706; font-weight: 700; }
         .stock-out { color: #dc2626; font-weight: 700; }
 
-        /* Action buttons */
         .btn-buy {
             width: 100%;
             background: var(--dark);
@@ -517,14 +553,134 @@
             color: #1e293b;
         }
 
-        /* Checkout Drawer / Modal */
+        /* ---------------- DEVELOPER / SRE DASHBOARD VIEW ---------------- */
+        #devops-dashboard-view {
+            display: none;
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
+        }
+        .dev-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        .dev-title h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dev-title p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .dev-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+        .dev-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .dev-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .dev-metric {
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+        }
+        .dev-metric strong { color: #ffffff; }
+
+        /* Code Diff Box */
+        .code-diff-container {
+            background: #090d16;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .diff-header {
+            font-size: 11.5px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .diff-red {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .diff-green {
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* CI/CD Terminal Simulation Box */
+        .terminal-box {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #a5f3fc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .terminal-box span.green { color: #4ade80; font-weight: 700; }
+        .terminal-box span.yellow { color: #fde047; }
+        .terminal-box span.gray { color: #64748b; }
+
+        /* Dev Controls Bar */
+        .dev-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* ---------------- CHECKOUT MODAL ---------------- */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(4px);
-            z-index: 1000;
+            z-index: 2000;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -635,25 +791,8 @@
             margin-bottom: 10px;
             overflow-x: auto;
         }
-        .pipeline-audit-pills {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            font-size: 11.5px;
-            font-weight: 600;
-        }
-        .audit-pill {
-            background: #ffffff;
-            border: 1px solid #fecaca;
-            padding: 6px 8px;
-            border-radius: 6px;
-            color: #991b1b;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
 
-        /* Fixed / Success Toast & Modals */
+        /* Success & Notify States */
         .success-box {
             background: #ecfdf5;
             border: 2px solid #10b981;
@@ -675,84 +814,27 @@
             color: #065f46;
             line-height: 1.5;
         }
-
-        /* Fixed Bottom DevOps Control Bar */
-        .devops-hud {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #0f172a;
-            color: white;
-            border-top: 2px solid #6366f1;
-            padding: 10px 20px;
-            z-index: 900;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
-        }
-        .hud-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .hud-status-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 12.5px;
-        }
-        .hud-indicator {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #1e293b;
-            padding: 5px 10px;
-            border-radius: 6px;
-            border: 1px solid #334155;
-        }
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #10b981;
-            animation: pulse 2s infinite;
-        }
-        .status-dot.red { background: #ef4444; }
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-        .hud-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .hud-btn {
-            background: #334155;
-            color: white;
-            border: 1px solid #475569;
-            padding: 7px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.15s;
-        }
-        .hud-btn:hover { background: #475569; }
-        .hud-btn.primary { background: #10b981; border-color: #059669; }
-        .hud-btn.primary:hover { background: #059669; }
-        .hud-btn.danger { background: #ef4444; border-color: #dc2626; }
-        .hud-btn.danger:hover { background: #dc2626; }
     </style>
 </head>
 <body>
+
+    <!-- 0. FACULTY PRESENTATION ROLE SWITCHER (TOP BAR) -->
+    <div class="role-switcher-bar">
+        <div class="role-switcher-left">
+            <span><i class="fa-solid fa-graduation-cap"></i> <strong>DevOps Viva Demo Mode:</strong></span>
+            <div class="role-pill-group">
+                <button class="role-pill active customer" id="pill-customer" onclick="setRole('customer')">
+                    <i class="fa-solid fa-user"></i> 1. Customer View
+                </button>
+                <button class="role-pill" id="pill-devops" onclick="setRole('devops')">
+                    <i class="fa-solid fa-code-commit"></i> 2. Developer & SRE Backstage
+                </button>
+            </div>
+        </div>
+        <div class="student-tag">
+            <span>Student: <strong>S Hemal (24MIS0050)</strong> | Agile Dev Process & DevOps</span>
+        </div>
+    </div>
 
     <!-- 1. TOP BRAND NAVIGATION -->
     <header class="top-navbar">
@@ -783,11 +865,11 @@
                 <input type="text" placeholder="Search for 'OnePlus 11R', 'MacBook Air M3', 'Sony XM5'...">
             </div>
 
-            <!-- User Info & Cart -->
+            <!-- Customer Profile & Cart -->
             <div class="user-nav-actions">
-                <div class="student-pill">
-                    <i class="fa-solid fa-user-graduate"></i>
-                    <span>S Hemal (24MIS0050)</span>
+                <div class="user-profile-badge">
+                    <img src="https://ui-avatars.com/api/?name=Hemal+S&background=6366f1&color=fff" alt="User">
+                    <span>Hemal (VIT Shopper)</span>
                 </div>
                 <button class="cart-btn" onclick="openCart()">
                     <i class="fa-solid fa-bag-shopping"></i>
@@ -810,8 +892,8 @@
         </div>
     </nav>
 
-    <!-- 3. MAIN CONTENT CONTAINER -->
-    <main class="main-container">
+    <!-- 3. MAIN STORE CONTAINER (CUSTOMER POV) -->
+    <main class="main-container" id="customer-store-view">
 
         <!-- Flash Hero Banner -->
         <div class="flash-hero-banner">
@@ -836,10 +918,10 @@
                 Featured Flash Sale Deals
                 <span>High Velocity</span>
             </div>
-            <div style="font-size: 13px; color: var(--gray-600);">Showing 4 verified tech products</div>
+            <div style="font-size: 13px; color: var(--gray-600);">Real-Time Inventory Monitored by AWS Lambda</div>
         </div>
 
-        <!-- 4. PRODUCT CARDS GRID -->
+        <!-- PRODUCT CARDS GRID -->
         <div class="product-grid">
 
             <!-- PRODUCT 1: ONEPLUS 11R 5G (FLASH SALE INCIDENT ITEM) -->
@@ -865,7 +947,6 @@
                             <span class="mrp-price">₹44,999</span>
                         </div>
 
-                        <!-- Dynamic Stock Indicator -->
                         <div class="stock-indicator stock-warning" id="oneplus-stock-label">
                             <i class="fa-solid fa-triangle-exclamation"></i>
                             <span>Flash Deal • Only 1 left in stock!</span>
@@ -873,7 +954,6 @@
                     </div>
                 </div>
 
-                <!-- Buy Action Button -->
                 <button class="btn-buy btn-flash-buy" id="oneplus-buy-btn" onclick="openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3)">
                     <i class="fa-solid fa-bolt"></i> Buy Now
                 </button>
@@ -988,7 +1068,83 @@
 
     </main>
 
-    <!-- 5. CHECKOUT DRAWER / MODAL -->
+    <!-- 4. DEVELOPER & SRE CONSOLE (DEVELOPER POV VIEW) -->
+    <main class="main-container" id="devops-dashboard-view">
+        <div class="dev-header">
+            <div class="dev-title">
+                <h3><i class="fa-solid fa-terminal" style="color:#38bdf8;"></i> SRE & Agile DevOps Control Center</h3>
+                <p>Real-Time Telemetry, Incident Triaging, Cloud Forensics, and CI/CD Automation</p>
+            </div>
+            <div>
+                <span style="background:#065f46; color:#34d399; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:700;">
+                    <i class="fa-solid fa-heart-pulse"></i> Infrastructure: Healthy (200 OK)
+                </span>
+            </div>
+        </div>
+
+        <!-- 3 Dev Cards -->
+        <div class="dev-grid">
+            <!-- Card 1: AWS Lambda & CloudWatch -->
+            <div class="dev-card">
+                <h4><i class="fa-brands fa-aws" style="color:#f59e0b;"></i> Cloud Monitoring</h4>
+                <div class="dev-metric"><span>AWS Region:</span> <strong>ap-southeast-2 (Sydney)</strong></div>
+                <div class="dev-metric"><span>Lambda Target:</span> <strong>watchdog-target-app</strong></div>
+                <div class="dev-metric"><span>Watchdog Function:</span> <strong>watchdog-incident-creator</strong></div>
+                <div class="dev-metric"><span>CloudWatch Filter:</span> <strong style="color:#34d399;">[INCIDENT_DETECTED] Active</strong></div>
+            </div>
+
+            <!-- Card 2: S3 Audit Trail -->
+            <div class="dev-card">
+                <h4><i class="fa-solid fa-database" style="color:#10b981;"></i> Forensic S3 Vault</h4>
+                <div class="dev-metric"><span>S3 Bucket:</span> <strong>devops-incident-watchdog-logs</strong></div>
+                <div class="dev-metric"><span>Access Control:</span> <strong style="color:#34d399;">Private (Blocked Public)</strong></div>
+                <div class="dev-metric"><span>Latest Dump:</span> <strong>INC-1791945923.json</strong></div>
+                <div class="dev-metric"><span>Log Retention:</span> <strong>Immutable Compliance Audit</strong></div>
+            </div>
+
+            <!-- Card 3: GitHub Agile Integration -->
+            <div class="dev-card">
+                <h4><i class="fa-brands fa-github" style="color:#a78bfa;"></i> Agile Backlog Board</h4>
+                <div class="dev-metric"><span>Repository:</span> <strong>hemalexe/devopss-incident...</strong></div>
+                <div class="dev-metric"><span>Agile Ticket:</span> <strong>Issue #1 (Sprint Backlog)</strong></div>
+                <div class="dev-metric"><span>Acceptance Criteria:</span> <strong style="color:#34d399;">5 Criteria Automated</strong></div>
+                <div class="dev-metric"><span>Traceability:</span> <strong>Zero-Touch Git Smart Commits</strong></div>
+            </div>
+        </div>
+
+        <!-- Developer Code Bug vs Patch Inspection -->
+        <div class="code-diff-container">
+            <div class="diff-header"><i class="fa-solid fa-code"></i> CODE INSPECTOR: app/app.py (Defensive Zero-Stock Handling)</div>
+            <span class="diff-red">- # BEFORE (Buggy): Crashes on zero-stock flash sale orders</span>
+            <span class="diff-red">- if product['stock'] <= 0: allocation = 100 / product['stock']  # 500 ZeroDivisionError!</span>
+            <span class="diff-green">+ # AFTER (CI/CD Patched): Graceful fallback matching quick-commerce standard</span>
+            <span class="diff-green">+ if product['stock'] <= 0: return jsonify({"status": "out_of_stock", "message": "Sold Out - Notify Me"}), 409</span>
+        </div>
+
+        <!-- CI/CD Terminal Simulation -->
+        <div class="terminal-box" id="dev-terminal-logs">
+            <div style="color:#94a3b8; margin-bottom:8px;">[SYSTEM_LOG: CI/CD PIPELINE TRACEABILITY]</div>
+            <div><span class="gray">[10:48:25]</span> <span class="green">[OK]</span> Target application initialized on port 5000 (PID: 563)</div>
+            <div><span class="gray">[10:48:26]</span> <span class="green">[OK]</span> AWS CloudWatch Log Subscription filter listening for unhandled runtime exceptions</div>
+            <div><span class="gray">[10:48:26]</span> <span class="green">[OK]</span> S3 Bucket verified: s3://devops-incident-watchdog-logs-401537512022</div>
+            <div><span class="gray">[10:48:27]</span> <span class="yellow">[AWAITING_EVENT]</span> Ready for flash sale traffic simulation.</div>
+        </div>
+
+        <!-- Dev Controls Actions -->
+        <div class="dev-controls">
+            <button class="btn-buy" style="width:auto; padding:10px 18px; background:#ef4444;" onclick="triggerCrash()">
+                <i class="fa-solid fa-bug"></i> 1. Simulate 500 Crash (Flash Sale Zero Division)
+            </button>
+            <button class="btn-buy" style="width:auto; padding:10px 18px; background:#10b981;" onclick="applyDevopsFix()">
+                <i class="fa-solid fa-rocket"></i> 2. Deploy CI/CD Patch ('Fixes #1')
+            </button>
+            <button class="btn-buy" style="width:auto; padding:10px 18px; background:#334155;" onclick="resetDemo()">
+                <i class="fa-solid fa-rotate-left"></i> Reset Environment
+            </button>
+        </div>
+    </main>
+
+    <!-- 5. CHECKOUT MODAL -->
     <div class="modal-overlay" id="checkout-modal">
         <div class="modal-card">
             
@@ -997,7 +1153,7 @@
                 <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- Pre-Checkout Body -->
+            <!-- Customer Checkout Form -->
             <div id="checkout-form-view">
                 <div class="checkout-summary-item">
                     <img id="checkout-item-img" src="" alt="Product">
@@ -1039,36 +1195,25 @@
                 <p style="font-size:12.5px; color:var(--gray-600); margin-top:6px;">Verifying real-time inventory allocation and applying discount ratio...</p>
             </div>
 
-            <!-- INCIDENT 500 CRASH RESULT (BUGGY STATE) -->
+            <!-- CUSTOMER CRASH RESULT (REALISTIC ERROR) -->
             <div id="checkout-crash-view" style="display:none;">
                 <div class="incident-crash-box">
-                    <h4><i class="fa-solid fa-circle-exclamation"></i> 500 INTERNAL SERVER ERROR</h4>
-                    <p><strong>Unhandled Runtime Exception:</strong> Checkout worker attempted inventory division with remaining stock = 0!</p>
+                    <h4><i class="fa-solid fa-circle-exclamation"></i> 500 Server Error</h4>
+                    <p><strong>Something went wrong during order processing!</strong> The server encountered an unexpected calculation error during final inventory allocation.</p>
                     
                     <div class="incident-log-code">
-                        [CRITICAL_ALERT] Incident simulation triggered!<br>
-                        [EXCEPTION] ZeroDivisionError: division by zero in inventory_worker:118<br>
-                        Type=ZeroDivisionError | Message=division by zero
-                    </div>
-
-                    <div style="font-size: 12px; font-weight: 700; color: #991b1b; margin-bottom: 6px;">
-                        <i class="fa-solid fa-shield-virus"></i> Autonomous DevOps Incident Watchdog Actions:
-                    </div>
-
-                    <div class="pipeline-audit-pills">
-                        <div class="audit-pill"><i class="fa-solid fa-cloud"></i> CloudWatch Anomaly Triggered</div>
-                        <div class="audit-pill"><i class="fa-solid fa-database"></i> S3 Forensic Dump (INC-*.json)</div>
-                        <div class="audit-pill"><i class="fa-brands fa-github"></i> GitHub Agile Issue #1 Created</div>
-                        <div class="audit-pill"><i class="fa-solid fa-list-check"></i> Acceptance Criteria Added</div>
+                        [INCIDENT_REPORTED] Ref: INC-1791945923-07CD12B5<br>
+                        Error: ZeroDivisionError: division by zero<br>
+                        Status: Autonomous Watchdog has notified Engineering via GitHub Issues.
                     </div>
                 </div>
 
                 <p style="font-size:12.5px; color:var(--gray-600); margin-bottom:14px; text-align:center;">
-                    Our automated pipeline captured the crash. You can now simulate the developer pushing a fix via CI/CD!
+                    Switch to <strong>Developer & SRE Backstage</strong> at the top to see the incident logs, S3 dump, and CI/CD patch!
                 </p>
 
-                <button class="btn-buy" style="background:#10b981;" onclick="applyDevopsFix()">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Deploy CI/CD Patch & Fix Server
+                <button class="btn-buy" style="background:#6366f1;" onclick="setRole('devops'); closeModal();">
+                    <i class="fa-solid fa-code-commit"></i> Open Developer & SRE Backstage
                 </button>
             </div>
 
@@ -1109,48 +1254,32 @@
         </div>
     </div>
 
-    <!-- 6. FIXED DEVOPS WATCHDOG CONTROL HUD -->
-    <footer class="devops-hud">
-        <div class="hud-inner">
-            <div class="hud-status-group">
-                <div class="hud-indicator">
-                    <span class="status-dot" id="hud-dot"></span>
-                    <span>Health: <strong>200 OK</strong></span>
-                </div>
-                <div class="hud-indicator">
-                    <i class="fa-brands fa-aws" style="color:#f59e0b;"></i>
-                    <span>AWS: <strong>Sydney (ap-southeast-2)</strong></span>
-                </div>
-                <div class="hud-indicator">
-                    <i class="fa-brands fa-github"></i>
-                    <span>Repo: <strong>hemalexe/devopss-incident-watchdog</strong></span>
-                </div>
-                <div class="hud-indicator" style="background:#312e81; border-color:#4338ca;">
-                    <i class="fa-solid fa-code-branch" style="color:#a5b4fc;"></i>
-                    <span id="devops-mode-text">DevOps State: <strong>Production (Buggy)</strong></span>
-                </div>
-            </div>
-
-            <div class="hud-actions">
-                <button class="hud-btn danger" onclick="triggerCrash()">
-                    <i class="fa-solid fa-bug"></i> Test 500 Crash
-                </button>
-                <button class="hud-btn primary" id="hud-fix-btn" onclick="applyDevopsFix()">
-                    <i class="fa-solid fa-rocket"></i> Apply CI/CD Fix
-                </button>
-                <button class="hud-btn" onclick="resetDemo()">
-                    <i class="fa-solid fa-rotate-left"></i> Reset
-                </button>
-            </div>
-        </div>
-    </footer>
-
-    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         let currentProductId = 3;
         let isBugFixed = false;
+        let currentRole = 'customer';
 
-        // Fetch initial DevOps state from Flask backend
+        function setRole(role) {
+            currentRole = role;
+            const pillCust = document.getElementById('pill-customer');
+            const pillDev = document.getElementById('pill-devops');
+            const custView = document.getElementById('customer-store-view');
+            const devView = document.getElementById('devops-dashboard-view');
+
+            if (role === 'customer') {
+                pillCust.className = 'role-pill active customer';
+                pillDev.className = 'role-pill';
+                custView.style.display = 'block';
+                devView.style.display = 'none';
+            } else {
+                pillDev.className = 'role-pill active';
+                pillCust.className = 'role-pill';
+                custView.style.display = 'none';
+                devView.style.display = 'block';
+            }
+        }
+
         async function checkState() {
             try {
                 const res = await fetch('/api/devops/status');
@@ -1163,17 +1292,12 @@
 
         function updateUIState(fixed) {
             isBugFixed = fixed;
-            const modeText = document.getElementById('devops-mode-text');
-            const hudDot = document.getElementById('hud-dot');
             const stockLabel = document.getElementById('oneplus-stock-label');
             const buyBtn = document.getElementById('oneplus-buy-btn');
             const card = document.getElementById('item-oneplus-card');
+            const term = document.getElementById('dev-terminal-logs');
 
             if (fixed) {
-                modeText.innerHTML = "DevOps State: <strong style='color:#34d399;'>CI/CD Patched (Graceful Fallback)</strong>";
-                hudDot.className = "status-dot";
-                
-                // Switch OnePlus card to Zepto-style 'Out of Stock - Notify Me'
                 stockLabel.className = "stock-indicator stock-out";
                 stockLabel.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <span>Sold Out in Flash Sale (0 Left)</span>';
                 
@@ -1181,10 +1305,13 @@
                 buyBtn.innerHTML = '<i class="fa-solid fa-bell"></i> Out of Stock - Notify Me';
                 card.style.borderColor = '#cbd5e1';
                 card.style.background = '#ffffff';
-            } else {
-                modeText.innerHTML = "DevOps State: <strong style='color:#f87171;'>Production (Simulated Fault)</strong>";
-                hudDot.className = "status-dot red";
 
+                if (term) {
+                    term.innerHTML += '<div style="color:#4ade80;">[10:52:10] [CI/CD_SUCCESS] Developer commit "Fixes #1" pushed to main!</div>' +
+                                      '<div style="color:#a5f3fc;">[10:52:11] [CI/CD_DEPLOY] Running pytest (8 passed). Deploying patch to AWS Lambda...</div>' +
+                                      '<div style="color:#4ade80;">[10:52:12] [ZERO_TOUCH] GitHub Issue #1 automatically closed as Done! Live app resilient.</div>';
+                }
+            } else {
                 stockLabel.className = "stock-indicator stock-warning";
                 stockLabel.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span>Flash Deal • Only 1 left in stock!</span>';
                 
@@ -1203,14 +1330,12 @@
             document.getElementById('bill-subtotal').innerText = "₹" + price.toLocaleString();
             document.getElementById('bill-grand-total').innerText = "₹" + (price > 2000 ? (price - 2000).toLocaleString() : price.toLocaleString());
 
-            // Reset modal views
             document.getElementById('checkout-form-view').style.display = 'block';
             document.getElementById('checkout-loading-view').style.display = 'none';
             document.getElementById('checkout-crash-view').style.display = 'none';
             document.getElementById('checkout-fixed-view').style.display = 'none';
             document.getElementById('checkout-success-view').style.display = 'none';
 
-            // If OnePlus and already fixed, show Notify view directly
             if (id === 3 && isBugFixed) {
                 document.getElementById('checkout-form-view').style.display = 'none';
                 document.getElementById('checkout-fixed-view').style.display = 'block';
@@ -1238,18 +1363,14 @@
                     body: JSON.stringify({ product_id: currentProductId, quantity: 1 })
                 });
 
-                // Simulate realistic network delay
                 await new Promise(r => setTimeout(r, 700));
                 document.getElementById('checkout-loading-view').style.display = 'none';
 
                 if (res.status === 500) {
-                    // SERVER CRASH (BUGGY STATE TRIGGERED)
                     document.getElementById('checkout-crash-view').style.display = 'block';
                 } else if (res.status === 400 || res.status === 409) {
-                    // GRACEFUL ZEPTO OUT OF STOCK
                     document.getElementById('checkout-fixed-view').style.display = 'block';
                 } else {
-                    // SUCCESSFUL PURCHASE
                     document.getElementById('checkout-success-view').style.display = 'block';
                 }
             } catch (err) {
@@ -1268,10 +1389,7 @@
                 const res = await fetch('/api/devops/apply-fix');
                 const data = await res.json();
                 updateUIState(true);
-                
-                // Show fixed screen if modal is open
-                document.getElementById('checkout-crash-view').style.display = 'none';
-                document.getElementById('checkout-fixed-view').style.display = 'block';
+                closeModal();
             } catch (err) {
                 console.error("Failed to apply fix:", err);
             }
@@ -1287,7 +1405,7 @@
             }
         }
 
-        // Animated Countdown timer for realism
+        // Ticking Flash Sale timer
         let secondsLeft = 6138;
         setInterval(() => {
             if (secondsLeft > 0) secondsLeft--;
@@ -1298,7 +1416,6 @@
             if (timerElem) timerElem.innerText = `${hrs}:${mins}:${secs}`;
         }, 1000);
 
-        // Run check on load
         checkState();
     </script>
 </body>
