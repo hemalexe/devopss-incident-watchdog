@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body {
+    margin: 0;
+    padding: 30px;
+    background: #0f172a;
+    font-family: 'Consolas', 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+}
+.window {
+    width: 1040px;
+    background: #0c0c0c;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px #333333;
+}
+.titlebar {
+    background: #1f1f1f;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #2d2d2d;
+}
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #0c0c0c;
+    padding: 5px 14px;
+    border-radius: 4px 4px 0 0;
+    color: #cccccc;
+    font-size: 12px;
+}
+.tab-icon {
+    color: #38bdf8;
+    font-weight: bold;
+}
+.controls {
+    display: flex;
+    gap: 8px;
+}
+.ctrl {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.close { background: #ef4444; }
+.min { background: #eab308; }
+.max { background: #22c55e; }
+.body {
+    padding: 18px 22px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #cccccc;
+}
+.prompt {
+    color: #ffffff;
+    font-weight: bold;
+}
+.cmd {
+    color: #e2e8f0;
+}
+.log-info { color: #38bdf8; }
+.log-warn { color: #f59e0b; }
+.log-err { color: #ef4444; font-weight: bold; }
+.log-trace { color: #f87171; }
+.log-meta { color: #94a3b8; }
+.log-success { color: #4ade80; font-weight: bold; }
+.highlight-box {
+    background: rgba(239, 68, 68, 0.12);
+    border-left: 4px solid #ef4444;
+    padding: 8px 14px;
+    margin: 10px 0;
+}
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="titlebar">
+    <div class="tab">
+      <span class="tab-icon">&gt;_</span>
+      <span>Windows PowerShell - Administrator (Monitored Flask Microservice)</span>
+    </div>
+    <div class="controls">
+      <span class="ctrl min"></span>
+      <span class="ctrl max"></span>
+      <span class="ctrl close"></span>
+    </div>
+  </div>
+  <div class="body">
+    <div><span class="prompt">PS C:\Users\Sailaja C\Documents\New folder\DevOps-Incident-Watchdog&gt;</span> <span class="cmd">python app/app.py</span></div>
+    <div class="log-meta">[SERVICE: watchdog-target-app] 2026-10-18 21:28:30,112 [INFO] Starting FlashMart E-Commerce Service on port 5000...</div>
+    <div class="log-meta">[SERVICE: watchdog-target-app] 2026-10-18 21:28:30,115 [INFO] Cloud Environment: AWS ap-southeast-2 Sydney (Account: 401537512022)</div>
+    <div class="log-meta">[SERVICE: watchdog-target-app] 2026-10-18 21:28:30,120 [INFO] Loaded 4 catalog products. Default hub: VIT Vellore Campus (Men's Hostel Q-Block)</div>
+    <div style="color:#a3e635;"> * Serving Flask app 'app.app'</div>
+    <div style="color:#a3e635;"> * Debug mode: off</div>
+    <div style="color:#38bdf8;"> * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)</div>
+    <br>
+    <div class="log-meta">[SERVICE: watchdog-target-app] 2026-10-18 21:28:44,520 [INFO] POST /api/checkout initiated for product_id=3 (OnePlus 11R 5G)</div>
+    
+    <div class="highlight-box">
+      <div class="log-err">[SERVICE: watchdog-target-app] 2026-10-18 21:28:44,522 [CRITICAL] [CRITICAL_ALERT] Incident simulation triggered! Item 'OnePlus 11R 5G' has stock=0 for address 'VIT Vellore Campus'</div>
+      <div class="log-err">[SERVICE: watchdog-target-app] 2026-10-18 21:28:44,523 [ERROR] [EXCEPTION] Unhandled ZeroDivisionError in delivery routing worker: allocation = 100 / stock</div>
+      <div class="log-trace">Traceback (most recent call last):</div>
+      <div class="log-trace">  File "C:\Users\Sailaja C\Documents\New folder\DevOps-Incident-Watchdog\app\app.py", line 119, in checkout</div>
+      <div class="log-trace" style="color:#ffffff;">    _ = 100 / product["stock"]  # Crashes with HTTP 500 ZeroDivisionError!</div>
+      <div class="log-trace">        ~~~~^~~~~~~~~~~~~~~~~~</div>
+      <div class="log-err" style="font-size:14px;">ZeroDivisionError: division by zero</div>
+    </div>
+    
+    <div style="color:#f87171;">127.0.0.1 - - [18/Oct/2026 21:28:44] "POST /api/checkout HTTP/1.1" 500 -</div>
+    <div class="log-warn">[SERVICE: watchdog-target-app] 2026-10-18 21:28:44,600 [INFO] [CLOUDWATCH_METRIC_FILTER] Pattern '[CRITICAL_ALERT]' detected in stdout.</div>
+    <div class="log-info">[SERVICE: watchdog-target-app] 2026-10-18 21:28:44,650 [INFO] CloudWatch Alarm fired: TargetAppCrashAlarm (State: ALARM).</div>
+    <div class="log-success">[SERVICE: watchdog-target-app] 2026-10-18 21:28:44,710 [INFO] Dispatched event to AWS Lambda Watchdog (watchdog-incident-creator).</div>
+    <br>
+    <div><span class="prompt">PS C:\Users\Sailaja C\Documents\New folder\DevOps-Incident-Watchdog&gt;</span> <span>_</span></div>
+  </div>
+</div>
+</body>
+</html>

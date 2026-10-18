@@ -7,10 +7,27 @@ $word.Visible = $false
 try {
     Write-Host "Opening HTML file: $htmlPath"
     $doc = $word.Documents.Open($htmlPath)
-    Write-Host "Saving as DOCX: $docxPath"
+    
+    $count = $doc.InlineShapes.Count
+    Write-Host "Detected $count images in document."
+    
+    for ($i = 1; $i -le $count; $i++) {
+        $shape = $doc.InlineShapes.Item($i)
+        try {
+            if ($shape.LinkFormat) {
+                $shape.LinkFormat.SavePictureWithDocument = $true
+                $shape.LinkFormat.BreakLink()
+                Write-Host "Embedded Image $i into document."
+            }
+        } catch {
+            Write-Host "Note on image ${i}: $_"
+        }
+    }
+    
+    Write-Host "Saving as standalone DOCX with all images embedded: $docxPath"
     $doc.SaveAs2($docxPath, 16)
     $doc.Close()
-    Write-Host "SUCCESS: Document converted and saved to DOCX!"
+    Write-Host "SUCCESS: Standalone Word document created!"
 } catch {
     Write-Host "ERROR during conversion: $_"
 } finally {

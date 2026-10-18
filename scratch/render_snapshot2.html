@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlashMart Tech | 10-Min Electronics & Flash Deals</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --primary-light: #f5f3ff;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-orange: #f59e0b;
+            --dark: #0f172a;
+            --dark-card: #1e293b;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-400: #94a3b8;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* Top Role Switcher Bar (Faculty Presentation Bar) */
+        .role-switcher-bar {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 8px 20px;
+            font-size: 12.5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .role-switcher-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .role-pill-group {
+            display: flex;
+            background: #1e293b;
+            padding: 3px;
+            border-radius: 30px;
+            border: 1px solid #334155;
+        }
+        .role-pill {
+            padding: 4px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #94a3b8;
+            border: none;
+            background: transparent;
+        }
+        .role-pill.active {
+            background: #6366f1;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(99, 102, 241, 0.4);
+        }
+        .role-pill.active.customer {
+            background: #10b981;
+            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+        }
+        .student-tag {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        /* Top Brand Navbar */
+        .top-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark);
+        }
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.35);
+        }
+        .brand-text h2 {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #1e1b4b, #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-text span {
+            font-size: 11px;
+            font-weight: 600;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Location Pill */
+        .location-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gray-100);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 12.5px;
+            cursor: pointer;
+            border: 1px solid var(--gray-200);
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .location-pill:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+        .location-pill i { color: #f59e0b; }
+        .location-pill strong { color: var(--dark); font-weight: 700; }
+
+        .search-box {
+            flex: 1;
+            max-width: 460px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 30px;
+            padding: 10px 18px 10px 42px;
+            font-size: 13.5px;
+            font-family: inherit;
+            outline: none;
+            transition: 0.2s;
+        }
+        .search-box input:focus {
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        }
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        .user-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .user-profile-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            border: 1px solid var(--gray-200);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+        }
+        .user-profile-badge img {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+        }
+        .cart-btn {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .cart-btn:hover { background: #1e1b4b; }
+        .cart-badge {
+            background: var(--accent-orange);
+            color: #000;
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        /* Category Subnav */
+        .subnav {
+            background: #ffffff;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 8px 20px;
+        }
+        .subnav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .cat-chip {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--gray-600);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .cat-chip:hover, .cat-chip.active {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-color: #ddd6fe;
+        }
+        .cat-chip.hot {
+            background: #fff7ed;
+            color: #ea580c;
+            border-color: #ffedd5;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px 40px 20px;
+        }
+
+        /* Hero Flash Banner */
+        .flash-hero-banner {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+            border-radius: 16px;
+            padding: 24px 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(49, 46, 129, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .flash-hero-banner::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(236,72,153,0.3) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-left h3 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-left p {
+            color: #cbd5e1;
+            font-size: 13.5px;
+            margin-top: 6px;
+        }
+        .bank-strip {
+            display: flex;
+            gap: 15px;
+            margin-top: 14px;
+            font-size: 12px;
+        }
+        .bank-badge {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hero-timer {
+            background: rgba(0,0,0,0.35);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            text-align: center;
+        }
+        .timer-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #fde047;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .timer-digits {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 2px;
+        }
+
+        /* Section Heading */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title span {
+            background: #ef4444;
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Product Cards Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+        .product-card {
+            background: #ffffff;
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.25s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: #cbd5e1;
+        }
+        .product-card.flash-highlight {
+            border: 2px solid #f59e0b;
+            background: linear-gradient(180deg, #fffdfa 0%, #ffffff 100%);
+        }
+        
+        .product-img-box {
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .badge-discount {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #dc2626;
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .badge-speed {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(4px);
+            color: #38bdf8;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .product-meta {
+            margin-bottom: 12px;
+        }
+        .product-cat {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .product-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 4px 0 6px 0;
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 40px;
+        }
+        .rating-strip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--gray-600);
+            margin-bottom: 10px;
+        }
+        .rating-badge {
+            background: #059669;
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .current-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+        .mrp-price {
+            font-size: 13px;
+            color: var(--gray-400);
+            text-decoration: line-through;
+        }
+
+        .stock-indicator {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .stock-in { color: #059669; }
+        .stock-warning { color: #d97706; font-weight: 700; }
+        .stock-out { color: #dc2626; font-weight: 700; }
+
+        .btn-buy {
+            width: 100%;
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-buy:hover {
+            background: #1e1b4b;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        }
+        .btn-flash-buy {
+            background: linear-gradient(135deg, #f59e0b, #ea580c);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+        .btn-flash-buy:hover {
+            background: linear-gradient(135deg, #d97706, #c2410c);
+        }
+        .btn-notify {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            box-shadow: none;
+        }
+        .btn-notify:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        /* ---------------- DEVELOPER / SRE DASHBOARD VIEW ---------------- */
+        #devops-dashboard-view {
+            display: none;
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
+        }
+        .dev-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        .dev-title h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dev-title p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .dev-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+        .dev-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .dev-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .dev-metric {
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+        }
+        .dev-metric strong { color: #ffffff; }
+
+        .code-diff-container {
+            background: #090d16;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .diff-header {
+            font-size: 11.5px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .diff-red {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .diff-green {
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .terminal-box {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #a5f3fc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .terminal-box span.green { color: #4ade80; font-weight: 700; }
+        .terminal-box span.yellow { color: #fde047; }
+        .terminal-box span.gray { color: #64748b; }
+
+        .dev-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* ---------------- CHECKOUT MODAL ---------------- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 480px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: zoomIn 0.25s ease;
+            position: relative;
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--gray-400);
+            cursor: pointer;
+        }
+        .btn-close:hover { color: var(--dark); }
+
+        .checkout-summary-item {
+            display: flex;
+            gap: 14px;
+            background: var(--gray-100);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .checkout-summary-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .bill-details {
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: var(--gray-600);
+        }
+        .bill-row.total {
+            border-top: 1px dashed var(--gray-200);
+            padding-top: 8px;
+            margin-top: 8px;
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--dark);
+        }
+        .bill-discount { color: #059669; font-weight: 700; }
+
+        /* Customer-Facing Clean Not Deliverable State */
+        .not-deliverable-box {
+            background: #fff7ed;
+            border: 2px solid #f97316;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .not-deliverable-box h4 {
+            color: #c2410c;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+        .not-deliverable-box p {
+            font-size: 13px;
+            color: #9a3412;
+            line-height: 1.55;
+            margin-bottom: 12px;
+        }
+        .location-alert-pill {
+            background: #ffffff;
+            border: 1px solid #fdba74;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #7c2d12;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .success-box {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .success-box h4 {
+            color: #047857;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .success-box p {
+            font-size: 12.5px;
+            color: #065f46;
+            line-height: 1.5;
+        }
+
+        .location-option {
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--gray-200);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .location-option:hover, .location-option.selected {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+    </style>
+
+<style>
+#checkout-modal { display: flex !important; }
+#checkout-form-view { display: none !important; }
+#checkout-not-deliverable-view { display: block !important; }
+#alert-address-text:after { content: 'VIT Vellore Campus (Men\'s Hostel Q-Block, Katpadi • 10 Mins)'; }
+</style>
+</head>
+<body>
+
+    <!-- 0. FACULTY PRESENTATION ROLE SWITCHER (TOP BAR) -->
+    <div class="role-switcher-bar">
+        <div class="role-switcher-left">
+            <span><i class="fa-solid fa-graduation-cap"></i> <strong>DevOps Viva Demo Mode:</strong></span>
+            <div class="role-pill-group">
+                <button class="role-pill active customer" id="pill-customer" onclick="setRole('customer')">
+                    <i class="fa-solid fa-user"></i> 1. Customer View
+                </button>
+                <button class="role-pill" id="pill-devops" onclick="setRole('devops')">
+                    <i class="fa-solid fa-code-commit"></i> 2. Developer & SRE Backstage
+                </button>
+            </div>
+        </div>
+        <div class="student-tag">
+            <span>Student: <strong>S Hemal (24MIS0050)</strong> | VIT Vellore | Agile Dev Process & DevOps</span>
+        </div>
+    </div>
+
+    <!-- 1. TOP BRAND NAVIGATION -->
+    <header class="top-navbar">
+        <div class="nav-inner">
+            <!-- Brand -->
+            <a href="/" class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>FlashMart</h2>
+                    <span><i class="fa-solid fa-circle-check"></i> 10-Minute Electronics</span>
+                </div>
+            </a>
+
+            <!-- Delivery Location Pill (VIT VELLORE) -->
+            <div class="location-pill" onclick="openLocationModal()">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                    <div>Deliver to: <strong id="header-loc-name">VIT Vellore Campus</strong> <i class="fa-solid fa-chevron-down" style="font-size:10px; color:#64748b; margin-left:4px;"></i></div>
+                    <div style="font-size: 11px; color: #059669;" id="header-loc-sub">Men's Hostel Q-Block, Katpadi • 10 Mins</div>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for 'OnePlus 11R', 'MacBook Air M3', 'Sony XM5'...">
+            </div>
+
+            <!-- Customer Profile & Cart -->
+            <div class="user-nav-actions">
+                <div class="user-profile-badge">
+                    <img src="https://ui-avatars.com/api/?name=Hemal+S&background=6366f1&color=fff" alt="User">
+                    <span>Hemal (VIT Vellore)</span>
+                </div>
+                <button class="cart-btn" onclick="openCart()">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Cart</span>
+                    <span class="cart-badge" id="cart-count">1</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. CATEGORY SUBNAV -->
+    <nav class="subnav">
+        <div class="subnav-inner">
+            <a class="cat-chip hot"><i class="fa-solid fa-fire"></i> Mega Flash Deals</a>
+            <a class="cat-chip active"><i class="fa-solid fa-mobile-screen"></i> Smartphones</a>
+            <a class="cat-chip"><i class="fa-solid fa-laptop"></i> Laptops & PCs</a>
+            <a class="cat-chip"><i class="fa-solid fa-headphones"></i> Audio & Sound</a>
+            <a class="cat-chip"><i class="fa-solid fa-clock"></i> Wearables</a>
+            <a class="cat-chip"><i class="fa-solid fa-gamepad"></i> Gaming Gear</a>
+        </div>
+    </nav>
+
+    <!-- 3. MAIN STORE CONTAINER (CUSTOMER POV) -->
+    <main class="main-container" id="customer-store-view">
+
+        <!-- Flash Hero Banner -->
+        <div class="flash-hero-banner">
+            <div class="hero-left">
+                <h3><i class="fa-solid fa-bolt"></i> MIDNIGHT TECH FLASH SALE</h3>
+                <p>Exclusive promotional pricing on flagship electronics. Instant express delivery to VIT Vellore!</p>
+                <div class="bank-strip">
+                    <div class="bank-badge"><i class="fa-solid fa-credit-card"></i> Flat ₹2,000 Off HDFC Cards</div>
+                    <div class="bank-badge"><i class="fa-solid fa-percent"></i> No Cost EMI Available</div>
+                    <div class="bank-badge"><i class="fa-solid fa-shield-halved"></i> 1 Year Brand Warranty</div>
+                </div>
+            </div>
+            <div class="hero-timer">
+                <div class="timer-label"><i class="fa-regular fa-clock"></i> Flash Sale Ends In</div>
+                <div class="timer-digits" id="flash-timer">01:42:18</div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <div class="section-title">
+                Featured Flash Sale Deals
+                <span>High Velocity</span>
+            </div>
+            <div style="font-size: 13px; color: var(--gray-600);">Real-Time Inventory Monitored by AWS Lambda</div>
+        </div>
+
+        <!-- PRODUCT CARDS GRID -->
+        <div class="product-grid">
+
+            <!-- PRODUCT 1: ONEPLUS 11R 5G (PROMOTIONAL DEAL ITEM) -->
+            <div class="product-card flash-highlight" id="item-oneplus-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60" alt="OnePlus 11R 5G">
+                        <span class="badge-discount">22% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">⚡ Promotional Flash Sale Deal</div>
+                        <h4 class="product-title">OnePlus 11R 5G (Sonic Black, 16GB RAM, 256GB Storage)</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.6</span>
+                            <span>(18,420 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹34,999</span>
+                            <span class="mrp-price">₹44,999</span>
+                        </div>
+
+                        <!-- Dynamic Stock / Deliverability Indicator -->
+                        <div class="stock-indicator stock-warning" id="oneplus-stock-label">
+                            <i class="fa-solid fa-tags"></i>
+                            <span>Promotional Deal • Tap to check location delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy btn-flash-buy" id="oneplus-buy-btn" onclick="openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3)">
+                    <i class="fa-solid fa-bolt"></i> Buy Now
+                </button>
+            </div>
+
+            <!-- PRODUCT 2: MACBOOK AIR M3 (IN STOCK) -->
+            <div class="product-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60" alt="MacBook Air M3">
+                        <span class="badge-discount" style="background:#2563eb;">15% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-truck"></i> Tomorrow 8 AM</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">Apple Laptop</div>
+                        <h4 class="product-title">Apple MacBook Air M3 (13.6-inch, 16GB Unified Memory, 256GB SSD)</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.9</span>
+                            <span>(4,210 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹1,14,990</span>
+                            <span class="mrp-price">₹1,34,990</span>
+                        </div>
+
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="openCheckout('Apple MacBook Air M3 (16GB)', 114990, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60', 1)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 3: SONY WH-1000XM5 (IN STOCK) -->
+            <div class="product-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60" alt="Sony Headphones">
+                        <span class="badge-discount">29% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">Premium Audio</div>
+                        <h4 class="product-title">Sony WH-1000XM5 Wireless Active Noise Cancelling Headphones</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.8</span>
+                            <span>(9,850 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹24,990</span>
+                            <span class="mrp-price">₹34,990</span>
+                        </div>
+
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="openCheckout('Sony WH-1000XM5 ANC Headphones', 24990, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60', 2)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 4: APPLE WATCH SERIES 9 (IN STOCK) -->
+            <div class="product-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=60" alt="Apple Watch">
+                        <span class="badge-discount" style="background:#4f46e5;">7% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-truck"></i> Tomorrow 11 AM</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">Smartwatch</div>
+                        <h4 class="product-title">Apple Watch Series 9 GPS (45mm Midnight Aluminium Case)</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.7</span>
+                            <span>(3,120 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹41,900</span>
+                            <span class="mrp-price">₹44,900</span>
+                        </div>
+
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="openCheckout('Apple Watch Series 9 GPS (45mm)', 41900, 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=60', 4)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- 4. DEVELOPER & SRE CONSOLE (DEVELOPER POV VIEW) -->
+    <main class="main-container" id="devops-dashboard-view">
+        <div class="dev-header">
+            <div class="dev-title">
+                <h3><i class="fa-solid fa-terminal" style="color:#38bdf8;"></i> SRE & Agile DevOps Control Center</h3>
+                <p>Real-Time Telemetry, Incident Triaging, Cloud Forensics, and CI/CD Automation</p>
+            </div>
+            <div>
+                <span style="background:#065f46; color:#34d399; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:700;">
+                    <i class="fa-solid fa-heart-pulse"></i> Infrastructure: Healthy (200 OK)
+                </span>
+            </div>
+        </div>
+
+        <!-- 3 Dev Cards -->
+        <div class="dev-grid">
+            <div class="dev-card">
+                <h4><i class="fa-brands fa-aws" style="color:#f59e0b;"></i> Cloud Monitoring</h4>
+                <div class="dev-metric"><span>AWS Region:</span> <strong>ap-southeast-2 (Sydney)</strong></div>
+                <div class="dev-metric"><span>Lambda Target:</span> <strong>watchdog-target-app</strong></div>
+                <div class="dev-metric"><span>Watchdog Function:</span> <strong>watchdog-incident-creator</strong></div>
+                <div class="dev-metric"><span>CloudWatch Filter:</span> <strong style="color:#34d399;">[INCIDENT_DETECTED] Active</strong></div>
+            </div>
+
+            <div class="dev-card">
+                <h4><i class="fa-solid fa-database" style="color:#10b981;"></i> Forensic S3 Vault</h4>
+                <div class="dev-metric"><span>S3 Bucket:</span> <strong>devops-incident-watchdog-logs</strong></div>
+                <div class="dev-metric"><span>Access Control:</span> <strong style="color:#34d399;">Private (Blocked Public)</strong></div>
+                <div class="dev-metric"><span>Latest Dump:</span> <strong>INC-1791945923.json</strong></div>
+                <div class="dev-metric"><span>Log Retention:</span> <strong>Immutable Compliance Audit</strong></div>
+            </div>
+
+            <div class="dev-card">
+                <h4><i class="fa-brands fa-github" style="color:#a78bfa;"></i> Agile Backlog Board</h4>
+                <div class="dev-metric"><span>Repository:</span> <a href="https://github.com/hemalexe/devopss-incident-watchdog" target="_blank" style="color:#6366f1; font-weight:700; text-decoration:none;">hemalexe/devopss... <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i></a></div>
+                <div class="dev-metric"><span>Agile Ticket:</span> <a href="https://github.com/hemalexe/devopss-incident-watchdog/issues/1" target="_blank" style="color:#6366f1; font-weight:700; text-decoration:none;">Issue #1 (Sprint Backlog) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i></a></div>
+                <div class="dev-metric"><span>CI/CD Pipeline:</span> <a href="https://github.com/hemalexe/devopss-incident-watchdog/actions" target="_blank" style="color:#10b981; font-weight:700; text-decoration:none;">Actions (Passed) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i></a></div>
+                <div class="dev-metric"><span>Traceability:</span> <strong>Zero-Touch Smart Commits</strong></div>
+            </div>
+        </div>
+
+        <!-- 🏛️ LIVE SYSTEM ARCHITECTURE DIAGRAM (NON-AI / CLOUD COMPONENT FLOW) -->
+        <div style="background: #ffffff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-diagram-project" style="color: #6366f1;"></i> System Architecture & End-to-End Component Flow
+                </h4>
+                <span style="font-size: 11px; background: #e0e7ff; color: #4338ca; padding: 4px 10px; border-radius: 20px; font-weight: 700;">
+                    AWS Cloud + Agile SRE Pipeline
+                </span>
+            </div>
+            <div style="overflow-x: auto; background: #f8fafc; border-radius: 8px; padding: 12px; border: 1px solid #cbd5e1;">
+                <svg viewBox="0 0 820 280" width="100%" style="min-width: 760px; display: block;" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="820" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+                    <!-- 1. Client Browser -->
+                    <rect x="20" y="70" width="100" height="70" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="70" y="98" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#1d4ed8" text-anchor="middle">Client Browser</text>
+                    <text x="70" y="115" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">Flash Sale Shopper</text>
+                    <text x="70" y="128" font-family="monospace" font-size="8.5" fill="#64748b" text-anchor="middle">POST /checkout</text>
+                    <!-- Arrow 1 -> App -->
+                    <path d="M 120 105 L 155 105" stroke="#3b82f6" stroke-width="2" marker-end="url(#diag-arrow-blue)"/>
+                    <text x="137" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#2563eb" text-anchor="middle">Buy Now</text>
+                    <!-- 2. Target Flask App -->
+                    <rect x="160" y="70" width="115" height="70" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+                    <text x="217" y="96" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#b91c1c" text-anchor="middle">Target Flask App</text>
+                    <text x="217" y="112" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">AWS Lambda Service</text>
+                    <text x="217" y="126" font-family="monospace" font-size="8.5" fill="#dc2626" text-anchor="middle">500 ZeroDivisionError</text>
+                    <!-- Arrow 2 -> CloudWatch -->
+                    <path d="M 275 105 L 310 105" stroke="#ef4444" stroke-width="2" marker-end="url(#diag-arrow-red)"/>
+                    <text x="292" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#dc2626" text-anchor="middle">Logs</text>
+                    <!-- 3. AWS CloudWatch -->
+                    <rect x="315" y="70" width="115" height="70" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+                    <text x="372" y="96" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#c2410c" text-anchor="middle">AWS CloudWatch</text>
+                    <text x="372" y="112" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">Log Metric Filter</text>
+                    <text x="372" y="126" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ea580c" text-anchor="middle">Pattern: [INCIDENT]</text>
+                    <!-- Arrow 3 -> Lambda Watchdog -->
+                    <path d="M 430 105 L 465 105" stroke="#f97316" stroke-width="2" marker-end="url(#diag-arrow-orange)"/>
+                    <text x="447" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#ea580c" text-anchor="middle">Trigger</text>
+                    <!-- 4. AWS Lambda Watchdog -->
+                    <rect x="470" y="60" width="125" height="90" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="2"/>
+                    <text x="532" y="85" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#a16207" text-anchor="middle">Lambda Watchdog</text>
+                    <text x="532" y="100" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">Python 3.12 Serverless</text>
+                    <text x="532" y="115" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">1. Parses Stack Trace</text>
+                    <text x="532" y="129" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">2. Assigns INC-ID</text>
+                    <text x="532" y="142" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">3. Formats User Story</text>
+                    <!-- Split Arrow A -> Amazon S3 -->
+                    <path d="M 532 60 L 532 25 L 635 25" stroke="#10b981" stroke-width="2" fill="none" marker-end="url(#diag-arrow-green)"/>
+                    <text x="560" y="18" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#047857">PutObject JSON</text>
+                    <!-- 5. Amazon S3 -->
+                    <rect x="640" y="8" width="160" height="52" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+                    <text x="720" y="28" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10.5" fill="#047857" text-anchor="middle">Amazon S3 Storage</text>
+                    <text x="720" y="42" font-family="monospace" font-size="8" fill="#475569" text-anchor="middle">s3://devops-...-logs/</text>
+                    <text x="720" y="53" font-family="'Segoe UI', sans-serif" font-size="8" fill="#059669" text-anchor="middle">Forensic Audit Archive</text>
+                    <!-- Split Arrow B -> GitHub Issues -->
+                    <path d="M 595 105 L 635 105" stroke="#6366f1" stroke-width="2" marker-end="url(#diag-arrow-purple)"/>
+                    <text x="615" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#4f46e5" text-anchor="middle">POST API</text>
+                    <!-- 6. GitHub Issues -->
+                    <rect x="640" y="75" width="160" height="60" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+                    <text x="720" y="95" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10.5" fill="#4338ca" text-anchor="middle">GitHub Issues Board</text>
+                    <text x="720" y="110" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">Agile Bug User Story</text>
+                    <text x="720" y="124" font-family="'Segoe UI', sans-serif" font-size="8" fill="#6366f1" text-anchor="middle">Sprint Backlog Ticket</text>
+                    <!-- Arrow GitHub -> CI/CD -->
+                    <path d="M 720 135 L 720 170" stroke="#8b5cf6" stroke-width="2" marker-end="url(#diag-arrow-violet)"/>
+                    <text x="725" y="155" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#7c3aed">Dev Push: Fixes #1</text>
+                    <!-- 7. CI/CD Pipeline -->
+                    <rect x="640" y="175" width="160" height="75" rx="8" fill="#faf5ff" stroke="#8b5cf6" stroke-width="2"/>
+                    <text x="720" y="195" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10.5" fill="#6d28d9" text-anchor="middle">GitHub Actions CI/CD</text>
+                    <text x="720" y="210" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">1. Run 8 Pytest Tests (Pass)</text>
+                    <text x="720" y="224" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">2. Deploy Updated Lambda</text>
+                    <text x="720" y="238" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="600" fill="#059669" text-anchor="middle">3. Auto-Close Ticket #1 (Done)</text>
+                    <!-- Feedback loop line to App -->
+                    <path d="M 640 215 L 217 215 L 217 145" stroke="#059669" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#diag-arrow-green)"/>
+                    <text x="400" y="210" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">Continuous Delivery: Zero-Downtime Patch Deployed to Production</text>
+                    <!-- Markers -->
+                    <defs>
+                        <marker id="diag-arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#3b82f6"/></marker>
+                        <marker id="diag-arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#ef4444"/></marker>
+                        <marker id="diag-arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#f97316"/></marker>
+                        <marker id="diag-arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981"/></marker>
+                        <marker id="diag-arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#6366f1"/></marker>
+                        <marker id="diag-arrow-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#8b5cf6"/></marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Code Diff Box -->
+        <div class="code-diff-container">
+            <div class="diff-header"><i class="fa-solid fa-code"></i> CODE INSPECTOR: app/app.py (Dark Store Stockout Edge Case)</div>
+            <span class="diff-red">- # BEFORE (Buggy): Promotional item allocation attempted division by 0 when dark store stock was 0!</span>
+            <span class="diff-red">- if product['stock'] <= 0: allocation = 100 / product['stock']  # Crashed server on checkout</span>
+            <span class="diff-green">+ # AFTER (CI/CD Patched): Graceful Zepto-style handling across all addresses</span>
+            <span class="diff-green">+ if product['stock'] <= 0: return jsonify({"status": "not_deliverable", "message": "Item Not Deliverable to your location (Out of Stock across Dark Stores)"}), 400</span>
+        </div>
+
+        <!-- CI/CD Terminal Simulation -->
+        <div class="terminal-box" id="dev-terminal-logs">
+            <div style="color:#94a3b8; margin-bottom:8px;">[SYSTEM_LOG: CI/CD PIPELINE TRACEABILITY]</div>
+            <div><span class="gray">[17:35:12]</span> <span class="green">[OK]</span> Target application active on port 5000 (PID: 563)</div>
+            <div><span class="gray">[17:35:13]</span> <span class="green">[OK]</span> AWS CloudWatch Log Subscription filter active</div>
+            <div><span class="gray">[17:35:13]</span> <span class="green">[OK]</span> S3 Bucket connected: s3://devops-incident-watchdog-logs-401537512022</div>
+            <div><span class="gray">[17:35:14]</span> <span class="green">[OK]</span> GitHub Issues live sync: Issue #1 open on sprint backlog</div>
+        </div>
+
+        <!-- Dev Controls Actions -->
+        <div class="dev-controls">
+            <button class="btn-buy" style="width:auto; padding:10px 18px; background:#ef4444;" onclick="triggerCrash()">
+                <i class="fa-solid fa-bug"></i> 1. Trigger Flash Order Crash
+            </button>
+            <button class="btn-buy" style="width:auto; padding:10px 18px; background:#10b981;" onclick="applyDevopsFix()">
+                <i class="fa-solid fa-rocket"></i> 2. Deploy CI/CD Patch ('Fixes #1')
+            </button>
+            <button class="btn-buy" style="width:auto; padding:10px 18px; background:#334155;" onclick="resetDemo()">
+                <i class="fa-solid fa-rotate-left"></i> Reset Environment
+            </button>
+        </div>
+    </main>
+
+    <!-- 5. CHECKOUT MODAL -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-card">
+            
+            <div class="modal-header">
+                <h3 id="modal-heading"><i class="fa-solid fa-bag-shopping"></i> Express Checkout</h3>
+                <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Customer Checkout Form -->
+            <div id="checkout-form-view">
+                <div class="checkout-summary-item">
+                    <img id="checkout-item-img" src="" alt="Product">
+                    <div>
+                        <h4 id="checkout-item-title" style="font-size:13.5px; font-weight:700;"></h4>
+                        <div style="font-size:12px; color:var(--gray-600); margin-top:3px;">
+                            Delivery to: <strong id="modal-delivery-loc">VIT Vellore Campus</strong>
+                        </div>
+                        <div style="font-size:14px; font-weight:800; color:var(--primary-dark); margin-top:4px;" id="checkout-item-price"></div>
+                    </div>
+                </div>
+
+                <div class="bill-details">
+                    <div class="bill-row">
+                        <span>Item Subtotal</span>
+                        <span id="bill-subtotal">₹34,999</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Delivery Fee (FlashMart Express)</span>
+                        <span style="color:#059669; font-weight:700;">FREE</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Flash Sale Discount Coupon</span>
+                        <span class="bill-discount">-₹2,000</span>
+                    </div>
+                    <div class="bill-row total">
+                        <span>Grand Total</span>
+                        <span id="bill-grand-total">₹32,999</span>
+                    </div>
+                </div>
+
+                <button class="btn-buy btn-flash-buy" id="confirm-pay-btn" onclick="processOrder()">
+                    <i class="fa-solid fa-lock"></i> Place Order & Pay
+                </button>
+            </div>
+
+            <!-- Processing Loader -->
+            <div id="checkout-loading-view" style="display:none; text-align:center; padding:30px 10px;">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size:32px; color:var(--primary); margin-bottom:12px;"></i>
+                <h4 style="font-size:16px; font-weight:700;">Checking Local Dark Store Fulfillment...</h4>
+                <p style="font-size:12.5px; color:var(--gray-600); margin-top:6px;">Allocating stock from fulfillment center...</p>
+            </div>
+
+            <!-- CUSTOMER RESULT: CLEAN "ITEM NOT DELIVERABLE TO YOUR LOCATION" -->
+            <div id="checkout-not-deliverable-view" style="display:none;">
+                <div class="not-deliverable-box">
+                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Item Not Deliverable to Your Location</h4>
+                    <p>
+                        We're sorry! <strong>OnePlus 11R 5G</strong> is currently <strong>not deliverable</strong> to your selected address because stock is depleted at your nearest fulfillment dark store.
+                    </p>
+                    
+                    <div class="location-alert-pill">
+                        <i class="fa-solid fa-location-dot" style="color:#ea580c;"></i>
+                        <span>Address: <strong id="alert-address-text">VIT Vellore Campus</strong></span>
+                    </div>
+
+                    <div style="font-size:12px; color:#9a3412; margin-top:6px;">
+                        <i class="fa-solid fa-bell"></i> Would you like us to notify you when fresh inventory arrives at this location?
+                    </div>
+                </div>
+
+                <button class="btn-buy" style="background:#ea580c; margin-bottom:10px;" onclick="notifyMe()">
+                    <i class="fa-solid fa-bell"></i> Notify Me when Available at this Address
+                </button>
+
+                <button class="btn-buy btn-notify" onclick="openLocationModal(); closeModal();">
+                    <i class="fa-solid fa-location-arrow"></i> Try Another Delivery Address
+                </button>
+            </div>
+
+            <!-- REGULAR SUCCESSFUL CHECKOUT (FOR LAPTOP / HEADPHONES) -->
+            <div id="checkout-success-view" style="display:none;">
+                <div class="success-box">
+                    <h4><i class="fa-solid fa-circle-check"></i> Order Placed Successfully!</h4>
+                    <p>
+                        Your order has been confirmed! Our delivery partner is heading to <strong id="success-loc-name">VIT Vellore Campus</strong>.
+                    </p>
+                    <div style="font-size:12.5px; color:#047857; margin-top:6px; font-weight:700;">
+                        Estimated Delivery: In 10 Minutes ⚡
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="closeModal()">
+                    <i class="fa-solid fa-check"></i> Done
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 6. LOCATION SELECTOR MODAL (4 REALISTIC ADDRESSES) -->
+    <div class="modal-overlay" id="location-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-location-dot" style="color:#f59e0b;"></i> Select Delivery Location</h3>
+                <button class="btn-close" onclick="closeLocationModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">
+                Choose your delivery address to check real-time dark store fulfillment:
+            </p>
+
+            <!-- Address 1: VIT Vellore Campus -->
+            <div class="location-option selected" id="loc-opt-1" onclick="selectLocation('VIT Vellore Campus', 'Men\'s Hostel Q-Block, Katpadi • 10 Mins', 'loc-opt-1')">
+                <div>
+                    <strong style="font-size:13.5px;">VIT Vellore Campus</strong>
+                    <div style="font-size:12px; color:#64748b;">Men's Hostel Q-Block, Katpadi, Vellore - 632014</div>
+                </div>
+                <span style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:700;">Active</span>
+            </div>
+
+            <!-- Address 2: Gandhi Nagar, Vellore -->
+            <div class="location-option" id="loc-opt-2" onclick="selectLocation('Gandhi Nagar, Vellore', 'Near Katpadi Junction • 12 Mins', 'loc-opt-2')">
+                <div>
+                    <strong style="font-size:13.5px;">Gandhi Nagar, Vellore</strong>
+                    <div style="font-size:12px; color:#64748b;">Near Katpadi Railway Station, Vellore - 632006</div>
+                </div>
+                <span style="font-size:11px; color:#64748b;">Dark Store #2</span>
+            </div>
+
+            <!-- Address 3: Anna Nagar, Chennai -->
+            <div class="location-option" id="loc-opt-3" onclick="selectLocation('Anna Nagar, Chennai', '2nd Avenue, Roundtana • 15 Mins', 'loc-opt-3')">
+                <div>
+                    <strong style="font-size:13.5px;">Anna Nagar, Chennai</strong>
+                    <div style="font-size:12px; color:#64748b;">2nd Avenue, Anna Nagar West, Chennai - 600040</div>
+                </div>
+                <span style="font-size:11px; color:#64748b;">Dark Store #5</span>
+            </div>
+
+            <!-- Address 4: Indiranagar, Bangalore -->
+            <div class="location-option" id="loc-opt-4" onclick="selectLocation('Indiranagar, Bangalore', '100ft Road, Stage 2 • 15 Mins', 'loc-opt-4')">
+                <div>
+                    <strong style="font-size:13.5px;">Indiranagar, Bangalore</strong>
+                    <div style="font-size:12px; color:#64748b;">100ft Road, Indiranagar, Bangalore - 560038</div>
+                </div>
+                <span style="font-size:11px; color:#64748b;">Dark Store #8</span>
+            </div>
+
+            <button class="btn-buy" style="margin-top:10px;" onclick="closeLocationModal()">
+                <i class="fa-solid fa-check"></i> Confirm Location
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        let currentProductId = 3;
+        let isBugFixed = false;
+        let currentRole = 'customer';
+        let selectedLocationName = "VIT Vellore Campus";
+        let selectedLocationSub = "Men's Hostel Q-Block, Katpadi • 10 Mins";
+
+        function setRole(role) {
+            currentRole = role;
+            const pillCust = document.getElementById('pill-customer');
+            const pillDev = document.getElementById('pill-devops');
+            const custView = document.getElementById('customer-store-view');
+            const devView = document.getElementById('devops-dashboard-view');
+
+            if (role === 'customer') {
+                pillCust.className = 'role-pill active customer';
+                pillDev.className = 'role-pill';
+                custView.style.display = 'block';
+                devView.style.display = 'none';
+            } else {
+                pillDev.className = 'role-pill active';
+                pillCust.className = 'role-pill';
+                custView.style.display = 'none';
+                devView.style.display = 'block';
+            }
+        }
+
+        function openLocationModal() {
+            document.getElementById('location-modal').style.display = 'flex';
+        }
+
+        function closeLocationModal() {
+            document.getElementById('location-modal').style.display = 'none';
+        }
+
+        function selectLocation(name, sub, optId) {
+            selectedLocationName = name;
+            selectedLocationSub = sub;
+            document.getElementById('header-loc-name').innerText = name;
+            document.getElementById('header-loc-sub').innerText = sub;
+            
+            document.querySelectorAll('.location-option').forEach(el => el.classList.remove('selected'));
+            document.getElementById(optId).classList.add('selected');
+
+            updateUIState(isBugFixed);
+            closeLocationModal();
+        }
+
+        async function checkState() {
+            try {
+                const res = await fetch('/api/devops/status');
+                const data = await res.json();
+                updateUIState(data.bug_fixed);
+            } catch (err) {
+                console.log("Status check offline:", err);
+            }
+        }
+
+        function updateUIState(fixed) {
+            isBugFixed = fixed;
+            const stockLabel = document.getElementById('oneplus-stock-label');
+            const buyBtn = document.getElementById('oneplus-buy-btn');
+            const card = document.getElementById('item-oneplus-card');
+            const term = document.getElementById('dev-terminal-logs');
+
+            if (fixed) {
+                // Zepto-style Not Deliverable across all locations
+                stockLabel.className = "stock-indicator stock-out";
+                stockLabel.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> <span>Not Deliverable to ' + selectedLocationName + ' (Sold Out at Dark Store)</span>';
+                
+                buyBtn.className = "btn-buy btn-notify";
+                buyBtn.innerHTML = '<i class="fa-solid fa-bell"></i> Notify Me when Available';
+                card.style.borderColor = '#cbd5e1';
+                card.style.background = '#ffffff';
+
+                if (term) {
+                    term.innerHTML += '<div style="color:#4ade80;">[17:40:10] [CI/CD_SUCCESS] Developer commit "Fixes #1" deployed to AWS!</div>' +
+                                      '<div style="color:#a5f3fc;">[17:40:11] [DEFENSIVE_CHECK] Graceful stockout active: returns Not Deliverable for ' + selectedLocationName + '.</div>' +
+                                      '<div style="color:#4ade80;">[17:40:12] [ZERO_TOUCH] Agile ticket closed. Application stable with zero 500 crashes.</div>';
+                }
+            } else {
+                stockLabel.className = "stock-indicator stock-warning";
+                stockLabel.innerHTML = '<i class="fa-solid fa-tags"></i> <span>Promotional Deal • Tap to check location delivery</span>';
+                
+                buyBtn.className = "btn-buy btn-flash-buy";
+                buyBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> Buy Now';
+                card.style.borderColor = '#f59e0b';
+                card.style.background = 'linear-gradient(180deg, #fffdfa 0%, #ffffff 100%)';
+            }
+        }
+
+        function openCheckout(title, price, img, id) {
+            currentProductId = id;
+            document.getElementById('checkout-item-title').innerText = title;
+            document.getElementById('checkout-item-price').innerText = "₹" + price.toLocaleString();
+            document.getElementById('checkout-item-img').src = img;
+            document.getElementById('bill-subtotal').innerText = "₹" + price.toLocaleString();
+            document.getElementById('bill-grand-total').innerText = "₹" + (price > 2000 ? (price - 2000).toLocaleString() : price.toLocaleString());
+            document.getElementById('modal-delivery-loc').innerText = selectedLocationName;
+
+            document.getElementById('checkout-form-view').style.display = 'block';
+            document.getElementById('checkout-loading-view').style.display = 'none';
+            document.getElementById('checkout-not-deliverable-view').style.display = 'none';
+            document.getElementById('checkout-success-view').style.display = 'none';
+
+            // If OnePlus 11R and already fixed, show Not Deliverable directly
+            if (id === 3 && isBugFixed) {
+                document.getElementById('alert-address-text').innerText = selectedLocationName + " (" + selectedLocationSub + ")";
+                document.getElementById('checkout-form-view').style.display = 'none';
+                document.getElementById('checkout-not-deliverable-view').style.display = 'block';
+            }
+
+            document.getElementById('checkout-modal').style.display = 'flex';
+        }
+
+        function openCart() {
+            openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3);
+        }
+
+        function closeModal() {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        async function processOrder() {
+            document.getElementById('checkout-form-view').style.display = 'none';
+            document.getElementById('checkout-loading-view').style.display = 'block';
+
+            try {
+                const res = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        product_id: currentProductId, 
+                        quantity: 1,
+                        address: selectedLocationName + " (" + selectedLocationSub + ")"
+                    })
+                });
+
+                await new Promise(r => setTimeout(r, 650));
+                document.getElementById('checkout-loading-view').style.display = 'none';
+
+                if (currentProductId === 3) {
+                    // For OnePlus 11R (any address), always show clean "Item Not Deliverable to Your Location"
+                    document.getElementById('alert-address-text').innerText = selectedLocationName + " (" + selectedLocationSub + ")";
+                    document.getElementById('checkout-not-deliverable-view').style.display = 'block';
+                } else {
+                    document.getElementById('success-loc-name').innerText = selectedLocationName;
+                    document.getElementById('checkout-success-view').style.display = 'block';
+                }
+            } catch (err) {
+                document.getElementById('checkout-loading-view').style.display = 'none';
+                document.getElementById('alert-address-text').innerText = selectedLocationName + " (" + selectedLocationSub + ")";
+                document.getElementById('checkout-not-deliverable-view').style.display = 'block';
+            }
+        }
+
+        function notifyMe() {
+            alert("🔔 Waitlist Registered! We will notify you via SMS the moment fresh stock of OnePlus 11R arrives at " + selectedLocationName + "!");
+            closeModal();
+        }
+
+        async function triggerCrash() {
+            openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3);
+            processOrder();
+        }
+
+        async function applyDevopsFix() {
+            try {
+                const res = await fetch('/api/devops/apply-fix');
+                const data = await res.json();
+                updateUIState(true);
+                closeModal();
+            } catch (err) {
+                console.error("Failed to apply fix:", err);
+            }
+        }
+
+        async function resetDemo() {
+            try {
+                await fetch('/api/devops/reset');
+                updateUIState(false);
+                closeModal();
+            } catch (err) {
+                console.error("Failed to reset:", err);
+            }
+        }
+
+        // Animated Countdown timer
+        let secondsLeft = 6138;
+        setInterval(() => {
+            if (secondsLeft > 0) secondsLeft--;
+            const hrs = String(Math.floor(secondsLeft / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, '0');
+            const secs = String(secondsLeft % 60).padStart(2, '0');
+            const timerElem = document.getElementById('flash-timer');
+            if (timerElem) timerElem.innerText = `${hrs}:${mins}:${secs}`;
+        }, 1000);
+
+        checkState();
+    </script>
+</body>
+</html>

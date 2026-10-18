@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #0d1117;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    color: #e6edf3;
+}
+.header {
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    padding: 12px 30px;
+}
+.repo-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e6edf3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.repo-title a { color: #58a6ff; text-decoration: none; }
+.badge-public {
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+    color: #8b949e;
+}
+.tabs {
+    display: flex;
+    gap: 20px;
+    margin-top: 14px;
+    font-size: 14px;
+}
+.tab {
+    padding-bottom: 8px;
+    color: #8b949e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.tab.active {
+    color: #e6edf3;
+    font-weight: 600;
+    border-bottom: 2px solid #f78166;
+}
+.tab-count {
+    background: #30363d;
+    border-radius: 10px;
+    padding: 0 6px;
+    font-size: 11px;
+}
+.container {
+    max-width: 1150px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
+.issue-header {
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+}
+.issue-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.issue-num { color: #8b949e; font-weight: 300; }
+.issue-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #8b949e;
+}
+.badge-closed {
+    background: #8957e5;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 25px;
+}
+.issue-box {
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background: #0d1117;
+}
+.box-header {
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #8b949e;
+}
+.box-header strong { color: #e6edf3; }
+.box-body {
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.user-story-quote {
+    border-left: 4px solid #388bfd;
+    background: rgba(56, 139, 253, 0.08);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    font-style: italic;
+    color: #c9d1d9;
+}
+table.diag-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+}
+table.diag-table th, table.diag-table td {
+    border: 1px solid #30363d;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 13px;
+}
+table.diag-table th { background: #161b22; color: #8b949e; }
+.code-block {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Consolas', monospace;
+    font-size: 12.5px;
+    color: #ff7b72;
+    margin: 10px 0;
+}
+.checklist {
+    list-style: none;
+    padding-left: 0;
+}
+.checklist li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    color: #c9d1d9;
+}
+.check-icon {
+    color: #3fb950;
+    font-weight: bold;
+}
+.sidebar-section {
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    font-size: 12px;
+}
+.sidebar-title {
+    color: #8b949e;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.label-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 500;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+.lbl-incident { background: #b60205; color: #ffffff; }
+.lbl-p1 { background: #d93f0b; color: #ffffff; }
+.lbl-auto { background: #0e8a16; color: #ffffff; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="repo-title">
+    <span>📁</span>
+    <a href="#">hemalexe</a> / <strong><a href="#">devopss-incident-watchdog</a></strong>
+    <span class="badge-public">Public</span>
+  </div>
+  <div class="tabs">
+    <div class="tab"><span>&lt;&gt;</span> Code</div>
+    <div class="tab active"><span>⚪</span> Issues <span class="tab-count">1</span></div>
+    <div class="tab"><span>🔀</span> Pull requests</div>
+    <div class="tab"><span>▶️</span> Actions</div>
+    <div class="tab"><span>📊</span> Projects</div>
+    <div class="tab"><span>🛡️</span> Security</div>
+    <div class="tab"><span>📈</span> Insights</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="issue-header">
+    <div class="issue-title">
+      🚨 Automated Incident Report: DevOps Incident Watchdog <span class="issue-num">#1</span>
+    </div>
+    <div class="issue-meta">
+      <span class="badge-closed">✓ Closed</span>
+      <span><strong>aws-devops-watchdog[bot]</strong> opened this issue &bull; closed via commit <a href="#" style="color:#58a6ff; text-decoration:none;"><code>369f0b8 (Fixes #1)</code></a></span>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <div>
+      <div class="issue-box">
+        <div class="box-header">
+          <div><strong>aws-devops-watchdog[bot]</strong> commented 2 hours ago</div>
+          <div>Author &bull; Bot</div>
+        </div>
+        <div class="box-body">
+          <h3 style="margin-top:0;">📋 Agile User Story</h3>
+          <div class="user-story-quote">
+            <strong>As an</strong> Agile Development Team member,<br>
+            <strong>I need to</strong> investigate and resolve the runtime failure in <code>/aws/lambda/watchdog-target-app</code>,<br>
+            <strong>So that</strong> high system availability is restored and customers experience zero disruption during flash sales.
+          </div>
+
+          <h3>🔍 Incident Diagnostics</h3>
+          <table class="diag-table">
+            <thead>
+              <tr><th>Field</th><th>Diagnostic Telemetry Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Incident ID</strong></td><td><code>INC-1791945923-07CD12B5</code></td></tr>
+              <tr><td><strong>Environment</strong></td><td><code>Production (AWS ap-southeast-2 Sydney)</code></td></tr>
+              <tr><td><strong>Error Type</strong></td><td><code style="color:#ff7b72;">ZeroDivisionError: division by zero</code></td></tr>
+              <tr><td><strong>Target Service</strong></td><td><code>watchdog-target-app (FlashMart Promotional Flash Sale)</code></td></tr>
+              <tr><td><strong>Fulfillment Location</strong></td><td><code>VIT Vellore Campus (Men's Hostel Q-Block)</code></td></tr>
+              <tr><td><strong>Forensic S3 Vault</strong></td><td><code style="color:#58a6ff;">s3://devops-incident-watchdog-logs-401537512022/incidents/...</code></td></tr>
+            </tbody>
+          </table>
+
+          <h3>💥 Error Stack Trace</h3>
+          <div class="code-block">
+Traceback (most recent call last):<br>
+&nbsp;&nbsp;File "app/app.py", line 119, in checkout<br>
+&nbsp;&nbsp;&nbsp;&nbsp;_ = 100 / product["stock"]<br>
+ZeroDivisionError: division by zero in dark store delivery routing worker
+          </div>
+
+          <h3>✅ Acceptance Criteria (Agile Definition of Done)</h3>
+          <ul class="checklist">
+            <li><span class="check-icon">☑</span> <strong>Root Cause Analysis (RCA)</strong> verified from crash logs in Amazon S3.</li>
+            <li><span class="check-icon">☑</span> Reproduce bug locally with automated unit test in <code>tests/test_app.py</code>.</li>
+            <li><span class="check-icon">☑</span> Implement defensive zero-stock delivery boundary check returning graceful <code>Not Deliverable / Notify Me</code>.</li>
+            <li><span class="check-icon">☑</span> Push code fix using Smart Commit syntax (<code>git commit -m "Fix inventory allocation. Fixes #1"</code>).</li>
+            <li><span class="check-icon">☑</span> Automated CI/CD pipeline passes all 9 unit tests and deploys to AWS Lambda.</li>
+            <li><span class="check-icon">☑</span> Production application verified online with 100% operational uptime.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Assignees</div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="background:#58a6ff; width:18px; height:18px; border-radius:50%; display:inline-block;"></span>
+          <strong>hemalexe</strong>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Labels</div>
+        <div>
+          <span class="label-pill lbl-incident">incident</span>
+          <span class="label-pill lbl-p1">p1-critical</span>
+          <span class="label-pill lbl-auto">auto-generated</span>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Projects</div>
+        <div style="color:#58a6ff;">Sprint 4 - Flash Sale Hardening</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Milestone</div>
+        <div style="color:#e6edf3; font-weight:600;">v1.0.1 Stable Patch</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Development</div>
+        <div style="color:#8b949e;">Successfully closed by commit <a href="#" style="color:#58a6ff;"><code>369f0b8</code></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

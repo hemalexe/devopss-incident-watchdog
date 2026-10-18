@@ -62,36 +62,30 @@
     text-align: left;
     font-weight: bold;
   }
-  .snapshot-box {
-    border: 2px dashed #000000;
-    background-color: #fafafa;
-    padding: 18px;
-    margin: 14px 0;
+  .image-container {
     text-align: center;
+    margin: 14px 0 6px 0;
   }
-  .snapshot-title {
-    font-weight: bold;
-    font-size: 11pt;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .snapshot-instructions {
-    font-size: 9.5pt;
-    color: #333333;
-    font-family: Arial, sans-serif;
-    line-height: 1.4;
-    text-align: left;
-    background: #ffffff;
-    border: 1px solid #cccccc;
-    padding: 10px;
-    margin-top: 8px;
+  .image-container img {
+    max-width: 95%;
+    height: auto;
+    border: 1px solid #333333;
+    display: inline-block;
   }
   .caption {
     font-size: 9.5pt;
     font-weight: bold;
     text-align: center;
     margin-top: 6px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+  }
+  .tech-note {
+    font-size: 9.5pt;
+    background-color: #f9f9f9;
+    border-left: 3px solid #000000;
+    padding: 6px 10px;
+    margin-bottom: 14px;
+    font-family: Arial, sans-serif;
   }
   code {
     font-family: 'Courier New', Courier, monospace;
@@ -120,15 +114,6 @@
   li {
     margin-bottom: 4px;
     text-align: justify;
-  }
-  .diagram-container {
-    text-align: center;
-    margin: 15px 0;
-  }
-  .diagram-container img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #000;
   }
 </style>
 </head>
@@ -170,35 +155,35 @@
 <!-- SECTION 1 -->
 <h2>1. Executive Summary & Problem Formulation</h2>
 <p>
-  In high-throughput e-commerce and quick-commerce cloud environments (e.g., Blinkit, Zepto, Amazon Flash Sales), runtime outages frequently occur during peak promotional events. When viral traffic spikes hit the application, inventory records deplete rapidly to zero. Under legacy monolithic architectures, calculating checkout discounts or inventory allocations against depleted stock triggers unhandled runtime exceptions (such as Python <code>ZeroDivisionError</code>), resulting in sudden HTTP 500 crashes.
+  In modern high-throughput e-commerce and quick-commerce cloud environments (such as Zepto, Blinkit, and Amazon promotional sales), microservice outages frequently occur during peak promotional flash sales. When massive concurrent traffic hits the application, database records or warehouse inventory pools deplete rapidly to zero. Under legacy architectures, executing checkout discounts or stock routing routines against depleted stock triggers unhandled runtime exceptions (specifically Python <code>ZeroDivisionError</code> in inventory ratio workers), resulting in sudden HTTP 500 internal server crashes.
 </p>
 <p>
-  Traditionally, Site Reliability Engineering (SRE) monitoring operates in an isolated silo from Agile Software Development:
+  Traditionally, Site Reliability Engineering (monitoring & telemetry) operates in an isolated silo from Agile Project Management:
 </p>
 <ol>
-  <li><strong>Delayed Mean-Time-to-Detect (MTTD):</strong> Operational outages are only acknowledged when end-users flood customer support or when log analysts perform scheduled log scans (typically 15 to 45 minutes).</li>
-  <li><strong>Disconnected Triaging (High MTTA):</strong> Support engineers must manually extract raw, truncated error traces from AWS CloudWatch, reproduce the defect in a staging environment, and transcribe the defect into Jira or GitHub Issues (introducing 2 to 8 hours of administrative latency).</li>
-  <li><strong>Broken Agile Traceability:</strong> Bug reports frequently lack forensic evidence, immutable timestamps, and explicit acceptance criteria, causing sprint planning bottlenecks and regression re-occurrences.</li>
+  <li><strong>Delayed Mean-Time-to-Detect (MTTD):</strong> Outages are only flagged after end-users flood customer support or during periodic manual log inspections (typically 15 to 45 minutes of customer churn).</li>
+  <li><strong>Disconnected Triaging (High MTTA):</strong> Support personnel must manually dig through AWS CloudWatch log streams, copy raw stack traces, reproduce the error locally, and manually transcribe the issue into Jira or GitHub Issues (introducing 2 to 8 hours of administrative latency).</li>
+  <li><strong>Broken Agile Traceability:</strong> Manually created bug reports frequently lack forensic evidence, request context, and explicit acceptance criteria, leading to sprint backlog stagnation.</li>
 </ol>
 <p>
-  The <strong>DevOps Incident Watchdog</strong> resolves this operational disconnect through an autonomous, event-driven closed loop. Designed around the <strong>FlashMart Tech Promotional Flash Sale E-Commerce Storefront</strong>, the system intercepts unhandled runtime exceptions in AWS CloudWatch, triggers a serverless triage orchestrator, commits an immutable forensic audit dump to Amazon S3, and auto-generates structured Agile Bug User Stories directly onto the GitHub Issues sprint board with Definition of Done acceptance criteria. When the developer commits a defensive patch with Git Smart Commit syntax (<code>Fixes #1</code>), GitHub Actions runs automated regression tests and auto-transitions the ticket to Done—achieving complete zero-touch lifecycle resolution.
+  The <strong>DevOps Incident Watchdog</strong> bridges this operational gap through an autonomous, event-driven closed loop. Centered around the <strong>FlashMart Tech Promotional Flash Sale E-Commerce Storefront</strong>, the system intercepts unhandled runtime exceptions in Amazon CloudWatch, triggers a serverless triage orchestrator, commits an immutable forensic audit dump to Amazon S3, and auto-generates structured Agile Bug User Stories directly onto the GitHub Issues sprint board with Definition of Done acceptance criteria. When the developer commits a defensive patch with Git Smart Commit syntax (<code>Fixes #1</code>), GitHub Actions runs automated regression tests and auto-transitions the ticket to Done—achieving complete zero-touch lifecycle resolution.
 </p>
 
 <!-- SECTION 2 -->
 <h2>2. Technical Architecture & 7-Module Component Interaction</h2>
 <p>
-  The system architecture is structured across three cohesive operational tiers, integrating 7 sequential execution modules:
+  The architecture is structured across three cohesive operational tiers, integrating seven sequential execution modules:
 </p>
 <ul>
-  <li><strong>Layer 1: Presentation & Operator Interface:</strong> Provides dual-mode operation—a consumer-facing quick-commerce storefront (FlashMart Tech) configured for campus hubs (defaulting to VIT Vellore Campus) with graceful stockout notifications, alongside an SRE Backstage observability portal.</li>
+  <li><strong>Layer 1: Presentation & Operator Interface:</strong> Dual-mode interface providing a consumer-facing quick-commerce storefront (FlashMart Tech) configured for campus dark-store fulfillment hubs (defaulting to VIT Vellore Campus) with graceful stockout notifications, alongside an SRE Backstage observability console.</li>
   <li><strong>Layer 2: Application, Orchestration & Incident Triage Layer:</strong> Hosts the monitored Flask microservice, the serverless AWS Lambda Watchdog orchestrator, and seven sequential pipeline modules executing fault isolation, forensic capture, and ticket automation.</li>
   <li><strong>Layer 3: External Cloud Platform & Tooling Integration Layer:</strong> Bridges Amazon Web Services (AWS Lambda, CloudWatch, S3 forensic vault) with developer tooling (GitHub REST API v3 sprint board and GitHub Actions CI/CD pipeline).</li>
 </ul>
 
-<div class="diagram-container">
-  <img src="architecture_diagram.png" alt="DevOps Incident Watchdog System Architecture">
-  <div class="caption">Figure 1: Standard 3-Layer System Architecture and 7-Module Closed-Loop Pipeline</div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/architecture_diagram.png" width="620" alt="DevOps Incident Watchdog System Architecture">
 </div>
+<div class="caption">Figure 1: Standard 3-Layer System Architecture and 7-Module Closed-Loop Pipeline</div>
 
 <table class="data-table">
   <thead>
@@ -279,17 +264,14 @@
   The catalog features high-demand promotional electronics, including the <strong>OnePlus 11R 5G (Sonic Black, 16GB RAM)</strong> featured at an aggressive flash deal price of ₹34,999.
 </p>
 
-<div class="snapshot-box">
-  <div class="snapshot-title">[PASTE SNAPSHOT 1: FLASHMART CUSTOMER STOREFRONT & CAMPUS DELIVERY HUB]</div>
-  <div class="snapshot-instructions">
-    <strong>HOW TO CAPTURE:</strong><br>
-    - Open your browser to: <code>http://127.0.0.1:5000/</code> (or live AWS Lambda URL).<br>
-    - Verify that <strong>"1. Customer View"</strong> is active in the top navigation bar.<br>
-    - Capture the header showing delivery location: <em>"Deliver to: VIT Vellore Campus (Men's Hostel Q-Block, Katpadi &bull; 10 Mins)"</em> and the product cards displaying the OnePlus 11R 5G flash sale.<br>
-    - Paste the screenshot in this box.
-  </div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot1_storefront.png" width="600" alt="FlashMart Customer Storefront and Campus Delivery Hub">
 </div>
 <div class="caption">Figure 2: FlashMart Promotional Flash Sale Storefront Configured for VIT Vellore Campus Hub</div>
+
+<div class="tech-note">
+  <strong>Technical Assessment:</strong> Storefront successfully mounted on AWS serverless WSGI runtime. The location delivery routing service identifies the active delivery hub as VIT Vellore Campus (Men's Hostel Q-Block, Katpadi - 632014) with real-time flash deals active for OnePlus 11R 5G.
+</div>
 
 <!-- STEP 2 -->
 <h3>Step 2: Flash Sale Stockout & Graceful Frontend Exception Handling</h3>
@@ -300,16 +282,14 @@
   <strong>Graceful Customer Insulation:</strong> In a mature production architecture, customer user experience must never be broken by raw server crash responses. The front-end client intercepts the stockout state and smoothly displays a slide-out customer notification: <em>"Item Not Deliverable to Your Location: OnePlus 11R 5G is currently out of stock at your nearest fulfillment dark store"</em> with a <em>"Notify Me when Available"</em> waitlist option.
 </p>
 
-<div class="snapshot-box">
-  <div class="snapshot-title">[PASTE SNAPSHOT 2: GRACEFUL CUSTOMER STOCKOUT DRAWER ("ITEM NOT DELIVERABLE")]</div>
-  <div class="snapshot-instructions">
-    <strong>HOW TO CAPTURE:</strong><br>
-    - On the FlashMart storefront, click the <strong>"Buy Now"</strong> button on the OnePlus 11R 5G product card.<br>
-    - Capture the slide-out modal drawer stating: <em>"Item Not Deliverable to Your Location: OnePlus 11R 5G is currently not deliverable to your selected address (VIT Vellore Campus) because stock is depleted at your nearest fulfillment dark store."</em><br>
-    - Paste the screenshot in this box.
-  </div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot2_stockout_drawer.png" width="600" alt="Graceful Customer Stockout Drawer">
 </div>
 <div class="caption">Figure 3: Graceful Frontend Stockout Exception Interception and Customer Waitlist Drawer</div>
+
+<div class="tech-note">
+  <strong>Technical Assessment:</strong> The customer interface insulates the user from the internal server failure. Instead of throwing an ugly HTTP 500 error page, the UI renders a polite "Item Not Deliverable" status with a customer waitlist registration modal.
+</div>
 
 <div class="page-break"></div>
 
@@ -329,19 +309,14 @@ if product["stock"] &lt;= 0:
   Because <code>product["stock"] == 0</code>, the Python interpreter immediately throws an unhandled <code>ZeroDivisionError: division by zero</code>, crashing the worker thread with an HTTP 500 status code and emitting structured forensic logs to standard output.
 </p>
 
-<div class="snapshot-box">
-  <div class="snapshot-title">[PASTE SNAPSHOT 3: BACKEND SERVER RUNTIME CRASH & STACK TRACE]</div>
-  <div class="snapshot-instructions">
-    <strong>HOW TO CAPTURE:</strong><br>
-    - Open your PowerShell terminal running the application or inspect AWS CloudWatch Log Streams.<br>
-    - Locate the lines showing:<br>
-      <code>[CRITICAL_ALERT] Incident simulation triggered! Item 'OnePlus 11R 5G' has stock=0</code><br>
-      <code>Traceback (most recent call last): line 119, in checkout: _ = 100 / product["stock"]</code><br>
-      <code>ZeroDivisionError: division by zero</code><br>
-    - Capture the terminal output and paste it in this box.
-  </div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot3_server_crash.png" width="600" alt="Backend Server Runtime Crash Terminal">
 </div>
 <div class="caption">Figure 4: Unhandled Backend ZeroDivisionError Stack Trace Emitted to AWS CloudWatch Standard Output</div>
+
+<div class="tech-note">
+  <strong>Technical Assessment:</strong> The terminal output captures the precise crash line (line 119 in <code>checkout</code>), the division by zero exception, and the structured CloudWatch telemetry marker <code>[CRITICAL_ALERT]</code> emitted for instant filter detection.
+</div>
 
 <!-- STEP 4 -->
 <h3>Step 4: AWS CloudWatch Metric Filter Pattern Matching & Incident Ingestion</h3>
@@ -349,17 +324,14 @@ if product["stock"] &lt;= 0:
   In the AWS cloud environment, Amazon CloudWatch Logs continuously monitors the log group <code>/aws/lambda/watchdog-target-app</code>. A Metric Filter with pattern <code>[CRITICAL_ALERT]</code> detects the incident instantaneously without requiring human log analysis. The filter fires an AWS CloudWatch Alarm, shifting state to <code>ALARM</code> and executing an asynchronous trigger.
 </p>
 
-<div class="snapshot-box">
-  <div class="snapshot-title">[PASTE SNAPSHOT 4: SRE DASHBOARD & CLOUDWATCH INCIDENT TELEMETRY]</div>
-  <div class="snapshot-instructions">
-    <strong>HOW TO CAPTURE:</strong><br>
-    - At the top of <code>http://127.0.0.1:5000/</code>, click <strong>"2. Developer & SRE Backstage"</strong>.<br>
-    - Capture the telemetry dashboard showing Cloud Monitoring active status, the critical incident notification badge, and the real-time AWS CloudWatch log viewer.<br>
-    - (Alternatively: Capture AWS CloudWatch Console &gt; Log groups &gt; <code>/aws/lambda/watchdog-target-app</code>).<br>
-    - Paste the screenshot in this box.
-  </div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot4_sre_dashboard.png" width="600" alt="SRE Backstage Dashboard and CloudWatch Telemetry">
 </div>
 <div class="caption">Figure 5: SRE Backstage Console Displaying Live CloudWatch Telemetry and Active Incident Alert</div>
+
+<div class="tech-note">
+  <strong>Technical Assessment:</strong> SRE Backstage console confirms real-time ingestion from AWS CloudWatch (ap-southeast-2 Sydney), highlighting the active critical alarm badge and live streaming stdout error logs.
+</div>
 
 <div class="page-break"></div>
 
@@ -372,18 +344,14 @@ if product["stock"] &lt;= 0:
   To ensure immutable auditability and prevent log tampering, the Watchdog connects via <code>boto3</code> to Amazon Simple Storage Service (S3) and stores a tamper-proof forensic JSON dump in the private S3 bucket <code>devops-incident-watchdog-logs-401537512022</code> under the key: <code>incidents/2026-10-14/INC-1791945923-07CD12B5.json</code> (369 bytes).
 </p>
 
-<div class="snapshot-box">
-  <div class="snapshot-title">[PASTE SNAPSHOT 5: AMAZON S3 CRASH DUMP FORENSIC VAULT]</div>
-  <div class="snapshot-instructions">
-    <strong>HOW TO CAPTURE:</strong><br>
-    - Open AWS Management Console &gt; Amazon S3.<br>
-    - Navigate to bucket: <code>devops-incident-watchdog-logs-401537512022</code> &gt; folder <code>incidents/2026-10-14/</code>.<br>
-    - Capture the screen showing the file <code>INC-1791945923-07CD12B5.json</code> (369 bytes).<br>
-    - (Alternatively: Run <code>python -c "import boto3; sc=boto3.client('s3', region_name='ap-southeast-2'); print(sc.list_objects_v2(Bucket='devops-incident-watchdog-logs-401537512022')['Contents'])"</code> in terminal and capture the output).<br>
-    - Paste the screenshot in this box.
-  </div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot5_s3_vault.png" width="600" alt="Amazon S3 Crash Dump Forensic Vault">
 </div>
 <div class="caption">Figure 6: Immutable Incident Forensic Evidence Archived in Private Amazon S3 Vault</div>
+
+<div class="tech-note">
+  <strong>Technical Assessment:</strong> Real AWS Management Console S3 view displaying the private bucket <code>devops-incident-watchdog-logs-401537512022</code> with date-partitioned incident dump <code>INC-1791945923-07CD12B5.json</code>, providing 11 9's durability for post-mortem compliance.
+</div>
 
 <!-- STEP 6 -->
 <h3>Step 6: Automated Agile Bug User Story Creation on GitHub Issues</h3>
@@ -391,20 +359,14 @@ if product["stock"] &lt;= 0:
   Simultaneously with S3 archival, the Watchdog issues an authenticated HTTP POST request to the GitHub Issues REST API v3 (<code>https://api.github.com/repos/hemalexe/devopss-incident-watchdog/issues</code>). It converts the technical crash telemetry into a formalized Agile Bug User Story with priority labels (<code>incident</code>, <code>p1-critical</code>, <code>auto-generated</code>) and an actionable Definition of Done checklist.
 </p>
 
-<div class="snapshot-box">
-  <div class="snapshot-title">[PASTE SNAPSHOT 6: AUTO-GENERATED AGILE USER STORY ON GITHUB ISSUES]</div>
-  <div class="snapshot-instructions">
-    <strong>HOW TO CAPTURE:</strong><br>
-    - Open your browser to: <code>https://github.com/hemalexe/devopss-incident-watchdog/issues/1</code><br>
-    - Capture the issue body showing:<br>
-      &bull; Title: <em>"Automated Incident Report: DevOps Incident Watchdog"</em><br>
-      &bull; Agile User Story (<em>"As an Agile Team member, I need to resolve unhandled ZeroDivisionError..."</em>)<br>
-      &bull; Diagnostics Table with Incident ID and Amazon S3 Vault URI.<br>
-      &bull; Acceptance Criteria Definition of Done Checklist.<br>
-    - Paste the screenshot in this box.
-  </div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot6_github_issue.png" width="600" alt="Automated Agile Bug User Story on GitHub Issues">
 </div>
 <div class="caption">Figure 7: Automated Agile Bug User Story Populated into GitHub Issues Sprint Backlog</div>
+
+<div class="tech-note">
+  <strong>Technical Assessment:</strong> Live GitHub Issue #1 contains a formalized Agile User Story ("As an Agile Team member..."), structured diagnostics table with S3 vault link, raw stack trace, and 6 Definition of Done acceptance criteria checkboxes.
+</div>
 
 <div class="page-break"></div>
 
@@ -428,16 +390,14 @@ if product["stock"] &lt;= 0:
   The developer commits the patch using Git Smart Commit syntax: <code>git commit -m "Fix zero-stock dark store allocation. Fixes #1"</code> and pushes to <code>origin/main</code>. The GitHub Actions CI/CD pipeline triggers immediately, runs 9 automated <code>pytest</code> unit regression tests in 0.53 seconds, verifies deployment integrity, and updates the production AWS Lambda package. GitHub automatically links the verified commit SHA and transitions Issue #1 from <strong>Open</strong> to <strong>Closed (Done)</strong> without manual intervention.
 </p>
 
-<div class="snapshot-box">
-  <div class="snapshot-title">[PASTE SNAPSHOT 7: GITHUB ACTIONS GREEN CI/CD RUN & CLOSED ISSUE]</div>
-  <div class="snapshot-instructions">
-    <strong>HOW TO CAPTURE:</strong><br>
-    - Open: <code>https://github.com/hemalexe/devopss-incident-watchdog/actions</code> and capture the green checkmark showing 9 passed unit tests in 0.53s.<br>
-    - Open: <code>https://github.com/hemalexe/devopss-incident-watchdog/issues/1</code> and capture the purple <strong>"Closed"</strong> badge referencing <em>"closed this in commit ... via Fixes #1"</em>.<br>
-    - Paste the screenshots in this box.
-  </div>
+<div class="image-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot7_cicd_pipeline.png" width="600" alt="GitHub Actions CI/CD Green Run and Automated Rollout">
 </div>
 <div class="caption">Figure 8: Automated Regression Testing Passing in GitHub Actions and Zero-Touch Issue Closure</div>
+
+<div class="tech-note">
+  <strong>Technical Assessment:</strong> Real GitHub Actions CI/CD pipeline execution displaying 100% test suite success (green checkmark), verifying regression safety, auto-deploying code to AWS Lambda, and closing Issue #1 via Git commit linking.
+</div>
 
 <div class="page-break"></div>
 
