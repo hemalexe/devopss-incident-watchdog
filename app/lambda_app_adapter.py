@@ -17,9 +17,10 @@ BUG_FIXED = False
 START_TIME = time.time()
 
 CATALOG = [
-    {"id": 1, "name": "Laptop", "price": 50000.0, "stock": 10},
-    {"id": 2, "name": "Noise-Cancelling Headphones", "price": 2000.0, "stock": 5},
-    {"id": 3, "name": "Smartphone (Flash Sale Deal)", "price": 25000.0, "stock": 0},
+    {"id": 1, "name": "Apple MacBook Air M3 (16GB, 256GB SSD)", "price": 45.0, "stock": 10},
+    {"id": 2, "name": "Sony WH-1000XM5 ANC Headphones", "price": 25.0, "stock": 5},
+    {"id": 3, "name": "OnePlus 11R 5G (Sonic Black, 16GB)", "price": 55.0, "stock": 0},
+    {"id": 4, "name": "Apple Watch Series 9 GPS (45mm)", "price": 35.0, "stock": 6},
 ]
 
 

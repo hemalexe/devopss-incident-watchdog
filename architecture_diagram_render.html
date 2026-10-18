@@ -11,137 +11,281 @@
     align-items: center;
     padding: 15px;
   }
-  .card {
+  .canvas {
     background: #ffffff;
-    border: 1.5px solid #0f172a;
+    width: 1220px;
+    border: 1px solid #94a3b8;
     border-radius: 8px;
-    padding: 20px;
-    width: 920px;
-  }
-  .diagram-title {
-    text-align: center;
-    font-size: 14.5px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #0f172a;
-    margin-bottom: 16px;
-    border-bottom: 2px solid #0f172a;
-    padding-bottom: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);
   }
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="diagram-title">System Architecture: 6-Level Closed-Loop SRE &amp; Agile DevOps Pipeline</div>
-
-  <svg viewBox="0 0 880 770" width="100%" xmlns="http://www.w3.org/2000/svg">
-    <!-- DEFINITIONS / ARROW MARKERS -->
+<div class="canvas">
+  <svg viewBox="0 0 1220 830" width="100%" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <marker id="m-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#1d4ed8"/></marker>
-      <marker id="m-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#b91c1c"/></marker>
-      <marker id="m-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#b45309"/></marker>
-      <marker id="m-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#047857"/></marker>
-      <marker id="m-indigo" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#4338ca"/></marker>
-      <marker id="m-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#6d28d9"/></marker>
+      <marker id="arr-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#2563eb"/></marker>
+      <marker id="arr-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#dc2626"/></marker>
+      <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#059669"/></marker>
+      <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#d97706"/></marker>
     </defs>
 
-    <!-- ================= LEVEL 1 ================= -->
-    <rect x="75" y="10" width="780" height="90" rx="6" fill="#f8fafc" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="75" y="10" width="780" height="24" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="90" y="26" font-size="11" font-weight="800" fill="#1e40af">LEVEL 1: CLIENT &amp; PRESENTATION LAYER</text>
+    <!-- ================= TOP HEADER BANNER ================= -->
+    <rect x="0" y="0" width="1220" height="48" fill="#0f172a"/>
+    <text x="610" y="24" font-size="14.5" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="1">DEVOPS INCIDENT WATCHDOG &amp; AGILE FEEDBACK PIPELINE</text>
+    <text x="610" y="40" font-size="10" fill="#94a3b8" text-anchor="middle">Autonomous Cloud Incident Detection, Forensics Archival &amp; Closed-Loop Agile Sprint Backlog Remediation</text>
 
-    <rect x="255" y="42" width="420" height="48" rx="4" fill="#ffffff" stroke="#3b82f6" stroke-width="1.2"/>
-    <text x="465" y="60" font-size="11" font-weight="700" fill="#1d4ed8" text-anchor="middle">Client Web Browser (Storefront UI)</text>
-    <text x="465" y="76" font-size="9.5" fill="#475569" text-anchor="middle">Selects Delivery Address • Interacts with Flash Sale • Receives Stockout Notice</text>
+    <!-- ================= LAYER 1 ================= -->
+    <rect x="15" y="58" width="1190" height="152" rx="6" fill="#f8fafc" stroke="#2563eb" stroke-width="1.8"/>
+    <rect x="15" y="58" width="1190" height="24" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+    <text x="28" y="74" font-size="11" font-weight="800" fill="#1e40af">LAYER 1: PRESENTATION &amp; OPERATOR INTERFACE (FlashMart Quick-Commerce &amp; SRE Console)</text>
 
-    <!-- Arrow L1 -> L2 -->
-    <path d="M 465 90 L 465 120" stroke="#1d4ed8" stroke-width="2" marker-end="url(#m-blue)"/>
-    <rect x="470" y="96" width="165" height="18" fill="#ffffff" stroke="#cbd5e1" rx="3"/>
-    <text x="552" y="109" font-size="8.5" font-weight="700" fill="#1d4ed8" text-anchor="middle">1. POST /api/checkout</text>
+    <!-- Layer 1 Cards (6 Cards) -->
+    <!-- Card 1 -->
+    <rect x="25" y="88" width="185" height="112" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="117" y="104" font-size="10.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">Storefront SPA Shell</text>
+    <text x="35" y="122" font-size="9" fill="#334155">• FlashMart Electronics UI</text>
+    <text x="35" y="138" font-size="9" fill="#334155">• Responsive CSS3 Layout</text>
+    <text x="35" y="154" font-size="9" fill="#334155">• Dynamic Catalog Render</text>
+    <text x="35" y="170" font-size="9" fill="#334155">• Shopping Cart Mounting</text>
 
-    <!-- ================= LEVEL 2 ================= -->
-    <rect x="75" y="125" width="780" height="95" rx="6" fill="#f8fafc" stroke="#dc2626" stroke-width="1.5"/>
-    <rect x="75" y="125" width="780" height="24" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="90" y="141" font-size="11" font-weight="800" fill="#991b1b">LEVEL 2: COMPUTE &amp; APPLICATION MICROSERVICE LAYER (AWS LAMBDA)</text>
+    <!-- Card 2 -->
+    <rect x="220" y="88" width="185" height="112" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="312" y="104" font-size="10.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">Location Delivery Selector</text>
+    <text x="230" y="122" font-size="9" fill="#334155">• Campus Dark Store (Hub)</text>
+    <text x="230" y="138" font-size="9" fill="#334155">• Multi-Pincode Selection</text>
+    <text x="230" y="154" font-size="9" fill="#334155">• Dark Store Routing Check</text>
+    <text x="230" y="170" font-size="9" fill="#334155">• 10-Min Fast Delivery ETA</text>
 
-    <rect x="215" y="157" width="500" height="52" rx="4" fill="#ffffff" stroke="#ef4444" stroke-width="1.2"/>
-    <text x="465" y="175" font-size="11" font-weight="700" fill="#b91c1c" text-anchor="middle">Target Flask Application (watchdog-target-app)</text>
-    <text x="465" y="191" font-size="9.5" fill="#475569" text-anchor="middle">Order Allocation Worker • ZeroDivisionError on 0-Stock Rush • Emits Structured Log</text>
+    <!-- Card 3 -->
+    <rect x="415" y="88" width="190" height="112" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="510" y="104" font-size="10.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">Flash Sale Order Engine</text>
+    <text x="425" y="122" font-size="9" fill="#334155">• OnePlus 11R 5G (₹34,999)</text>
+    <text x="425" y="138" font-size="9" fill="#334155">• High Concurrency Rush</text>
+    <text x="425" y="154" font-size="9" fill="#334155">• 0-Stock Edge Case Trigger</text>
+    <text x="425" y="170" font-size="9" fill="#334155">• Checkout Request Dispatch</text>
 
-    <!-- Arrow L2 -> L3 -->
-    <path d="M 465 220 L 465 250" stroke="#b91c1c" stroke-width="2" marker-end="url(#m-red)"/>
-    <rect x="470" y="226" width="180" height="18" fill="#ffffff" stroke="#cbd5e1" rx="3"/>
-    <text x="560" y="239" font-size="8.5" font-weight="700" fill="#b91c1c" text-anchor="middle">2. Crash Log (HTTP 500)</text>
+    <!-- Card 4 (Red border - Fault Gate) -->
+    <rect x="615" y="88" width="185" height="112" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="707" y="104" font-size="10.5" font-weight="700" fill="#991b1b" text-anchor="middle">Customer Stockout Gate</text>
+    <text x="625" y="122" font-size="9" fill="#991b1b">• "Item Not Deliverable" UI</text>
+    <text x="625" y="138" font-size="9" fill="#7f1d1d">• "Notify Me" Waitlist Alert</text>
+    <text x="625" y="154" font-size="9" fill="#7f1d1d">• Clean User Fault Shield</text>
+    <text x="625" y="170" font-size="9" fill="#7f1d1d">• Insulated from HTTP 500</text>
 
-    <!-- ================= LEVEL 3 ================= -->
-    <rect x="75" y="255" width="780" height="95" rx="6" fill="#f8fafc" stroke="#d97706" stroke-width="1.5"/>
-    <rect x="75" y="255" width="780" height="24" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="90" y="271" font-size="11" font-weight="800" fill="#92400e">LEVEL 3: TELEMETRY &amp; REAL-TIME MONITORING LAYER (AMAZON CLOUDWATCH)</text>
+    <!-- Card 5 -->
+    <rect x="810" y="88" width="185" height="112" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="902" y="104" font-size="10.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">SRE Backstage Console</text>
+    <text x="820" y="122" font-size="9" fill="#334155">• Dual Faculty Demo Mode</text>
+    <text x="820" y="138" font-size="9" fill="#334155">• Live CloudWatch Metrics</text>
+    <text x="820" y="154" font-size="9" fill="#334155">• S3 Forensic Vault Telemetry</text>
+    <text x="820" y="170" font-size="9" fill="#334155">• [Deploy CI/CD] Action Pill</text>
 
-    <rect x="215" y="287" width="500" height="52" rx="4" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
-    <text x="465" y="305" font-size="11" font-weight="700" fill="#b45309" text-anchor="middle">Amazon CloudWatch Log Group &amp; Subscription Filter</text>
-    <text x="465" y="321" font-size="9.5" fill="#475569" text-anchor="middle">Filters Pattern [INCIDENT_DETECTED] • Dispatches Base64 Gzip Event to SRE Watchdog</text>
+    <!-- Card 6 -->
+    <rect x="1005" y="88" width="185" height="112" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+    <text x="1097" y="104" font-size="10.5" font-weight="700" fill="#1e3a8a" text-anchor="middle">GitOps &amp; Traceability Feed</text>
+    <text x="1015" y="122" font-size="9" fill="#334155">• Real-Time Terminal Stream</text>
+    <text x="1015" y="138" font-size="9" fill="#334155">• Root Cause Trace Viewer</text>
+    <text x="1015" y="154" font-size="9" fill="#334155">• GitHub Issue Sync Link</text>
+    <text x="1015" y="170" font-size="9" fill="#334155">• Automated Done Status</text>
 
-    <!-- Arrow L3 -> L4 -->
-    <path d="M 345 350 L 345 380" stroke="#b45309" stroke-width="2" marker-end="url(#m-amber)"/>
-    <rect x="350" y="356" width="170" height="18" fill="#ffffff" stroke="#cbd5e1" rx="3"/>
-    <text x="435" y="369" font-size="8.5" font-weight="700" fill="#b45309" text-anchor="middle">3. Event Anomaly Trigger</text>
+    <!-- Connector L1 -> L2 -->
+    <path d="M 120 210 L 120 235" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="125" y="226" font-size="8.5" font-weight="700" fill="#2563eb">Async REST HTTP / JSON</text>
 
-    <!-- ================= LEVEL 4 ================= -->
-    <rect x="75" y="385" width="780" height="105" rx="6" fill="#f8fafc" stroke="#059669" stroke-width="1.5"/>
-    <rect x="75" y="385" width="780" height="24" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="90" y="401" font-size="11" font-weight="800" fill="#065f46">LEVEL 4: AUTONOMOUS SRE TRIAGE &amp; CLOUD FORENSIC STORAGE LAYER</text>
+    <!-- ================= LAYER 2 ================= -->
+    <rect x="15" y="238" width="1190" height="300" rx="6" fill="#f0fdf4" stroke="#059669" stroke-width="1.8"/>
+    <rect x="15" y="238" width="1190" height="24" rx="6" fill="#dcfce7" stroke="#059669" stroke-width="1.8"/>
+    <text x="28" y="254" font-size="11" font-weight="800" fill="#065f46">LAYER 2: APPLICATION, ORCHESTRATION &amp; INCIDENT TRIAGE LAYER (Flask Microservice &amp; SRE Engine)</text>
 
-    <!-- Watchdog Lambda -->
-    <rect x="95" y="418" width="330" height="60" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
-    <text x="260" y="437" font-size="11" font-weight="700" fill="#047857" text-anchor="middle">AWS Lambda Incident Watchdog</text>
-    <text x="260" y="453" font-size="9.5" fill="#475569" text-anchor="middle">Decodes Log • Extracts Traceback • Assigns INC-ID</text>
-    <text x="260" y="468" font-size="9" font-weight="600" fill="#059669" text-anchor="middle">Formats Standard Agile User Story</text>
+    <!-- Gateway Bar -->
+    <rect x="25" y="268" width="1170" height="30" rx="4" fill="#047857"/>
+    <text x="610" y="287" font-size="10.5" font-weight="700" fill="#ffffff" text-anchor="middle">Flask REST API Gateway (app/app.py) — Endpoints: GET /health | GET /api/products | POST /api/checkout | POST /api/devops/apply-fix</text>
 
-    <!-- Arrow L4 Watchdog -> S3 -->
-    <path d="M 425 448 L 485 448" stroke="#047857" stroke-width="2" marker-end="url(#m-green)"/>
-    <text x="455" y="440" font-size="8" font-weight="700" fill="#047857" text-anchor="middle">4a. PutObject</text>
+    <!-- Orchestrator Bar -->
+    <rect x="25" y="304" width="1170" height="26" rx="4" fill="#059669"/>
+    <text x="610" y="321" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">DevOps Incident Watchdog Orchestrator (lambda_watchdog/watchdog.py) — Closed-Loop State Coordinator &amp; Payload Parser</text>
 
-    <!-- S3 Bucket -->
-    <rect x="490" y="418" width="345" height="60" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
-    <text x="662" y="437" font-size="11" font-weight="700" fill="#047857" text-anchor="middle">Amazon S3 Forensic Vault</text>
-    <text x="662" y="453" font-size="9.5" fill="#475569" text-anchor="middle">Bucket: devops-incident-watchdog-logs</text>
-    <text x="662" y="468" font-size="9" font-weight="600" fill="#059669" text-anchor="middle">Tamper-Proof Audit JSON Archive</text>
+    <!-- Dashed Seven-Stage Container -->
+    <rect x="25" y="338" width="1170" height="190" rx="4" fill="none" stroke="#10b981" stroke-width="1.2" stroke-dasharray="4,4"/>
+    <text x="35" y="352" font-size="9.5" font-weight="800" fill="#047857">Seven-Stage Incident &amp; Delivery Pipeline Modules</text>
 
-    <!-- Arrow L4 -> L5 -->
-    <path d="M 260 490 L 260 520 L 375 520" stroke="#047857" stroke-width="2" marker-end="url(#m-green)"/>
-    <rect x="265" y="506" width="180" height="18" fill="#ffffff" stroke="#cbd5e1" rx="3"/>
-    <text x="355" y="519" font-size="8.5" font-weight="700" fill="#047857" text-anchor="middle">4b. POST /issues (Agile Story)</text>
+    <!-- Module 1 -->
+    <rect x="35" y="360" width="156" height="158" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
+    <text x="113" y="377" font-size="10" font-weight="700" fill="#047857" text-anchor="middle">Module 1</text>
+    <text x="113" y="391" font-size="9" font-weight="600" fill="#1e293b" text-anchor="middle">Order Dispatch</text>
+    <text x="113" y="403" font-size="8" fill="#64748b" text-anchor="middle">app/app.py</text>
+    <text x="43" y="425" font-size="8.5" fill="#334155">• POST /checkout</text>
+    <text x="43" y="443" font-size="8.5" fill="#334155">• JSON Body Parse</text>
+    <text x="43" y="461" font-size="8.5" fill="#334155">• Stock Decrement</text>
+    <text x="43" y="479" font-size="8.5" fill="#334155">• 0-Inventory Catch</text>
+    <text x="43" y="497" font-size="8" font-weight="700" fill="#059669">CheckoutRequest</text>
 
-    <!-- ================= LEVEL 5 ================= -->
-    <rect x="75" y="525" width="780" height="95" rx="6" fill="#f8fafc" stroke="#4f46e5" stroke-width="1.5"/>
-    <rect x="75" y="525" width="780" height="24" rx="6" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
-    <text x="90" y="541" font-size="11" font-weight="800" fill="#3730a3">LEVEL 5: AGILE BACKLOG &amp; SPRINT MANAGEMENT LAYER (GITHUB ISSUES)</text>
+    <!-- Arrow M1 -> M2 -->
+    <path d="M 191 435 L 203 435" stroke="#059669" stroke-width="1.5" marker-end="url(#arr-green)"/>
 
-    <rect x="215" y="557" width="500" height="52" rx="4" fill="#ffffff" stroke="#6366f1" stroke-width="1.2"/>
-    <text x="465" y="575" font-size="11" font-weight="700" fill="#4338ca" text-anchor="middle">GitHub Issues Sprint Backlog Board</text>
-    <text x="465" y="591" font-size="9.5" fill="#475569" text-anchor="middle">Auto-Generated Bug User Story #1 • Labels: [bug, sprint-backlog] • Acceptance Criteria Checklist</text>
+    <!-- Module 2 (Red border - Outage) -->
+    <rect x="203" y="360" width="156" height="158" rx="4" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="281" y="377" font-size="10" font-weight="700" fill="#991b1b" text-anchor="middle">Module 2</text>
+    <text x="281" y="391" font-size="9" font-weight="600" fill="#b91c1c" text-anchor="middle">Fault Execution</text>
+    <text x="281" y="403" font-size="8" fill="#991b1b" text-anchor="middle">app/app.py</text>
+    <text x="211" y="425" font-size="8.5" fill="#7f1d1d">• Div-by-Zero Worker</text>
+    <text x="211" y="443" font-size="8.5" fill="#7f1d1d">• Unhandled Bug</text>
+    <text x="211" y="461" font-size="8.5" fill="#7f1d1d">• ZeroDivisionError</text>
+    <text x="211" y="479" font-size="8.5" fill="#7f1d1d">• HTTP 500 Raised</text>
+    <text x="211" y="497" font-size="8" font-weight="700" fill="#b91c1c">StructuredCrashLog</text>
 
-    <!-- Arrow L5 -> L6 -->
-    <path d="M 465 620 L 465 650" stroke="#4338ca" stroke-width="2" marker-end="url(#m-indigo)"/>
-    <rect x="470" y="626" width="230" height="18" fill="#ffffff" stroke="#cbd5e1" rx="3"/>
-    <text x="585" y="639" font-size="8.5" font-weight="700" fill="#4338ca" text-anchor="middle">5. git commit -m "Fixes #1" &amp; git push</text>
+    <!-- Arrow M2 -> M3 -->
+    <path d="M 359 435 L 371 435" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arr-red)"/>
 
-    <!-- ================= LEVEL 6 ================= -->
-    <rect x="75" y="655" width="780" height="95" rx="6" fill="#f8fafc" stroke="#7c3aed" stroke-width="1.5"/>
-    <rect x="75" y="655" width="780" height="24" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="90" y="671" font-size="11" font-weight="800" fill="#5b21b6">LEVEL 6: CONTINUOUS INTEGRATION &amp; CLOSED-LOOP DELIVERY (CI/CD) LAYER</text>
+    <!-- Module 3 -->
+    <rect x="371" y="360" width="156" height="158" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
+    <text x="449" y="377" font-size="10" font-weight="700" fill="#047857" text-anchor="middle">Module 3</text>
+    <text x="449" y="391" font-size="9" font-weight="600" fill="#1e293b" text-anchor="middle">Filter Ingestion</text>
+    <text x="449" y="403" font-size="8" fill="#64748b" text-anchor="middle">CloudWatch Filter</text>
+    <text x="379" y="425" font-size="8.5" fill="#334155">• Metric Subscription</text>
+    <text x="379" y="443" font-size="8.5" fill="#334155">• [INCIDENT] Match</text>
+    <text x="379" y="461" font-size="8.5" fill="#334155">• Gzip Payload Pack</text>
+    <text x="379" y="479" font-size="8.5" fill="#334155">• Event Invocation</text>
+    <text x="379" y="497" font-size="8" font-weight="700" fill="#059669">FilteredLogEvent</text>
 
-    <rect x="215" y="687" width="500" height="52" rx="4" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.2"/>
-    <text x="465" y="705" font-size="11" font-weight="700" fill="#6d28d9" text-anchor="middle">GitHub Actions CI/CD Pipeline Automation Engine</text>
-    <text x="465" y="721" font-size="9.5" fill="#475569" text-anchor="middle">Automated Pytest Regression (9 Tests) • Zero-Downtime AWS Deploy • Auto-Closes Issue #1</text>
+    <!-- Arrow M3 -> M4 -->
+    <path d="M 527 435 L 539 435" stroke="#059669" stroke-width="1.5" marker-end="url(#arr-green)"/>
 
-    <!-- FEEDBACK LOOP LINE: L6 -> L2 -->
-    <path d="M 215 713 L 30 713 L 30 173 L 210 173" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#m-purple)"/>
-    <rect x="36" y="380" width="18" height="200" fill="#ffffff" stroke="#cbd5e1" rx="3"/>
-    <text x="45" y="480" font-size="8" font-weight="800" fill="#7c3aed" transform="rotate(-90 45 480)" text-anchor="middle">6. CLOSED-LOOP CONTINUOUS DELIVERY (PATCH DEPLOYED)</text>
+    <!-- Module 4 -->
+    <rect x="539" y="360" width="156" height="158" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
+    <text x="617" y="377" font-size="10" font-weight="700" fill="#047857" text-anchor="middle">Module 4</text>
+    <text x="617" y="391" font-size="9" font-weight="600" fill="#1e293b" text-anchor="middle">SRE Incident Triage</text>
+    <text x="617" y="403" font-size="8" fill="#64748b" text-anchor="middle">watchdog.py</text>
+    <text x="547" y="425" font-size="8.5" fill="#334155">• Base64 Decode</text>
+    <text x="547" y="443" font-size="8.5" fill="#334155">• Traceback Parser</text>
+    <text x="547" y="461" font-size="8.5" fill="#334155">• Generate INC-ID</text>
+    <text x="547" y="479" font-size="8.5" fill="#334155">• RCA Metadata Build</text>
+    <text x="547" y="497" font-size="8" font-weight="700" fill="#059669">IncidentRecord</text>
+
+    <!-- Arrow M4 -> M5 -->
+    <path d="M 695 435 L 707 435" stroke="#059669" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Module 5 -->
+    <rect x="707" y="360" width="156" height="158" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
+    <text x="785" y="377" font-size="10" font-weight="700" fill="#047857" text-anchor="middle">Module 5</text>
+    <text x="785" y="391" font-size="9" font-weight="600" fill="#1e293b" text-anchor="middle">Forensic S3 Vault</text>
+    <text x="785" y="403" font-size="8" fill="#64748b" text-anchor="middle">boto3 S3 Client</text>
+    <text x="715" y="425" font-size="8.5" fill="#334155">• PutObject JSON</text>
+    <text x="715" y="443" font-size="8.5" fill="#334155">• Immutable Archive</text>
+    <text x="715" y="461" font-size="8.5" fill="#334155">• 369 Bytes Dump</text>
+    <text x="715" y="479" font-size="8.5" fill="#334155">• S3 URI Generator</text>
+    <text x="715" y="497" font-size="8" font-weight="700" fill="#059669">ForensicArtifact</text>
+
+    <!-- Arrow M5 -> M6 -->
+    <path d="M 863 435 L 875 435" stroke="#059669" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Module 6 -->
+    <rect x="875" y="360" width="156" height="158" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
+    <text x="953" y="377" font-size="10" font-weight="700" fill="#047857" text-anchor="middle">Module 6</text>
+    <text x="953" y="391" font-size="9" font-weight="600" fill="#1e293b" text-anchor="middle">Agile Story Creator</text>
+    <text x="953" y="403" font-size="8" fill="#64748b" text-anchor="middle">GitHub REST API</text>
+    <text x="883" y="425" font-size="8.5" fill="#334155">• POST /issues</text>
+    <text x="883" y="443" font-size="8.5" fill="#334155">• User Story Schema</text>
+    <text x="883" y="461" font-size="8.5" fill="#334155">• Acceptance Criteria</text>
+    <text x="883" y="479" font-size="8.5" fill="#334155">• Sprint Backlog Sync</text>
+    <text x="883" y="497" font-size="8" font-weight="700" fill="#059669">AgileBugStory #1</text>
+
+    <!-- Arrow M6 -> M7 -->
+    <path d="M 1031 435 L 1043 435" stroke="#059669" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Module 7 -->
+    <rect x="1043" y="360" width="142" height="158" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1.2"/>
+    <text x="1114" y="377" font-size="10" font-weight="700" fill="#047857" text-anchor="middle">Module 7</text>
+    <text x="1114" y="391" font-size="9" font-weight="600" fill="#1e293b" text-anchor="middle">CI/CD &amp; Close</text>
+    <text x="1114" y="403" font-size="8" fill="#64748b" text-anchor="middle">GitHub Actions</text>
+    <text x="1051" y="425" font-size="8.5" fill="#334155">• Pytest (9 Tests)</text>
+    <text x="1051" y="443" font-size="8.5" fill="#334155">• Smart Commit Close</text>
+    <text x="1051" y="461" font-size="8.5" fill="#334155">• Zero-Downtime Rollout</text>
+    <text x="1051" y="479" font-size="8.5" fill="#334155">• State ➔ Done</text>
+    <text x="1051" y="497" font-size="8" font-weight="700" fill="#059669">ClosedIssueDone</text>
+
+    <!-- Connectors L2 -> L3 -->
+    <path d="M 113 528 L 113 558" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+    <text x="120" y="546" font-size="8" fill="#b45309">Boto3 Query</text>
+
+    <path d="M 449 528 L 449 558" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+    <text x="456" y="546" font-size="8" fill="#b45309">Filter Metric</text>
+
+    <path d="M 785 528 L 785 558" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+    <text x="792" y="546" font-size="8" fill="#b45309">Put S3 Object</text>
+
+    <path d="M 1114 528 L 1114 558" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+    <text x="1120" y="546" font-size="8" fill="#b45309">CI/CD Run</text>
+
+    <!-- ================= LAYER 3 ================= -->
+    <rect x="15" y="560" width="1190" height="255" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.8"/>
+    <rect x="15" y="560" width="1190" height="24" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+    <text x="28" y="576" font-size="11" font-weight="800" fill="#92400e">LAYER 3: EXTERNAL CLOUD PLATFORM &amp; TOOLING INTEGRATION LAYER</text>
+
+    <!-- Layer 3 Cards (4 Cards) -->
+    <!-- Card 1: AWS Core -->
+    <rect x="25" y="594" width="280" height="210" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+    <text x="165" y="614" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Amazon Web Services (AWS Cloud)</text>
+    <text x="165" y="628" font-size="9" fill="#78350f" text-anchor="middle">Boto3 SDK Client Session (ap-southeast-2 Sydney)</text>
+    <text x="35" y="648" font-size="9" fill="#334155">• AWS STS: Account 401537512022 Identity Check</text>
+    <text x="35" y="666" font-size="9" fill="#334155">• AWS Lambda: watchdog-target-app (Python 3.12)</text>
+    <text x="35" y="684" font-size="9" fill="#334155">• AWS Lambda: watchdog-incident-creator</text>
+    <text x="35" y="702" font-size="9" fill="#334155">• Amazon CloudWatch: Log Groups &amp; Streams</text>
+    <text x="35" y="720" font-size="9" fill="#334155">• AWS IAM: Least-Privilege Execution Roles</text>
+    <text x="35" y="738" font-size="9" fill="#334155">• Direct SDK Invocation &amp; Telemetry Polling</text>
+    <text x="35" y="756" font-size="9" fill="#334155">• AWS Lambda URL Config &amp; WSGI Handler</text>
+    <text x="35" y="774" font-size="9" fill="#334155">• Zero-Downtime Serverless Scalability</text>
+    <text x="35" y="792" font-size="9" font-weight="700" fill="#92400e">Cloud Infrastructure: Verified Active (Status: 200)</text>
+
+    <!-- Card 2: S3 Forensics -->
+    <rect x="315" y="594" width="280" height="210" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+    <text x="455" y="614" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">Amazon S3 Forensic Vault</text>
+    <text x="455" y="628" font-size="9" fill="#78350f" text-anchor="middle">Immutable Crash Dump Audit Archive</text>
+    <text x="325" y="648" font-size="9" fill="#334155">• Bucket: devops-incident-watchdog-logs-401537512022</text>
+    <text x="325" y="666" font-size="9" fill="#334155">• Key: incidents/2026-10-14/INC-1791945923-07CD12B5.json</text>
+    <text x="325" y="684" font-size="9" fill="#334155">• Block Public Access: Strict Security Enforced</text>
+    <text x="325" y="702" font-size="9" fill="#334155">• File Size: 369 Bytes (Structured Stack Trace)</text>
+    <text x="325" y="720" font-size="9" fill="#334155">• Forensic Durability: 99.999999999% (11 9's)</text>
+    <text x="325" y="738" font-size="9" fill="#334155">• Post-Mortem Root Cause Analysis (RCA) Compliance</text>
+    <text x="325" y="756" font-size="9" fill="#334155">• Audit Record Traceability &amp; Tamper Protection</text>
+    <text x="325" y="774" font-size="9" fill="#334155">• Independent from CloudWatch Log Retention Limits</text>
+    <text x="325" y="792" font-weight="700" font-size="9" fill="#92400e">S3 Incident Dump: Live Persisted on Cloud</text>
+
+    <!-- Card 3: GitHub Agile -->
+    <rect x="605" y="594" width="285" height="210" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+    <text x="747" y="614" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">GitHub Issues Agile Kanban Board</text>
+    <text x="747" y="628" font-size="9" fill="#78350f" text-anchor="middle">Sprint Backlog &amp; Defect Triaging Store</text>
+    <text x="615" y="648" font-size="9" fill="#334155">• Repository: devops-incident-watchdog (GitOps)</text>
+    <text x="615" y="666" font-size="9" fill="#334155">• Issue #1: Automated Production Bug Story</text>
+    <text x="615" y="684" font-size="9" fill="#334155">• Labels: [bug, sprint-backlog, p1-critical]</text>
+    <text x="615" y="702" font-size="9" fill="#334155">• Agile User Story Structure ("As an SRE team...")</text>
+    <text x="615" y="720" font-size="9" fill="#334155">• Incident Diagnostics: Error Type &amp; S3 Vault Link</text>
+    <text x="615" y="738" font-size="9" fill="#334155">• Acceptance Criteria: 5 Automated Done Checkboxes</text>
+    <text x="615" y="756" font-size="9" fill="#334155">• Zero-Touch Traceability via Commit Linking</text>
+    <text x="615" y="774" font-size="9" fill="#334155">• Agile Board State: Active in Sprint Backlog</text>
+    <text x="615" y="792" font-weight="700" font-size="9" fill="#92400e">Agile Sprint Backlog: Automated Sync Active</text>
+
+    <!-- Card 4: GitHub Actions CI/CD -->
+    <rect x="900" y="594" width="295" height="210" rx="4" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
+    <text x="1047" y="614" font-size="11" font-weight="700" fill="#92400e" text-anchor="middle">GitHub Actions CI/CD &amp; GitOps</text>
+    <text x="1047" y="628" font-size="9" fill="#78350f" text-anchor="middle">Automated Regression &amp; Continuous Delivery</text>
+    <text x="910" y="648" font-size="9" fill="#334155">• Workflow: .github/workflows/ci-cd.yml</text>
+    <text x="910" y="666" font-size="9" fill="#334155">• Automated Pytest Suite: 9 Unit Tests Executed</text>
+    <text x="910" y="684" font-size="9" fill="#334155">• Test Execution Time: 0.53 Seconds (100% Pass)</text>
+    <text x="910" y="702" font-size="9" fill="#334155">• Smart Commit Syntax: "Fixes #1" Auto-Close</text>
+    <text x="910" y="720" font-size="9" fill="#334155">• Automated Artifact Packaging (Zip Archive)</text>
+    <text x="910" y="738" font-size="9" fill="#334155">• Direct AWS Lambda update_function_code Deploy</text>
+    <text x="910" y="756" font-size="9" fill="#334155">• Zero-Downtime Hot Patching of Target Microservice</text>
+    <text x="910" y="774" font-size="9" fill="#334155">• Closed-Loop Sprint Completion (State: Done)</text>
+    <text x="910" y="792" font-weight="700" font-size="9" fill="#92400e">CI/CD Pipeline: Verified Passing (Status: Success)</text>
+
+    <!-- FEEDBACK LOOP LINE: L3 CI/CD -> L2 Target Microservice -->
+    <path d="M 1047 594 L 1047 538 L 1150 538 L 1150 268" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arr-blue)"/>
+    <rect x="1060" y="528" width="130" height="18" fill="#ffffff" stroke="#cbd5e1" rx="3"/>
+    <text x="1125" y="541" font-size="8" font-weight="800" fill="#7c3aed" text-anchor="middle">Continuous Delivery Rollout</text>
   </svg>
 </div>
 
