@@ -39,7 +39,7 @@
             min-height: 100vh;
         }
 
-        /* Top Role Switcher Bar (Faculty Presentation Bar) */
+        /* Top Role Switcher Bar */
         .role-switcher-bar {
             background: #0f172a;
             color: #e2e8f0;
@@ -155,13 +155,18 @@
             cursor: pointer;
             border: 1px solid var(--gray-200);
             white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .location-pill:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
         }
         .location-pill i { color: #f59e0b; }
         .location-pill strong { color: var(--dark); font-weight: 700; }
 
         .search-box {
             flex: 1;
-            max-width: 480px;
+            max-width: 460px;
             position: relative;
         }
         .search-box input {
@@ -293,6 +298,16 @@
             box-shadow: 0 10px 25px rgba(49, 46, 129, 0.2);
             position: relative;
             overflow: hidden;
+        }
+        .flash-hero-banner::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(236,72,153,0.3) 0%, transparent 70%);
+            pointer-events: none;
         }
         .hero-left h3 {
             font-size: 24px;
@@ -617,7 +632,6 @@
         }
         .dev-metric strong { color: #ffffff; }
 
-        /* Code Diff Box */
         .code-diff-container {
             background: #090d16;
             border: 1px solid #334155;
@@ -650,7 +664,6 @@
             display: block;
         }
 
-        /* CI/CD Terminal Simulation Box */
         .terminal-box {
             background: #020617;
             border: 1px solid #1e293b;
@@ -666,7 +679,6 @@
         .terminal-box span.yellow { color: #fde047; }
         .terminal-box span.gray { color: #64748b; }
 
-        /* Dev Controls Bar */
         .dev-controls {
             display: flex;
             gap: 12px;
@@ -801,18 +813,27 @@
             margin-bottom: 16px;
             text-align: left;
         }
-        .success-box h4 {
-            color: #047857;
-            font-size: 15px;
+        .success-box.warning-state {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+        .success-box.warning-state h4 { color: #b45309; }
+        .success-box.warning-state p { color: #92400e; }
+
+        .location-option {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--gray-200);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
+            justify-content: space-between;
         }
-        .success-box p {
-            font-size: 12.5px;
-            color: #065f46;
-            line-height: 1.5;
+        .location-option:hover, .location-option.selected {
+            background: #eff6ff;
+            border-color: #3b82f6;
         }
     </style>
 </head>
@@ -850,12 +871,12 @@
                 </div>
             </a>
 
-            <!-- Delivery Location -->
-            <div class="location-pill">
+            <!-- Delivery Location Pill (Interactive Location Selector) -->
+            <div class="location-pill" onclick="openLocationModal()">
                 <i class="fa-solid fa-location-dot"></i>
                 <div>
-                    <div>Deliver to: <strong>VIT Chennai Campus</strong></div>
-                    <div style="font-size: 11px; color: #059669;">Men's Hostel Block D • 10 Mins</div>
+                    <div>Deliver to: <strong id="header-loc-name">VIT Chennai Campus</strong> <i class="fa-solid fa-chevron-down" style="font-size:10px; color:#64748b; margin-left:4px;"></i></div>
+                    <div style="font-size: 11px; color: #059669;" id="header-loc-sub">Men's Hostel Block D • 10 Mins</div>
                 </div>
             </div>
 
@@ -924,7 +945,7 @@
         <!-- PRODUCT CARDS GRID -->
         <div class="product-grid">
 
-            <!-- PRODUCT 1: ONEPLUS 11R 5G (FLASH SALE INCIDENT ITEM) -->
+            <!-- PRODUCT 1: ONEPLUS 11R 5G (PROMOTIONAL DEAL ITEM) -->
             <div class="product-card flash-highlight" id="item-oneplus-card">
                 <div>
                     <div class="product-img-box">
@@ -934,7 +955,7 @@
                     </div>
 
                     <div class="product-meta">
-                        <div class="product-cat">Flagship Smartphone</div>
+                        <div class="product-cat">⚡ Promotional Flash Sale Deal</div>
                         <h4 class="product-title">OnePlus 11R 5G (Sonic Black, 16GB RAM, 256GB Storage)</h4>
                         
                         <div class="rating-strip">
@@ -947,9 +968,10 @@
                             <span class="mrp-price">₹44,999</span>
                         </div>
 
+                        <!-- Dynamic Stock & Deliverability Indicator -->
                         <div class="stock-indicator stock-warning" id="oneplus-stock-label">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span>Flash Deal • Only 1 left in stock!</span>
+                            <i class="fa-solid fa-tags"></i>
+                            <span>Promotional Deal • Available for Checkout</span>
                         </div>
                     </div>
                 </div>
@@ -959,7 +981,7 @@
                 </button>
             </div>
 
-            <!-- PRODUCT 2: MACBOOK AIR M3 -->
+            <!-- PRODUCT 2: MACBOOK AIR M3 (REGULAR CLEAN IN-STOCK ITEM) -->
             <div class="product-card">
                 <div>
                     <div class="product-img-box">
@@ -984,7 +1006,7 @@
 
                         <div class="stock-indicator stock-in">
                             <i class="fa-solid fa-circle-check"></i>
-                            <span>In Stock (8 units left)</span>
+                            <span>In Stock</span>
                         </div>
                     </div>
                 </div>
@@ -994,7 +1016,7 @@
                 </button>
             </div>
 
-            <!-- PRODUCT 3: SONY WH-1000XM5 -->
+            <!-- PRODUCT 3: SONY WH-1000XM5 (REGULAR CLEAN IN-STOCK ITEM) -->
             <div class="product-card">
                 <div>
                     <div class="product-img-box">
@@ -1019,7 +1041,7 @@
 
                         <div class="stock-indicator stock-in">
                             <i class="fa-solid fa-circle-check"></i>
-                            <span>In Stock (14 units left)</span>
+                            <span>In Stock</span>
                         </div>
                     </div>
                 </div>
@@ -1029,7 +1051,7 @@
                 </button>
             </div>
 
-            <!-- PRODUCT 4: APPLE WATCH SERIES 9 -->
+            <!-- PRODUCT 4: APPLE WATCH SERIES 9 (REGULAR CLEAN IN-STOCK ITEM) -->
             <div class="product-card">
                 <div>
                     <div class="product-img-box">
@@ -1054,7 +1076,7 @@
 
                         <div class="stock-indicator stock-in">
                             <i class="fa-solid fa-circle-check"></i>
-                            <span>In Stock (5 units left)</span>
+                            <span>In Stock</span>
                         </div>
                     </div>
                 </div>
@@ -1084,7 +1106,6 @@
 
         <!-- 3 Dev Cards -->
         <div class="dev-grid">
-            <!-- Card 1: AWS Lambda & CloudWatch -->
             <div class="dev-card">
                 <h4><i class="fa-brands fa-aws" style="color:#f59e0b;"></i> Cloud Monitoring</h4>
                 <div class="dev-metric"><span>AWS Region:</span> <strong>ap-southeast-2 (Sydney)</strong></div>
@@ -1093,7 +1114,6 @@
                 <div class="dev-metric"><span>CloudWatch Filter:</span> <strong style="color:#34d399;">[INCIDENT_DETECTED] Active</strong></div>
             </div>
 
-            <!-- Card 2: S3 Audit Trail -->
             <div class="dev-card">
                 <h4><i class="fa-solid fa-database" style="color:#10b981;"></i> Forensic S3 Vault</h4>
                 <div class="dev-metric"><span>S3 Bucket:</span> <strong>devops-incident-watchdog-logs</strong></div>
@@ -1102,7 +1122,6 @@
                 <div class="dev-metric"><span>Log Retention:</span> <strong>Immutable Compliance Audit</strong></div>
             </div>
 
-            <!-- Card 3: GitHub Agile Integration -->
             <div class="dev-card">
                 <h4><i class="fa-brands fa-github" style="color:#a78bfa;"></i> Agile Backlog Board</h4>
                 <div class="dev-metric"><span>Repository:</span> <strong>hemalexe/devopss-incident...</strong></div>
@@ -1112,22 +1131,22 @@
             </div>
         </div>
 
-        <!-- Developer Code Bug vs Patch Inspection -->
+        <!-- Code Diff Box -->
         <div class="code-diff-container">
-            <div class="diff-header"><i class="fa-solid fa-code"></i> CODE INSPECTOR: app/app.py (Defensive Zero-Stock Handling)</div>
-            <span class="diff-red">- # BEFORE (Buggy): Crashes on zero-stock flash sale orders</span>
+            <div class="diff-header"><i class="fa-solid fa-code"></i> CODE INSPECTOR: app/app.py (Dark Store Allocation Bug vs Defensive Check)</div>
+            <span class="diff-red">- # BEFORE (Buggy): Promotional ad showed item as available, but dark store stock=0 crashed router!</span>
             <span class="diff-red">- if product['stock'] <= 0: allocation = 100 / product['stock']  # 500 ZeroDivisionError!</span>
-            <span class="diff-green">+ # AFTER (CI/CD Patched): Graceful fallback matching quick-commerce standard</span>
-            <span class="diff-green">+ if product['stock'] <= 0: return jsonify({"status": "out_of_stock", "message": "Sold Out - Notify Me"}), 409</span>
+            <span class="diff-green">+ # AFTER (CI/CD Patched): Graceful Zepto-style handling - notifies user of dark store stockout</span>
+            <span class="diff-green">+ if product['stock'] <= 0: return jsonify({"status": "not_deliverable", "message": "Not Deliverable (Out of stock at nearest dark store)"}), 400</span>
         </div>
 
         <!-- CI/CD Terminal Simulation -->
         <div class="terminal-box" id="dev-terminal-logs">
             <div style="color:#94a3b8; margin-bottom:8px;">[SYSTEM_LOG: CI/CD PIPELINE TRACEABILITY]</div>
-            <div><span class="gray">[10:48:25]</span> <span class="green">[OK]</span> Target application initialized on port 5000 (PID: 563)</div>
-            <div><span class="gray">[10:48:26]</span> <span class="green">[OK]</span> AWS CloudWatch Log Subscription filter listening for unhandled runtime exceptions</div>
-            <div><span class="gray">[10:48:26]</span> <span class="green">[OK]</span> S3 Bucket verified: s3://devops-incident-watchdog-logs-401537512022</div>
-            <div><span class="gray">[10:48:27]</span> <span class="yellow">[AWAITING_EVENT]</span> Ready for flash sale traffic simulation.</div>
+            <div><span class="gray">[11:05:12]</span> <span class="green">[OK]</span> Target application initialized on port 5000 (PID: 563)</div>
+            <div><span class="gray">[11:05:13]</span> <span class="green">[OK]</span> AWS CloudWatch Log Subscription filter listening for unhandled runtime exceptions</div>
+            <div><span class="gray">[11:05:13]</span> <span class="green">[OK]</span> S3 Bucket verified: s3://devops-incident-watchdog-logs-401537512022</div>
+            <div><span class="gray">[11:05:14]</span> <span class="yellow">[AWAITING_EVENT]</span> Ready for promotional flash sale checkout simulation.</div>
         </div>
 
         <!-- Dev Controls Actions -->
@@ -1159,7 +1178,9 @@
                     <img id="checkout-item-img" src="" alt="Product">
                     <div>
                         <h4 id="checkout-item-title" style="font-size:13.5px; font-weight:700;"></h4>
-                        <div style="font-size:12px; color:var(--gray-600); margin-top:3px;">Express 10-Min Delivery to VIT Chennai</div>
+                        <div style="font-size:12px; color:var(--gray-600); margin-top:3px;">
+                            Delivery to: <strong id="modal-delivery-loc">VIT Chennai Campus</strong>
+                        </div>
                         <div style="font-size:14px; font-weight:800; color:var(--primary-dark); margin-top:4px;" id="checkout-item-price"></div>
                     </div>
                 </div>
@@ -1191,25 +1212,26 @@
             <!-- Processing Loader -->
             <div id="checkout-loading-view" style="display:none; text-align:center; padding:30px 10px;">
                 <i class="fa-solid fa-spinner fa-spin" style="font-size:32px; color:var(--primary); margin-bottom:12px;"></i>
-                <h4 style="font-size:16px; font-weight:700;">Processing Flash Sale Checkout...</h4>
-                <p style="font-size:12.5px; color:var(--gray-600); margin-top:6px;">Verifying real-time inventory allocation and applying discount ratio...</p>
+                <h4 style="font-size:16px; font-weight:700;">Allocating Nearest Dark Store...</h4>
+                <p style="font-size:12.5px; color:var(--gray-600); margin-top:6px;">Checking local fulfillment center inventory allocation...</p>
             </div>
 
-            <!-- CUSTOMER CRASH RESULT (REALISTIC ERROR) -->
+            <!-- CUSTOMER CRASH RESULT (REALISTIC GLITCH BEFORE FIX) -->
             <div id="checkout-crash-view" style="display:none;">
                 <div class="incident-crash-box">
-                    <h4><i class="fa-solid fa-circle-exclamation"></i> 500 Server Error</h4>
-                    <p><strong>Something went wrong during order processing!</strong> The server encountered an unexpected calculation error during final inventory allocation.</p>
+                    <h4><i class="fa-solid fa-circle-exclamation"></i> 500 Internal Server Error</h4>
+                    <p><strong>Fulfillment Routing Glitch:</strong> The dark store routing worker crashed because promotional stock reached 0 for your location!</p>
                     
                     <div class="incident-log-code">
                         [INCIDENT_REPORTED] Ref: INC-1791945923-07CD12B5<br>
-                        Error: ZeroDivisionError: division by zero<br>
-                        Status: Autonomous Watchdog has notified Engineering via GitHub Issues.
+                        Error: ZeroDivisionError in dark_store_allocator.py:118<br>
+                        Location: VIT Chennai Campus (Men's Hostel Block D)<br>
+                        Status: Autonomous Watchdog has notified Engineering via GitHub Issues!
                     </div>
                 </div>
 
                 <p style="font-size:12.5px; color:var(--gray-600); margin-bottom:14px; text-align:center;">
-                    Switch to <strong>Developer & SRE Backstage</strong> at the top to see the incident logs, S3 dump, and CI/CD patch!
+                    Switch to <strong>Developer & SRE Backstage</strong> to see the automated ticket and deploy the Zepto-style graceful fix!
                 </p>
 
                 <button class="btn-buy" style="background:#6366f1;" onclick="setRole('devops'); closeModal();">
@@ -1217,15 +1239,15 @@
                 </button>
             </div>
 
-            <!-- FIXED STATE: ZEPTO / OUT OF STOCK CLEAN RESULT -->
+            <!-- FIXED STATE: ZEPTO / NOT DELIVERABLE CLEAN RESULT -->
             <div id="checkout-fixed-view" style="display:none;">
-                <div class="success-box">
-                    <h4><i class="fa-solid fa-bell"></i> Sold Out (Out of Stock)</h4>
+                <div class="success-box warning-state">
+                    <h4><i class="fa-solid fa-location-crosshairs"></i> Not Deliverable to Your Location</h4>
                     <p>
-                        <strong>Defensive Handling Active:</strong> The application gracefully caught the 0-inventory boundary without crashing.
+                        Sorry, <strong>OnePlus 11R 5G</strong> is currently out of stock at your nearest dark store (<span id="fixed-loc-name">VIT Chennai</span>).
                     </p>
-                    <div style="background:#d1fae5; padding:8px 12px; border-radius:6px; font-size:12px; color:#065f46; margin:8px 0;">
-                        <i class="fa-solid fa-check"></i> <strong>Waitlist Registered:</strong> We will notify you via SMS / Email the moment OnePlus 11R 5G is restocked in the Chennai warehouse.
+                    <div style="background:#fef3c7; padding:8px 12px; border-radius:6px; font-size:12px; color:#92400e; margin:8px 0;">
+                        <i class="fa-solid fa-bell"></i> <strong>Waitlist Registered:</strong> We will notify you via SMS the moment fresh stock arrives at your local fulfillment center!
                     </div>
                 </div>
 
@@ -1239,7 +1261,7 @@
                 <div class="success-box">
                     <h4><i class="fa-solid fa-circle-check"></i> Order Placed Successfully!</h4>
                     <p>
-                        Your order has been confirmed! Our delivery partner has picked up your package and is heading to <strong>VIT Men's Hostel Block D</strong>.
+                        Your order has been confirmed! Our delivery partner has picked up your package and is heading to <strong id="success-loc-name">VIT Chennai Campus</strong>.
                     </p>
                     <div style="font-size:12.5px; color:#047857; margin-top:6px; font-weight:700;">
                         Estimated Delivery: In 10 Minutes ⚡
@@ -1254,11 +1276,54 @@
         </div>
     </div>
 
+    <!-- 6. LOCATION SELECTOR MODAL -->
+    <div class="modal-overlay" id="location-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-location-dot" style="color:#f59e0b;"></i> Select Delivery Location</h3>
+                <button class="btn-close" onclick="closeLocationModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p style="font-size:13px; color:var(--gray-600); margin-bottom:14px;">
+                Choose your delivery address to check real-time dark store inventory:
+            </p>
+
+            <div class="location-option selected" id="loc-opt-1" onclick="selectLocation('VIT Chennai Campus', 'Men\'s Hostel Block D • 10 Mins', 'loc-opt-1')">
+                <div>
+                    <strong style="font-size:13.5px;">VIT Chennai Campus</strong>
+                    <div style="font-size:12px; color:#64748b;">Men's Hostel Block D, Chennai</div>
+                </div>
+                <span style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:700;">Active</span>
+            </div>
+
+            <div class="location-option" id="loc-opt-2" onclick="selectLocation('Indiranagar, Bangalore', '100ft Road, Stage 2 • 12 Mins', 'loc-opt-2')">
+                <div>
+                    <strong style="font-size:13.5px;">Indiranagar, Bangalore</strong>
+                    <div style="font-size:12px; color:#64748b;">100ft Road, Bangalore 560038</div>
+                </div>
+                <span style="font-size:11px; color:#64748b;">Dark Store #4</span>
+            </div>
+
+            <div class="location-option" id="loc-opt-3" onclick="selectLocation('Bandra West, Mumbai', 'Pali Hill Road • 15 Mins', 'loc-opt-3')">
+                <div>
+                    <strong style="font-size:13.5px;">Bandra West, Mumbai</strong>
+                    <div style="font-size:12px; color:#64748b;">Pali Hill Road, Mumbai 400050</div>
+                </div>
+                <span style="font-size:11px; color:#64748b;">Dark Store #9</span>
+            </div>
+
+            <button class="btn-buy" style="margin-top:10px;" onclick="closeLocationModal()">
+                <i class="fa-solid fa-check"></i> Confirm Location
+            </button>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
         let currentProductId = 3;
         let isBugFixed = false;
         let currentRole = 'customer';
+        let selectedLocationName = "VIT Chennai Campus";
+        let selectedLocationSub = "Men's Hostel Block D • 10 Mins";
 
         function setRole(role) {
             currentRole = role;
@@ -1280,6 +1345,28 @@
             }
         }
 
+        function openLocationModal() {
+            document.getElementById('location-modal').style.display = 'flex';
+        }
+
+        function closeLocationModal() {
+            document.getElementById('location-modal').style.display = 'none';
+        }
+
+        function selectLocation(name, sub, optId) {
+            selectedLocationName = name;
+            selectedLocationSub = sub;
+            document.getElementById('header-loc-name').innerText = name;
+            document.getElementById('header-loc-sub').innerText = sub;
+            
+            document.querySelectorAll('.location-option').forEach(el => el.classList.remove('selected'));
+            document.getElementById(optId).classList.add('selected');
+
+            // Re-render UI state based on location
+            updateUIState(isBugFixed);
+            closeLocationModal();
+        }
+
         async function checkState() {
             try {
                 const res = await fetch('/api/devops/status');
@@ -1298,22 +1385,23 @@
             const term = document.getElementById('dev-terminal-logs');
 
             if (fixed) {
+                // Zepto-style Not Deliverable / Out of Stock for this location
                 stockLabel.className = "stock-indicator stock-out";
-                stockLabel.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <span>Sold Out in Flash Sale (0 Left)</span>';
+                stockLabel.innerHTML = '<i class="fa-solid fa-location-crosshairs"></i> <span>Not Deliverable to ' + selectedLocationName + ' (Sold Out at Dark Store)</span>';
                 
                 buyBtn.className = "btn-buy btn-notify";
-                buyBtn.innerHTML = '<i class="fa-solid fa-bell"></i> Out of Stock - Notify Me';
+                buyBtn.innerHTML = '<i class="fa-solid fa-bell"></i> Notify Me when Available';
                 card.style.borderColor = '#cbd5e1';
                 card.style.background = '#ffffff';
 
                 if (term) {
-                    term.innerHTML += '<div style="color:#4ade80;">[10:52:10] [CI/CD_SUCCESS] Developer commit "Fixes #1" pushed to main!</div>' +
-                                      '<div style="color:#a5f3fc;">[10:52:11] [CI/CD_DEPLOY] Running pytest (8 passed). Deploying patch to AWS Lambda...</div>' +
-                                      '<div style="color:#4ade80;">[10:52:12] [ZERO_TOUCH] GitHub Issue #1 automatically closed as Done! Live app resilient.</div>';
+                    term.innerHTML += '<div style="color:#4ade80;">[11:06:10] [CI/CD_SUCCESS] Developer commit "Fixes #1" pushed to main!</div>' +
+                                      '<div style="color:#a5f3fc;">[11:06:11] [CI/CD_DEPLOY] Running pytest (8 passed). Deploying patch to AWS Lambda...</div>' +
+                                      '<div style="color:#4ade80;">[11:06:12] [ZERO_TOUCH] GitHub Issue #1 closed! Zepto-style defensive location check active.</div>';
                 }
             } else {
                 stockLabel.className = "stock-indicator stock-warning";
-                stockLabel.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span>Flash Deal • Only 1 left in stock!</span>';
+                stockLabel.innerHTML = '<i class="fa-solid fa-tags"></i> <span>Promotional Deal • Available for Checkout</span>';
                 
                 buyBtn.className = "btn-buy btn-flash-buy";
                 buyBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> Buy Now';
@@ -1329,6 +1417,7 @@
             document.getElementById('checkout-item-img').src = img;
             document.getElementById('bill-subtotal').innerText = "₹" + price.toLocaleString();
             document.getElementById('bill-grand-total').innerText = "₹" + (price > 2000 ? (price - 2000).toLocaleString() : price.toLocaleString());
+            document.getElementById('modal-delivery-loc').innerText = selectedLocationName;
 
             document.getElementById('checkout-form-view').style.display = 'block';
             document.getElementById('checkout-loading-view').style.display = 'none';
@@ -1337,6 +1426,7 @@
             document.getElementById('checkout-success-view').style.display = 'none';
 
             if (id === 3 && isBugFixed) {
+                document.getElementById('fixed-loc-name').innerText = selectedLocationName;
                 document.getElementById('checkout-form-view').style.display = 'none';
                 document.getElementById('checkout-fixed-view').style.display = 'block';
             }
@@ -1360,7 +1450,11 @@
                 const res = await fetch('/api/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ product_id: currentProductId, quantity: 1 })
+                    body: JSON.stringify({ 
+                        product_id: currentProductId, 
+                        quantity: 1,
+                        address: selectedLocationName + " (" + selectedLocationSub + ")"
+                    })
                 });
 
                 await new Promise(r => setTimeout(r, 700));
@@ -1369,8 +1463,10 @@
                 if (res.status === 500) {
                     document.getElementById('checkout-crash-view').style.display = 'block';
                 } else if (res.status === 400 || res.status === 409) {
+                    document.getElementById('fixed-loc-name').innerText = selectedLocationName;
                     document.getElementById('checkout-fixed-view').style.display = 'block';
                 } else {
+                    document.getElementById('success-loc-name').innerText = selectedLocationName;
                     document.getElementById('checkout-success-view').style.display = 'block';
                 }
             } catch (err) {
