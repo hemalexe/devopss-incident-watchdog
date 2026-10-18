@@ -2,6 +2,7 @@
 
 **Project:** Auto-Incident to Agile Ticket Pipeline (DevOps Incident Watchdog)  
 **Student:** S Hemal (Registration: 24MIS0050)  
+**Institution:** Vellore Institute of Technology (VIT), Vellore Campus  
 **Course:** Agile Development Process and DevOps  
 
 ---
