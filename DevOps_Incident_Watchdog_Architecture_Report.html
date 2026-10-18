@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevOps Incident Watchdog - Architecture & Process Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --primary: #1e3a8a;
+    --primary-light: #3b82f6;
+    --accent: #0284c7;
+    --success: #059669;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --text-dark: #0f172a;
+    --text-muted: #475569;
+    --bg-light: #f8fafc;
+    --border: #e2e8f0;
+    --card-bg: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f1f5f9;
+    color: var(--text-dark);
+    line-height: 1.5;
+    padding: 30px 15px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px 50px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
+  }
+
+  /* Header banner */
+  .doc-header {
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+  }
+  .tag {
+    display: inline-block;
+    background: #eff6ff;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    border: 1px solid #bfdbfe;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    background: var(--bg-light);
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .meta-item strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+  }
+
+  /* Executive summary */
+  .callout-box {
+    background: #f0fdf4;
+    border-left: 4px solid var(--success);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+    font-size: 13.5px;
+    color: #166534;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 28px 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+  }
+
+  p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: #f1f5f9;
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: #0f172a;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Architecture diagram SVG */
+  .diagram-container {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 18px 0;
+    text-align: center;
+    overflow-x: auto;
+  }
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 25px 0;
+    font-size: 13px;
+  }
+  th {
+    background: #1e293b;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  th:first-child { border-radius: 6px 0 0 0; }
+  th:last-child { border-radius: 0 6px 0 0; }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dark);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  .user-story-card {
+    background: #faf5ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 15px 0;
+    font-size: 13px;
+  }
+  .user-story-card h4 {
+    color: #6b21a8;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  .criteria-list {
+    margin-top: 8px;
+    padding-left: 20px;
+    color: #4b5563;
+  }
+  .criteria-list li {
+    margin-bottom: 4px;
+  }
+
+  .viva-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .viva-box strong {
+    color: #1e40af;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .viva-box span {
+    color: #1e293b;
+    font-style: italic;
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+    .page-break { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <span class="tag">DevOps & Cloud Architecture Report</span>
+    <h1>Auto-Incident to Agile Ticket Pipeline (DevOps Incident Watchdog)</h1>
+    <div class="subtitle">Continuous Incident Triaging, Cloud Forensics, and Zero-Touch Agile Backlog Synchronization</div>
+    
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Student</strong>
+        S Hemal
+      </div>
+      <div class="meta-item">
+        <strong>Registration No.</strong>
+        24MIS0050
+      </div>
+      <div class="meta-item">
+        <strong>Course</strong>
+        Agile Dev Process & DevOps
+      </div>
+      <div class="meta-item">
+        <strong>AWS Region</strong>
+        ap-southeast-2 (Sydney)
+      </div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="callout-box">
+    <strong>Executive Summary:</strong> This project delivers an autonomous Site Reliability Engineering (SRE) and Agile feedback loop deployed on AWS. When unexpected runtime exceptions occur in production (e.g. e-commerce flash sale stock depletion triggering an HTTP 500 error), AWS CloudWatch and an AWS Lambda Watchdog automatically capture the stack trace, securely archive a tamper-proof forensic JSON dump in Amazon S3, and generate a standardized Agile Bug User Story with Acceptance Criteria on GitHub Issues. Upon committing a fix with smart syntax (<code>Fixes #1</code>), GitHub Actions runs automated unit tests, deploys the updated microservice, and automatically transitions the Agile ticket to Done.
+  </div>
+
+  <!-- SECTION 1 -->
+  <h2>1. Target Application & Incident Failure Scenario</h2>
+  <p>
+    <strong>Target Application:</strong> A production e-commerce retail store (<b>Flask Microservice</b> with WSGI serverless adapter). The catalog features high-velocity electronics: Pro Laptop, Wireless Headphones, and a <b>Flagship Smartphone</b> set up for a promotional flash sale.
+  </p>
+  <p>
+    <strong>The Failure Mechanism:</strong> When flash sale traffic depletes the smartphone inventory to <code>0</code>, the legacy checkout calculation worker attempts an unhandled inventory ratio division: <code>discount = total / remaining_stock</code>. Since <code>remaining_stock == 0</code>, Python raises an unhandled <code>ZeroDivisionError: division by zero</code>, crashing the process with an <b>HTTP 500 Internal Server Error</b>.
+  </p>
+  <p>
+    <strong>The Patched Behavior:</strong> The corrected release performs defensive boundary checks, returning an <code>HTTP 409 Conflict</code> ("Item is Sold Out") without crashing the server.
+  </p>
+
+  <!-- SECTION 2: ARCHITECTURE DIAGRAM -->
+  <h2>2. Process Architecture & Component Flow</h2>
+  <div class="diagram-container">
+    <svg viewBox="0 0 820 280" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background -->
+      <rect x="0" y="0" width="820" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+      <!-- 1. Client / Browser -->
+      <rect x="20" y="70" width="100" height="70" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+      <text x="70" y="98" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#1d4ed8" text-anchor="middle">Client Browser</text>
+      <text x="70" y="115" font-family="Inter, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Flash Sale Shopper</text>
+      <text x="70" y="128" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#64748b" text-anchor="middle">POST /checkout</text>
+
+      <!-- Arrow 1 -> App -->
+      <path d="M 120 105 L 155 105" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+      <text x="137" y="98" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#2563eb" text-anchor="middle">Buy Now</text>
+
+      <!-- 2. Target App -->
+      <rect x="160" y="70" width="115" height="70" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+      <text x="217" y="96" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#b91c1c" text-anchor="middle">Target Flask App</text>
+      <text x="217" y="112" font-family="Inter, sans-serif" font-size="9" fill="#475569" text-anchor="middle">AWS Lambda Microservice</text>
+      <text x="217" y="126" font-family="JetBrains Mono, monospace" font-size="8.5" fill="#dc2626" text-anchor="middle">500 ZeroDivisionError</text>
+
+      <!-- Arrow 2 -> CloudWatch -->
+      <path d="M 275 105 L 310 105" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)"/>
+      <text x="292" y="98" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#dc2626" text-anchor="middle">Logs</text>
+
+      <!-- 3. CloudWatch -->
+      <rect x="315" y="70" width="115" height="70" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+      <text x="372" y="96" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#c2410c" text-anchor="middle">AWS CloudWatch</text>
+      <text x="372" y="112" font-family="Inter, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Log Subscription Filter</text>
+      <text x="372" y="126" font-family="Inter, sans-serif" font-size="8.5" fill="#ea580c" text-anchor="middle">Pattern: [INCIDENT]</text>
+
+      <!-- Arrow 3 -> Lambda Watchdog -->
+      <path d="M 430 105 L 465 105" stroke="#f97316" stroke-width="2" marker-end="url(#arrow-orange)"/>
+      <text x="447" y="98" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#ea580c" text-anchor="middle">Trigger</text>
+
+      <!-- 4. AWS Lambda Watchdog -->
+      <rect x="470" y="60" width="125" height="90" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="2"/>
+      <text x="532" y="85" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#a16207" text-anchor="middle">AWS Lambda Watchdog</text>
+      <text x="532" y="100" font-family="Inter, sans-serif" font-size="9" fill="#475569" text-anchor="middle">Python 3.12 Serverless</text>
+      <text x="532" y="115" font-family="Inter, sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">1. Parses Stack Trace</text>
+      <text x="532" y="129" font-family="Inter, sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">2. Assigns INC-ID</text>
+      <text x="532" y="142" font-family="Inter, sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">3. Formats User Story</text>
+
+      <!-- Split Arrow A -> Amazon S3 -->
+      <path d="M 532 60 L 532 25 L 635 25" stroke="#10b981" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+      <text x="560" y="18" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#047857">PutObject JSON</text>
+
+      <!-- 5. Amazon S3 -->
+      <rect x="640" y="8" width="160" height="52" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+      <text x="720" y="28" font-family="Inter, sans-serif" font-weight="700" font-size="10.5" fill="#047857" text-anchor="middle">Amazon S3 Storage</text>
+      <text x="720" y="42" font-family="JetBrains Mono, monospace" font-size="8" fill="#475569" text-anchor="middle">s3://devops-...-logs/</text>
+      <text x="720" y="53" font-family="Inter, sans-serif" font-size="8" fill="#059669" text-anchor="middle">Tamper-Proof Audit Archive</text>
+
+      <!-- Split Arrow B -> GitHub Issues -->
+      <path d="M 595 105 L 635 105" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow-purple)"/>
+      <text x="615" y="98" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#4f46e5" text-anchor="middle">POST API</text>
+
+      <!-- 6. GitHub Issues -->
+      <rect x="640" y="75" width="160" height="60" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="720" y="95" font-family="Inter, sans-serif" font-weight="700" font-size="10.5" fill="#4338ca" text-anchor="middle">GitHub Issues Board</text>
+      <text x="720" y="110" font-family="Inter, sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">Agile Bug User Story</text>
+      <text x="720" y="124" font-family="Inter, sans-serif" font-size="8" fill="#6366f1" text-anchor="middle">Labels: [bug, sprint-backlog]</text>
+
+      <!-- Arrow GitHub -> CI/CD -->
+      <path d="M 720 135 L 720 170" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-violet)"/>
+      <text x="725" y="155" font-family="Inter, sans-serif" font-size="8" font-weight="600" fill="#7c3aed">Dev Push: Fixes #1</text>
+
+      <!-- 7. CI/CD Pipeline -->
+      <rect x="640" y="175" width="160" height="75" rx="8" fill="#faf5ff" stroke="#8b5cf6" stroke-width="2"/>
+      <text x="720" y="195" font-family="Inter, sans-serif" font-weight="700" font-size="10.5" fill="#6d28d9" text-anchor="middle">GitHub Actions CI/CD</text>
+      <text x="720" y="210" font-family="Inter, sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">1. Run 8 Pytest Unit Tests</text>
+      <text x="720" y="224" font-family="Inter, sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">2. Deploy Updated AWS Lambda</text>
+      <text x="720" y="238" font-family="Inter, sans-serif" font-size="8.5" font-weight="600" fill="#059669" text-anchor="middle">3. Auto-Close Ticket #1 (Done)</text>
+
+      <!-- Feedback loop line to App -->
+      <path d="M 640 215 L 217 215 L 217 145" stroke="#059669" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arrow-green)"/>
+      <text x="400" y="210" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">Continuous Delivery: Zero-Downtime Patch Deployed to Production</text>
+
+      <!-- Markers -->
+      <defs>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#3b82f6"/></marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#ef4444"/></marker>
+        <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#f97316"/></marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981"/></marker>
+        <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#6366f1"/></marker>
+        <marker id="arrow-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#8b5cf6"/></marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3: STEP-BY-STEP TABLE -->
+  <h2>3. Detailed End-to-End Incident Lifecycle ("What All Happens")</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 15%;">Step / Phase</th>
+        <th style="width: 20%;">Component</th>
+        <th style="width: 40%;">Technical Process</th>
+        <th style="width: 25%;">Realized Output / Proof</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Step 1: Checkout Crash</strong></td>
+        <td>Target Flask App (AWS Lambda / Port 5000)</td>
+        <td>Shopper purchases the last smartphone. Stock reaches 0. Checkout calculates discount ratio with zero divisor, raising <code>ZeroDivisionError</code>.</td>
+        <td>HTTP 500 Internal Server Error & Structured JSON error output.</td>
+      </tr>
+      <tr>
+        <td><strong>Step 2: Log Interception</strong></td>
+        <td>AWS CloudWatch</td>
+        <td>CloudWatch Log Subscription filter continuously scans stdout for pattern <code>[INCIDENT_DETECTED] Type=ZeroDivisionError</code>.</td>
+        <td>Gzip-compressed base64 log event emitted to Lambda.</td>
+      </tr>
+      <tr>
+        <td><strong>Step 3: Autonomous Triage</strong></td>
+        <td>AWS Lambda Incident Watchdog</td>
+        <td>Serverless function uncompresses event, parses stack trace, assigns a unique incident ID (e.g. <code>INC-1791945923-07CD12B5</code>), and records UTC timestamp.</td>
+        <td>Structured incident dictionary with environment context.</td>
+      </tr>
+      <tr>
+        <td><strong>Step 4: Forensic Archival</strong></td>
+        <td>Amazon S3 Bucket (Private)</td>
+        <td>Watchdog uploads immutable JSON crash dump to <code>s3://devops-incident-watchdog-logs-.../incidents/YYYY-MM-DD/</code>.</td>
+        <td>Auditable 369 B JSON crash dump safely preserved.</td>
+      </tr>
+      <tr>
+        <td><strong>Step 5: Agile Ticket Generation</strong></td>
+        <td>GitHub REST API v3</td>
+        <td>Lambda executes HTTP POST to <code>/repos/{owner}/{repo}/issues</code> via Personal Access Token, injecting a User Story with Acceptance Criteria.</td>
+        <td>New issue (e.g. <b>#1</b>) created on GitHub Sprint Board tagged <code>bug</code>, <code>incident</code>.</td>
+      </tr>
+      <tr>
+        <td><strong>Step 6: Automated Testing & CI/CD</strong></td>
+        <td>GitHub Actions CI/CD</td>
+        <td>Developer fixes zero-stock check and pushes commit: <code>git commit -m "Fix inventory edge case. Fixes #1"</code>. CI/CD runs 8 <code>pytest</code> unit tests.</td>
+        <td>Green checkmark (✅ All unit tests passing in pipeline).</td>
+      </tr>
+      <tr>
+        <td><strong>Step 7: Zero-Touch Close & Deployment</strong></td>
+        <td>Git Smart Commits & AWS CLI</td>
+        <td>GitHub Actions deploys new Lambda package to AWS, and the <code>Fixes #1</code> directive closes the Agile ticket automatically without human intervention.</td>
+        <td>Issue #1 moves to <b>Done</b>; live store reports <code>200 OK (Healthy)</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4: AGILE USER STORY CARD -->
+  <h2>4. Agile Backlog Structure & Acceptance Criteria</h2>
+  <div class="user-story-card">
+    <h4>📋 Automatically Generated Agile Bug User Story</h4>
+    <p><strong>Title:</strong> <code>[INCIDENT] ZeroDivisionError: division by zero in calculation worker</code></p>
+    <p><strong>Sprint Backlog Labels:</strong> <span style="background:#fecaca; color:#991b1b; padding:2px 6px; border-radius:4px; font-size:11px;">bug</span> <span style="background:#fed7aa; color:#9a3412; padding:2px 6px; border-radius:4px; font-size:11px;">incident</span> <span style="background:#e0e7ff; color:#3730a3; padding:2px 6px; border-radius:4px; font-size:11px;">sprint-backlog</span></p>
+    <p><strong>User Story Description:</strong> <em>"As an Agile Development Team member, I need to resolve the runtime failure in <code>/aws/watchdog-target-app</code> so that high system availability is restored and customers experience zero disruption."</em></p>
+    <p><strong>Acceptance Criteria (Definition of Done):</strong></p>
+    <ul class="criteria-list">
+      <li>☑️ <strong>Root Cause Analysis (RCA):</strong> Crash logs inspected in Amazon S3.</li>
+      <li>☑️ <strong>Automated Regression Test:</strong> Unit test in <code>tests/test_app.py</code> validating 0-inventory behavior.</li>
+      <li>☑️ <strong>Traceable Git Commit:</strong> Commit message using smart syntax (<code>git commit -m "Fixes #1"</code>).</li>
+      <li>☑️ <strong>Continuous Integration:</strong> GitHub Actions pipeline executes and passes all test suites.</li>
+      <li>☑️ <strong>Production Verification:</strong> <code>/health</code> endpoint confirms <code>HTTP 200 OK, status: healthy</code>.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: VIVA CHEAT SHEET -->
+  <h2>5. Faculty Viva Cheat Sheet (Quick Answers for S Hemal)</h2>
+  
+  <div class="viva-box">
+    <strong>Q1: Why do we use Amazon S3 instead of just keeping logs on the server?</strong>
+    <span>"Because production servers can crash, restart, or scale to zero. Amazon S3 provides an immutable, highly durable, external audit trail for compliance and post-mortem analysis."</span>
+  </div>
+
+  <div class="viva-box">
+    <strong>Q2: How does GitHub get the ticket without any human clicking 'New Issue'?</strong>
+    <span>"The AWS Lambda Watchdog executes upon incident detection and issues an authenticated HTTP POST request to the GitHub REST API (<code>/repos/.../issues</code>) containing the formatted User Story and Acceptance Criteria."</span>
+  </div>
+
+  <div class="viva-box">
+    <strong>Q3: What makes this an Agile DevOps project rather than just ordinary monitoring?</strong>
+    <span>"Standard monitoring just sends alerts to an inbox. Our pipeline bridges SRE with Agile by translating production defects directly into actionable Sprint Backlog User Stories with an explicit Definition of Done."</span>
+  </div>
+
+  <div class="viva-box">
+    <strong>Q4: How does the Agile ticket close automatically?</strong>
+    <span>"Through GitHub Smart Commits: our developer references <code>Fixes #1</code> in the commit message. Once GitHub Actions CI/CD passes all unit tests and deploys the fix, GitHub automatically closes the issue."</span>
+  </div>
+
+  <div class="footer-note">
+    Auto-Incident to Agile Ticket Pipeline &bull; Student: S Hemal (24MIS0050) &bull; Agile Development Process & DevOps &bull; VIT
+  </div>
+
+</div>
+
+</body>
+</html>

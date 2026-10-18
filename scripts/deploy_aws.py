@@ -269,10 +269,14 @@ def main():
 
     # Step 3: Deploy Monitored App Lambda
     print("\n[3/5] Deploying Monitored Web Application (watchdog-target-app)...")
+    index_html = os.path.join(base_dir, "templates", "index.html")
     app_zip = create_zip_buffer({
         "app/__init__.py": os.path.join(base_dir, "app", "__init__.py"),
         "app/app.py": os.path.join(base_dir, "app", "app.py"),
         "app/lambda_app_adapter.py": os.path.join(base_dir, "app", "lambda_app_adapter.py"),
+        "app/templates/index.html": index_html,
+        "templates/index.html": index_html,
+        "index.html": index_html,
     })
     deploy_lambda_function(
         lambda_client=lam,

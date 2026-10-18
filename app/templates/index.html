@@ -3,213 +3,1303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Incident Watchdog - Flash Sale Store</title>
+    <title>FlashMart Tech | 10-Min Electronics & Flash Deals</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f3f4f6; color: #1f2937; padding: 25px; }
-        .header { background: linear-gradient(135deg, #111827, #1f2937); color: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
-        .header h1 { font-size: 22px; font-weight: 700; }
-        .header p { color: #9ca3af; font-size: 14px; margin-top: 5px; }
-        .badge-health { background: #10b981; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-        .badge-devops { background: #6366f1; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-left: 8px; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 25px; }
-        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; transition: transform 0.2s; position: relative; }
-        .card:hover { transform: translateY(-3px); }
-        .card.flash-sale { border: 2px solid #f59e0b; background: #fffbeb; }
-        .card h3 { font-size: 18px; margin-bottom: 8px; color: #111827; display: flex; align-items: center; justify-content: space-between; }
-        .tag-flash { background: #ea580c; color: white; font-size: 11px; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; font-weight: 700; }
-        .price { font-size: 22px; font-weight: 700; color: #2563eb; margin: 12px 0; }
-        .stock-available { font-size: 12px; color: #059669; font-weight: 600; margin-bottom: 15px; }
-        .stock-soldout { font-size: 12px; color: #dc2626; font-weight: 700; margin-bottom: 15px; }
-        
-        .btn { width: 100%; background: #2563eb; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; transition: 0.2s; }
-        .btn:hover { background: #1d4ed8; }
-        .btn-flash { background: #f59e0b; color: #111827; }
-        .btn-flash:hover { background: #d97706; color: white; }
-        .btn-soldout { background: #9ca3af; cursor: not-allowed; color: white; }
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --primary-light: #f5f3ff;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-orange: #f59e0b;
+            --dark: #0f172a;
+            --dark-card: #1e293b;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-400: #94a3b8;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+        }
 
-        /* Incident & DevOps Live Feedback Banners */
-        .incident-banner { display: none; margin-top: 25px; border-radius: 12px; padding: 20px; animation: slideDown 0.3s ease; }
-        .incident-banner.crash { background: #fee2e2; border: 2px solid #ef4444; }
-        .incident-banner.fixed { background: #dcfce7; border: 2px solid #22c55e; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
 
-        .banner-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .crash .banner-title { color: #991b1b; }
-        .fixed .banner-title { color: #166534; }
-        .banner-body { font-size: 14px; line-height: 1.6; }
-        .crash .banner-body { color: #7f1d1d; }
-        .fixed .banner-body { color: #14532d; }
+        /* Top Brand Navbar */
+        .top-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark);
+        }
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.35);
+        }
+        .brand-text h2 {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #1e1b4b, #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-text span {
+            font-size: 11px;
+            font-weight: 600;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .location-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gray-100);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 12.5px;
+            cursor: pointer;
+            border: 1px solid var(--gray-200);
+            white-space: nowrap;
+        }
+        .location-pill i { color: #f59e0b; }
+        .location-pill strong { color: var(--dark); font-weight: 700; }
+
+        .search-box {
+            flex: 1;
+            max-width: 480px;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 30px;
+            padding: 10px 18px 10px 42px;
+            font-size: 13.5px;
+            font-family: inherit;
+            outline: none;
+            transition: 0.2s;
+        }
+        .search-box input:focus {
+            background: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        }
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        .user-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .student-pill {
+            font-size: 11.5px;
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: 1px solid #bfdbfe;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cart-btn {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .cart-btn:hover { background: #1e1b4b; }
+        .cart-badge {
+            background: var(--accent-orange);
+            color: #000;
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        /* Category Subnav */
+        .subnav {
+            background: #ffffff;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 8px 20px;
+        }
+        .subnav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .cat-chip {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--gray-600);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .cat-chip:hover, .cat-chip.active {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-color: #ddd6fe;
+        }
+        .cat-chip.hot {
+            background: #fff7ed;
+            color: #ea580c;
+            border-color: #ffedd5;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Flash Banner */
+        .flash-hero-banner {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+            border-radius: 16px;
+            padding: 24px 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(49, 46, 129, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .flash-hero-banner::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(236,72,153,0.3) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-left h3 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-left p {
+            color: #cbd5e1;
+            font-size: 13.5px;
+            margin-top: 6px;
+        }
+        .bank-strip {
+            display: flex;
+            gap: 15px;
+            margin-top: 14px;
+            font-size: 12px;
+        }
+        .bank-badge {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hero-timer {
+            background: rgba(0,0,0,0.35);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            text-align: center;
+        }
+        .timer-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #fde047;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .timer-digits {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 2px;
+        }
+
+        /* Section Heading */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title span {
+            background: #ef4444;
+            color: white;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Product Cards Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+        .product-card {
+            background: #ffffff;
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.25s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: #cbd5e1;
+        }
+        .product-card.flash-highlight {
+            border: 2px solid #f59e0b;
+            background: linear-gradient(180deg, #fffdfa 0%, #ffffff 100%);
+        }
         
-        .pipeline-steps { background: white; border-radius: 8px; padding: 15px; margin: 15px 0; border: 1px solid rgba(0,0,0,0.1); font-family: monospace; font-size: 13px; color: #374151; }
-        .pipeline-steps div { margin-bottom: 6px; }
+        /* Product Image */
+        .product-img-box {
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover .product-img-box img {
+            transform: scale(1.04);
+        }
+        .badge-discount {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #dc2626;
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.3);
+        }
+        .badge-speed {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(4px);
+            color: #38bdf8;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-        .btn-cicd { background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 14px; margin-top: 10px; }
-        .btn-cicd:hover { background: #059669; }
-        .btn-reset { background: transparent; color: #6b7280; border: 1px solid #d1d5db; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-top: 15px; }
-        .btn-reset:hover { background: #e5e7eb; }
+        .product-meta {
+            margin-bottom: 12px;
+        }
+        .product-cat {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .product-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 4px 0 6px 0;
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 40px;
+        }
+        .rating-strip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--gray-600);
+            margin-bottom: 10px;
+        }
+        .rating-badge {
+            background: #059669;
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* Price block */
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .current-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+        .mrp-price {
+            font-size: 13px;
+            color: var(--gray-400);
+            text-decoration: line-through;
+        }
+
+        /* Stock status tags */
+        .stock-indicator {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .stock-in { color: #059669; }
+        .stock-warning { color: #d97706; font-weight: 700; }
+        .stock-out { color: #dc2626; font-weight: 700; }
+
+        /* Action buttons */
+        .btn-buy {
+            width: 100%;
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-buy:hover {
+            background: #1e1b4b;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        }
+        .btn-flash-buy {
+            background: linear-gradient(135deg, #f59e0b, #ea580c);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+        .btn-flash-buy:hover {
+            background: linear-gradient(135deg, #d97706, #c2410c);
+        }
+        .btn-notify {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            box-shadow: none;
+        }
+        .btn-notify:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        /* Checkout Drawer / Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-card {
+            background: white;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 480px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: zoomIn 0.25s ease;
+            position: relative;
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--gray-400);
+            cursor: pointer;
+        }
+        .btn-close:hover { color: var(--dark); }
+
+        .checkout-summary-item {
+            display: flex;
+            gap: 14px;
+            background: var(--gray-100);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .checkout-summary-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .bill-details {
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: var(--gray-600);
+        }
+        .bill-row.total {
+            border-top: 1px dashed var(--gray-200);
+            padding-top: 8px;
+            margin-top: 8px;
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--dark);
+        }
+        .bill-discount { color: #059669; font-weight: 700; }
+
+        /* Incident Crash Modal State */
+        .incident-crash-box {
+            background: #fef2f2;
+            border: 2px solid #ef4444;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .incident-crash-box h4 {
+            color: #b91c1c;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .incident-crash-box p {
+            font-size: 12.5px;
+            color: #7f1d1d;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .incident-log-code {
+            background: #1e1b4b;
+            color: #fca5a5;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+        }
+        .pipeline-audit-pills {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+        .audit-pill {
+            background: #ffffff;
+            border: 1px solid #fecaca;
+            padding: 6px 8px;
+            border-radius: 6px;
+            color: #991b1b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Fixed / Success Toast & Modals */
+        .success-box {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .success-box h4 {
+            color: #047857;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .success-box p {
+            font-size: 12.5px;
+            color: #065f46;
+            line-height: 1.5;
+        }
+
+        /* Fixed Bottom DevOps Control Bar */
+        .devops-hud {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0f172a;
+            color: white;
+            border-top: 2px solid #6366f1;
+            padding: 10px 20px;
+            z-index: 900;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        }
+        .hud-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .hud-status-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12.5px;
+        }
+        .hud-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #1e293b;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+        .status-dot.red { background: #ef4444; }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        .hud-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hud-btn {
+            background: #334155;
+            color: white;
+            border: 1px solid #475569;
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.15s;
+        }
+        .hud-btn:hover { background: #475569; }
+        .hud-btn.primary { background: #10b981; border-color: #059669; }
+        .hud-btn.primary:hover { background: #059669; }
+        .hud-btn.danger { background: #ef4444; border-color: #dc2626; }
+        .hud-btn.danger:hover { background: #dc2626; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div>
-            <h1>🛒 Cloud Store (Flash Sale Service)</h1>
-            <p>Student: <strong>S Hemal (24MIS0050)</strong> | Agile Development Process and DevOps</p>
-        </div>
-        <div>
-            <span class="badge-health">● Health: 200 OK</span>
-            <span class="badge-devops" id="state-badge">DevOps State: Production (Buggy)</span>
-        </div>
-    </div>
 
-    <!-- Product Grid -->
-    <div class="grid">
-        <!-- Item 1 -->
-        <div class="card">
-            <h3>💻 Laptop</h3>
-            <p>High performance workstation</p>
-            <div class="price">₹50,000</div>
-            <div class="stock-available">● In Stock: 10 units</div>
-            <button class="btn" onclick="buyItem(1, 'Laptop')">Buy Now</button>
-        </div>
+    <!-- 1. TOP BRAND NAVIGATION -->
+    <header class="top-navbar">
+        <div class="nav-inner">
+            <!-- Brand -->
+            <a href="/" class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div class="brand-text">
+                    <h2>FlashMart</h2>
+                    <span><i class="fa-solid fa-circle-check"></i> 10-Minute Electronics</span>
+                </div>
+            </a>
 
-        <!-- Item 2 -->
-        <div class="card">
-            <h3>🎧 Noise-Cancelling Headphones</h3>
-            <p>Premium wireless audio gear</p>
-            <div class="price">₹2,000</div>
-            <div class="stock-available">● In Stock: 5 units</div>
-            <button class="btn" onclick="buyItem(2, 'Headphones')">Buy Now</button>
-        </div>
-
-        <!-- Item 3: Fast Selling Flash Sale Promotional Deal -->
-        <div class="card flash-sale">
-            <h3>
-                <span>📱 Smartphone (Flash Sale Deal)</span>
-                <span class="tag-flash">Fast Selling Product</span>
-            </h3>
-            <p>Promotional flash sale discount deal</p>
-            <div class="price">₹25,000</div>
-            <div class="stock-available" id="item3-stock">● In Stock (Limited Deal Available)</div>
-            <button class="btn btn-flash" id="item3-btn" onclick="buyItem(3, 'Smartphone')">
-                ⚡ Buy Now
-            </button>
-        </div>
-    </div>
-
-    <!-- Scenario 1: BEFORE FIX - Production Crash Banner -->
-    <div class="incident-banner crash" id="crash-banner">
-        <div class="banner-title">🚨 PRODUCTION OUTAGE DETECTED: HTTP 500 Internal Server Error</div>
-        <div class="banner-body">
-            <strong>What happened in the application:</strong> During the promotional flash sale rush, inventory suddenly depleted to zero! The backend checkout worker attempted to calculate discount allocation without validating stock (<code>100 / 0</code>), crashing the server with a <code>ZeroDivisionError</code>.
-            
-            <div class="pipeline-steps">
-                <div>[1] ⚡ <strong>Amazon CloudWatch:</strong> Detected HTTP 500 error anomaly spike in checkout API.</div>
-                <div>[2] 🛡️ <strong>AWS Lambda Watchdog:</strong> Captured crash logs & extracted <code>ZeroDivisionError</code> stack trace.</div>
-                <div>[3] 📦 <strong>Amazon S3:</strong> Saved secure incident report to <code>s3://devops-incident-watchdog-logs/incidents/...</code></div>
-                <div>[4] 📋 <strong>Agile Board:</strong> Auto-generated Bug User Story #1 with Acceptance Criteria on GitHub Issues!</div>
+            <!-- Delivery Location -->
+            <div class="location-pill">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                    <div>Deliver to: <strong>VIT Chennai Campus</strong></div>
+                    <div style="font-size: 11px; color: #059669;">Men's Hostel Block D • 10 Mins</div>
+                </div>
             </div>
 
-            <p><strong>Deploy the fix to production:</strong></p>
-            <button class="btn-cicd" onclick="applyDevOpsFix()">🚀 Developer Commits Fix: git commit -m "Fixes #1" & Run CI/CD</button>
-        </div>
-    </div>
-
-    <!-- Scenario 2: AFTER FIX - Graceful Stockout / Sold Out Banner -->
-    <div class="incident-banner fixed" id="fixed-banner">
-        <div class="banner-title">✅ CI/CD DEPLOYMENT COMPLETE & AGILE TICKET CLOSED AS DONE!</div>
-        <div class="banner-body">
-            <strong>DevOps & Agile Result:</strong>
-            <div class="pipeline-steps">
-                <div>[1] 🧪 <strong>GitHub Actions CI:</strong> Automated unit tests passed (<code>pytest</code> passed all 8 tests).</div>
-                <div>[2] 🚀 <strong>Continuous Delivery:</strong> Patch deployed to AWS production with zero downtime.</div>
-                <div>[3] 🎯 <strong>Zero-Touch Traceability:</strong> Detected <code>Fixes #1</code> in commit, verified patch, and closed ticket as <strong>DONE</strong>.</div>
+            <!-- Search Bar -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for 'OnePlus 11R', 'MacBook Air M3', 'Sony XM5'...">
             </div>
+
+            <!-- User Info & Cart -->
+            <div class="user-nav-actions">
+                <div class="student-pill">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>S Hemal (24MIS0050)</span>
+                </div>
+                <button class="cart-btn" onclick="openCart()">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Cart</span>
+                    <span class="cart-badge" id="cart-count">1</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. CATEGORY SUBNAV -->
+    <nav class="subnav">
+        <div class="subnav-inner">
+            <a class="cat-chip hot"><i class="fa-solid fa-fire"></i> Mega Flash Deals</a>
+            <a class="cat-chip active"><i class="fa-solid fa-mobile-screen"></i> Smartphones</a>
+            <a class="cat-chip"><i class="fa-solid fa-laptop"></i> Laptops & PCs</a>
+            <a class="cat-chip"><i class="fa-solid fa-headphones"></i> Audio & Sound</a>
+            <a class="cat-chip"><i class="fa-solid fa-clock"></i> Wearables</a>
+            <a class="cat-chip"><i class="fa-solid fa-gamepad"></i> Gaming Gear</a>
+        </div>
+    </nav>
+
+    <!-- 3. MAIN CONTENT CONTAINER -->
+    <main class="main-container">
+
+        <!-- Flash Hero Banner -->
+        <div class="flash-hero-banner">
+            <div class="hero-left">
+                <h3><i class="fa-solid fa-bolt"></i> MIDNIGHT TECH FLASH SALE</h3>
+                <p>Exclusive promotional pricing on flagship electronics. Instant express delivery to VIT!</p>
+                <div class="bank-strip">
+                    <div class="bank-badge"><i class="fa-solid fa-credit-card"></i> Flat ₹2,000 Off HDFC Cards</div>
+                    <div class="bank-badge"><i class="fa-solid fa-percent"></i> No Cost EMI Available</div>
+                    <div class="bank-badge"><i class="fa-solid fa-shield-halved"></i> 1 Year Brand Warranty</div>
+                </div>
+            </div>
+            <div class="hero-timer">
+                <div class="timer-label"><i class="fa-regular fa-clock"></i> Flash Sale Ends In</div>
+                <div class="timer-digits" id="flash-timer">01:42:18</div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <div class="section-title">
+                Featured Flash Sale Deals
+                <span>High Velocity</span>
+            </div>
+            <div style="font-size: 13px; color: var(--gray-600);">Showing 4 verified tech products</div>
+        </div>
+
+        <!-- 4. PRODUCT CARDS GRID -->
+        <div class="product-grid">
+
+            <!-- PRODUCT 1: ONEPLUS 11R 5G (FLASH SALE INCIDENT ITEM) -->
+            <div class="product-card flash-highlight" id="item-oneplus-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60" alt="OnePlus 11R 5G">
+                        <span class="badge-discount">22% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">Flagship Smartphone</div>
+                        <h4 class="product-title">OnePlus 11R 5G (Sonic Black, 16GB RAM, 256GB Storage)</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.6</span>
+                            <span>(18,420 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹34,999</span>
+                            <span class="mrp-price">₹44,999</span>
+                        </div>
+
+                        <!-- Dynamic Stock Indicator -->
+                        <div class="stock-indicator stock-warning" id="oneplus-stock-label">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>Flash Deal • Only 1 left in stock!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buy Action Button -->
+                <button class="btn-buy btn-flash-buy" id="oneplus-buy-btn" onclick="openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3)">
+                    <i class="fa-solid fa-bolt"></i> Buy Now
+                </button>
+            </div>
+
+            <!-- PRODUCT 2: MACBOOK AIR M3 -->
+            <div class="product-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60" alt="MacBook Air M3">
+                        <span class="badge-discount" style="background:#2563eb;">15% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-truck"></i> Tomorrow 8 AM</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">Apple Laptop</div>
+                        <h4 class="product-title">Apple MacBook Air M3 (13.6-inch, 16GB Unified Memory, 256GB SSD)</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.9</span>
+                            <span>(4,210 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹1,14,990</span>
+                            <span class="mrp-price">₹1,34,990</span>
+                        </div>
+
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (8 units left)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="openCheckout('Apple MacBook Air M3 (16GB)', 114990, 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60', 1)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 3: SONY WH-1000XM5 -->
+            <div class="product-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60" alt="Sony Headphones">
+                        <span class="badge-discount">29% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">Premium Audio</div>
+                        <h4 class="product-title">Sony WH-1000XM5 Wireless Active Noise Cancelling Headphones</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.8</span>
+                            <span>(9,850 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹24,990</span>
+                            <span class="mrp-price">₹34,990</span>
+                        </div>
+
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (14 units left)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="openCheckout('Sony WH-1000XM5 ANC Headphones', 24990, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60', 2)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 4: APPLE WATCH SERIES 9 -->
+            <div class="product-card">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=60" alt="Apple Watch">
+                        <span class="badge-discount" style="background:#4f46e5;">7% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-truck"></i> Tomorrow 11 AM</span>
+                    </div>
+
+                    <div class="product-meta">
+                        <div class="product-cat">Smartwatch</div>
+                        <h4 class="product-title">Apple Watch Series 9 GPS (45mm Midnight Aluminium Case)</h4>
+                        
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.7</span>
+                            <span>(3,120 reviews)</span>
+                        </div>
+
+                        <div class="price-row">
+                            <span class="current-price">₹41,900</span>
+                            <span class="mrp-price">₹44,900</span>
+                        </div>
+
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (5 units left)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="openCheckout('Apple Watch Series 9 GPS (45mm)', 41900, 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=60', 4)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- 5. CHECKOUT DRAWER / MODAL -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-card">
             
-            <p><strong>Notice the Smartphone above:</strong> It now gracefully displays <em>"Out of Stock (Sold Out in Flash Sale)"</em>! The server stays 100% online and healthy without crashing.</p>
-            <button class="btn-reset" onclick="resetDemo()">🔄 Reset Demo for Faculty</button>
+            <div class="modal-header">
+                <h3 id="modal-heading"><i class="fa-solid fa-bag-shopping"></i> Express Checkout</h3>
+                <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Pre-Checkout Body -->
+            <div id="checkout-form-view">
+                <div class="checkout-summary-item">
+                    <img id="checkout-item-img" src="" alt="Product">
+                    <div>
+                        <h4 id="checkout-item-title" style="font-size:13.5px; font-weight:700;"></h4>
+                        <div style="font-size:12px; color:var(--gray-600); margin-top:3px;">Express 10-Min Delivery to VIT Chennai</div>
+                        <div style="font-size:14px; font-weight:800; color:var(--primary-dark); margin-top:4px;" id="checkout-item-price"></div>
+                    </div>
+                </div>
+
+                <div class="bill-details">
+                    <div class="bill-row">
+                        <span>Item Subtotal</span>
+                        <span id="bill-subtotal">₹34,999</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Delivery Fee (FlashMart Express)</span>
+                        <span style="color:#059669; font-weight:700;">FREE</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Flash Sale Discount Coupon</span>
+                        <span class="bill-discount">-₹2,000</span>
+                    </div>
+                    <div class="bill-row total">
+                        <span>Grand Total</span>
+                        <span id="bill-grand-total">₹32,999</span>
+                    </div>
+                </div>
+
+                <button class="btn-buy btn-flash-buy" id="confirm-pay-btn" onclick="processOrder()">
+                    <i class="fa-solid fa-lock"></i> Place Order & Pay
+                </button>
+            </div>
+
+            <!-- Processing Loader -->
+            <div id="checkout-loading-view" style="display:none; text-align:center; padding:30px 10px;">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size:32px; color:var(--primary); margin-bottom:12px;"></i>
+                <h4 style="font-size:16px; font-weight:700;">Processing Flash Sale Checkout...</h4>
+                <p style="font-size:12.5px; color:var(--gray-600); margin-top:6px;">Verifying real-time inventory allocation and applying discount ratio...</p>
+            </div>
+
+            <!-- INCIDENT 500 CRASH RESULT (BUGGY STATE) -->
+            <div id="checkout-crash-view" style="display:none;">
+                <div class="incident-crash-box">
+                    <h4><i class="fa-solid fa-circle-exclamation"></i> 500 INTERNAL SERVER ERROR</h4>
+                    <p><strong>Unhandled Runtime Exception:</strong> Checkout worker attempted inventory division with remaining stock = 0!</p>
+                    
+                    <div class="incident-log-code">
+                        [CRITICAL_ALERT] Incident simulation triggered!<br>
+                        [EXCEPTION] ZeroDivisionError: division by zero in inventory_worker:118<br>
+                        Type=ZeroDivisionError | Message=division by zero
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 700; color: #991b1b; margin-bottom: 6px;">
+                        <i class="fa-solid fa-shield-virus"></i> Autonomous DevOps Incident Watchdog Actions:
+                    </div>
+
+                    <div class="pipeline-audit-pills">
+                        <div class="audit-pill"><i class="fa-solid fa-cloud"></i> CloudWatch Anomaly Triggered</div>
+                        <div class="audit-pill"><i class="fa-solid fa-database"></i> S3 Forensic Dump (INC-*.json)</div>
+                        <div class="audit-pill"><i class="fa-brands fa-github"></i> GitHub Agile Issue #1 Created</div>
+                        <div class="audit-pill"><i class="fa-solid fa-list-check"></i> Acceptance Criteria Added</div>
+                    </div>
+                </div>
+
+                <p style="font-size:12.5px; color:var(--gray-600); margin-bottom:14px; text-align:center;">
+                    Our automated pipeline captured the crash. You can now simulate the developer pushing a fix via CI/CD!
+                </p>
+
+                <button class="btn-buy" style="background:#10b981;" onclick="applyDevopsFix()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Deploy CI/CD Patch & Fix Server
+                </button>
+            </div>
+
+            <!-- FIXED STATE: ZEPTO / OUT OF STOCK CLEAN RESULT -->
+            <div id="checkout-fixed-view" style="display:none;">
+                <div class="success-box">
+                    <h4><i class="fa-solid fa-bell"></i> Sold Out (Out of Stock)</h4>
+                    <p>
+                        <strong>Defensive Handling Active:</strong> The application gracefully caught the 0-inventory boundary without crashing.
+                    </p>
+                    <div style="background:#d1fae5; padding:8px 12px; border-radius:6px; font-size:12px; color:#065f46; margin:8px 0;">
+                        <i class="fa-solid fa-check"></i> <strong>Waitlist Registered:</strong> We will notify you via SMS / Email the moment OnePlus 11R 5G is restocked in the Chennai warehouse.
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="closeModal()">
+                    <i class="fa-solid fa-check"></i> Done (Keep Browsing)
+                </button>
+            </div>
+
+            <!-- REGULAR SUCCESSFUL CHECKOUT (FOR LAPTOP / HEADPHONES) -->
+            <div id="checkout-success-view" style="display:none;">
+                <div class="success-box">
+                    <h4><i class="fa-solid fa-circle-check"></i> Order Placed Successfully!</h4>
+                    <p>
+                        Your order has been confirmed! Our delivery partner has picked up your package and is heading to <strong>VIT Men's Hostel Block D</strong>.
+                    </p>
+                    <div style="font-size:12.5px; color:#047857; margin-top:6px; font-weight:700;">
+                        Estimated Delivery: In 10 Minutes ⚡
+                    </div>
+                </div>
+
+                <button class="btn-buy" onclick="closeModal()">
+                    <i class="fa-solid fa-check"></i> Done
+                </button>
+            </div>
+
         </div>
     </div>
 
+    <!-- 6. FIXED DEVOPS WATCHDOG CONTROL HUD -->
+    <footer class="devops-hud">
+        <div class="hud-inner">
+            <div class="hud-status-group">
+                <div class="hud-indicator">
+                    <span class="status-dot" id="hud-dot"></span>
+                    <span>Health: <strong>200 OK</strong></span>
+                </div>
+                <div class="hud-indicator">
+                    <i class="fa-brands fa-aws" style="color:#f59e0b;"></i>
+                    <span>AWS: <strong>Sydney (ap-southeast-2)</strong></span>
+                </div>
+                <div class="hud-indicator">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Repo: <strong>hemalexe/devopss-incident-watchdog</strong></span>
+                </div>
+                <div class="hud-indicator" style="background:#312e81; border-color:#4338ca;">
+                    <i class="fa-solid fa-code-branch" style="color:#a5b4fc;"></i>
+                    <span id="devops-mode-text">DevOps State: <strong>Production (Buggy)</strong></span>
+                </div>
+            </div>
+
+            <div class="hud-actions">
+                <button class="hud-btn danger" onclick="triggerCrash()">
+                    <i class="fa-solid fa-bug"></i> Test 500 Crash
+                </button>
+                <button class="hud-btn primary" id="hud-fix-btn" onclick="applyDevopsFix()">
+                    <i class="fa-solid fa-rocket"></i> Apply CI/CD Fix
+                </button>
+                <button class="hud-btn" onclick="resetDemo()">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
+        let currentProductId = 3;
         let isBugFixed = false;
 
-        async function checkStatus() {
+        // Fetch initial DevOps state from Flask backend
+        async function checkState() {
             try {
-                const res = await fetch("/api/devops/status");
+                const res = await fetch('/api/devops/status');
                 const data = await res.json();
-                isBugFixed = data.bug_fixed;
-                updateUI();
-            } catch(e) {}
-        }
-
-        function updateUI() {
-            const badge = document.getElementById("state-badge");
-            const item3Btn = document.getElementById("item3-btn");
-            const item3Stock = document.getElementById("item3-stock");
-
-            if (isBugFixed) {
-                badge.innerText = "DevOps State: Fixed & Deployed (v1.0.1)";
-                badge.style.background = "#10b981";
-                item3Stock.className = "stock-soldout";
-                item3Stock.innerText = "● Out of Stock (Sold Out in Flash Sale)";
-                item3Btn.innerText = "⚠️ Out of Stock";
-                item3Btn.className = "btn btn-soldout";
-            } else {
-                badge.innerText = "DevOps State: Production (Buggy)";
-                badge.style.background = "#6366f1";
-                item3Stock.className = "stock-available";
-                item3Stock.innerText = "● In Stock (Limited Deal Available)";
-                item3Btn.innerText = "⚡ Buy Now";
-                item3Btn.className = "btn btn-flash";
+                updateUIState(data.bug_fixed);
+            } catch (err) {
+                console.log("Status check offline:", err);
             }
         }
 
-        async function buyItem(productId, productName) {
+        function updateUIState(fixed) {
+            isBugFixed = fixed;
+            const modeText = document.getElementById('devops-mode-text');
+            const hudDot = document.getElementById('hud-dot');
+            const stockLabel = document.getElementById('oneplus-stock-label');
+            const buyBtn = document.getElementById('oneplus-buy-btn');
+            const card = document.getElementById('item-oneplus-card');
+
+            if (fixed) {
+                modeText.innerHTML = "DevOps State: <strong style='color:#34d399;'>CI/CD Patched (Graceful Fallback)</strong>";
+                hudDot.className = "status-dot";
+                
+                // Switch OnePlus card to Zepto-style 'Out of Stock - Notify Me'
+                stockLabel.className = "stock-indicator stock-out";
+                stockLabel.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> <span>Sold Out in Flash Sale (0 Left)</span>';
+                
+                buyBtn.className = "btn-buy btn-notify";
+                buyBtn.innerHTML = '<i class="fa-solid fa-bell"></i> Out of Stock - Notify Me';
+                card.style.borderColor = '#cbd5e1';
+                card.style.background = '#ffffff';
+            } else {
+                modeText.innerHTML = "DevOps State: <strong style='color:#f87171;'>Production (Simulated Fault)</strong>";
+                hudDot.className = "status-dot red";
+
+                stockLabel.className = "stock-indicator stock-warning";
+                stockLabel.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <span>Flash Deal • Only 1 left in stock!</span>';
+                
+                buyBtn.className = "btn-buy btn-flash-buy";
+                buyBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> Buy Now';
+                card.style.borderColor = '#f59e0b';
+                card.style.background = 'linear-gradient(180deg, #fffdfa 0%, #ffffff 100%)';
+            }
+        }
+
+        function openCheckout(title, price, img, id) {
+            currentProductId = id;
+            document.getElementById('checkout-item-title').innerText = title;
+            document.getElementById('checkout-item-price').innerText = "₹" + price.toLocaleString();
+            document.getElementById('checkout-item-img').src = img;
+            document.getElementById('bill-subtotal').innerText = "₹" + price.toLocaleString();
+            document.getElementById('bill-grand-total').innerText = "₹" + (price > 2000 ? (price - 2000).toLocaleString() : price.toLocaleString());
+
+            // Reset modal views
+            document.getElementById('checkout-form-view').style.display = 'block';
+            document.getElementById('checkout-loading-view').style.display = 'none';
+            document.getElementById('checkout-crash-view').style.display = 'none';
+            document.getElementById('checkout-fixed-view').style.display = 'none';
+            document.getElementById('checkout-success-view').style.display = 'none';
+
+            // If OnePlus and already fixed, show Notify view directly
+            if (id === 3 && isBugFixed) {
+                document.getElementById('checkout-form-view').style.display = 'none';
+                document.getElementById('checkout-fixed-view').style.display = 'block';
+            }
+
+            document.getElementById('checkout-modal').style.display = 'flex';
+        }
+
+        function openCart() {
+            openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3);
+        }
+
+        function closeModal() {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        async function processOrder() {
+            document.getElementById('checkout-form-view').style.display = 'none';
+            document.getElementById('checkout-loading-view').style.display = 'block';
+
             try {
-                const res = await fetch("/api/checkout", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ product_id: productId, quantity: 1 })
+                const res = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ product_id: currentProductId, quantity: 1 })
                 });
 
-                if (res.status === 200) {
-                    alert("✅ Order Confirmed for " + productName + "! Thank you for purchasing.");
-                } else if (res.status === 400) {
-                    // Handled Gracefully (After DevOps Fix!)
-                    const data = await res.json();
-                    alert("⚠️ Notice: " + data.message + "\n(The server handled the stockout cleanly without crashing!)");
-                } else if (res.status === 500) {
-                    // Production Crash (Before Fix!)
-                    document.getElementById("crash-banner").style.display = "block";
-                    document.getElementById("fixed-banner").style.display = "none";
-                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                // Simulate realistic network delay
+                await new Promise(r => setTimeout(r, 700));
+                document.getElementById('checkout-loading-view').style.display = 'none';
+
+                if (res.status === 500) {
+                    // SERVER CRASH (BUGGY STATE TRIGGERED)
+                    document.getElementById('checkout-crash-view').style.display = 'block';
+                } else if (res.status === 400 || res.status === 409) {
+                    // GRACEFUL ZEPTO OUT OF STOCK
+                    document.getElementById('checkout-fixed-view').style.display = 'block';
+                } else {
+                    // SUCCESSFUL PURCHASE
+                    document.getElementById('checkout-success-view').style.display = 'block';
                 }
             } catch (err) {
-                document.getElementById("crash-banner").style.display = "block";
+                document.getElementById('checkout-loading-view').style.display = 'none';
+                document.getElementById('checkout-crash-view').style.display = 'block';
             }
         }
 
-        async function applyDevOpsFix() {
-            await fetch("/api/devops/apply-fix", { method: "POST" });
-            isBugFixed = true;
-            document.getElementById("crash-banner").style.display = "none";
-            document.getElementById("fixed-banner").style.display = "block";
-            updateUI();
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        async function triggerCrash() {
+            openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3);
+            processOrder();
+        }
+
+        async function applyDevopsFix() {
+            try {
+                const res = await fetch('/api/devops/apply-fix');
+                const data = await res.json();
+                updateUIState(true);
+                
+                // Show fixed screen if modal is open
+                document.getElementById('checkout-crash-view').style.display = 'none';
+                document.getElementById('checkout-fixed-view').style.display = 'block';
+            } catch (err) {
+                console.error("Failed to apply fix:", err);
+            }
         }
 
         async function resetDemo() {
-            await fetch("/api/devops/reset", { method: "POST" });
-            isBugFixed = false;
-            document.getElementById("crash-banner").style.display = "none";
-            document.getElementById("fixed-banner").style.display = "none";
-            updateUI();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            try {
+                await fetch('/api/devops/reset');
+                updateUIState(false);
+                closeModal();
+            } catch (err) {
+                console.error("Failed to reset:", err);
+            }
         }
 
-        checkStatus();
+        // Animated Countdown timer for realism
+        let secondsLeft = 6138;
+        setInterval(() => {
+            if (secondsLeft > 0) secondsLeft--;
+            const hrs = String(Math.floor(secondsLeft / 3600)).padStart(2, '0');
+            const mins = String(Math.floor((secondsLeft % 3600) / 60)).padStart(2, '0');
+            const secs = String(secondsLeft % 60).padStart(2, '0');
+            const timerElem = document.getElementById('flash-timer');
+            if (timerElem) timerElem.innerText = `${hrs}:${mins}:${secs}`;
+        }, 1000);
+
+        // Run check on load
+        checkState();
     </script>
 </body>
 </html>
