@@ -1141,6 +1141,91 @@
             </div>
         </div>
 
+        <!-- 🏛️ LIVE SYSTEM ARCHITECTURE DIAGRAM (NON-AI / CLOUD COMPONENT FLOW) -->
+        <div style="background: #ffffff; border-radius: 12px; padding: 20px; margin-bottom: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-diagram-project" style="color: #6366f1;"></i> System Architecture & End-to-End Component Flow
+                </h4>
+                <span style="font-size: 11px; background: #e0e7ff; color: #4338ca; padding: 4px 10px; border-radius: 20px; font-weight: 700;">
+                    AWS Cloud + Agile SRE Pipeline
+                </span>
+            </div>
+            <div style="overflow-x: auto; background: #f8fafc; border-radius: 8px; padding: 12px; border: 1px solid #cbd5e1;">
+                <svg viewBox="0 0 820 280" width="100%" style="min-width: 760px; display: block;" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="820" height="280" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+                    <!-- 1. Client Browser -->
+                    <rect x="20" y="70" width="100" height="70" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="70" y="98" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#1d4ed8" text-anchor="middle">Client Browser</text>
+                    <text x="70" y="115" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">Flash Sale Shopper</text>
+                    <text x="70" y="128" font-family="monospace" font-size="8.5" fill="#64748b" text-anchor="middle">POST /checkout</text>
+                    <!-- Arrow 1 -> App -->
+                    <path d="M 120 105 L 155 105" stroke="#3b82f6" stroke-width="2" marker-end="url(#diag-arrow-blue)"/>
+                    <text x="137" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#2563eb" text-anchor="middle">Buy Now</text>
+                    <!-- 2. Target Flask App -->
+                    <rect x="160" y="70" width="115" height="70" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+                    <text x="217" y="96" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#b91c1c" text-anchor="middle">Target Flask App</text>
+                    <text x="217" y="112" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">AWS Lambda Service</text>
+                    <text x="217" y="126" font-family="monospace" font-size="8.5" fill="#dc2626" text-anchor="middle">500 ZeroDivisionError</text>
+                    <!-- Arrow 2 -> CloudWatch -->
+                    <path d="M 275 105 L 310 105" stroke="#ef4444" stroke-width="2" marker-end="url(#diag-arrow-red)"/>
+                    <text x="292" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#dc2626" text-anchor="middle">Logs</text>
+                    <!-- 3. AWS CloudWatch -->
+                    <rect x="315" y="70" width="115" height="70" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+                    <text x="372" y="96" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#c2410c" text-anchor="middle">AWS CloudWatch</text>
+                    <text x="372" y="112" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">Log Metric Filter</text>
+                    <text x="372" y="126" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ea580c" text-anchor="middle">Pattern: [INCIDENT]</text>
+                    <!-- Arrow 3 -> Lambda Watchdog -->
+                    <path d="M 430 105 L 465 105" stroke="#f97316" stroke-width="2" marker-end="url(#diag-arrow-orange)"/>
+                    <text x="447" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#ea580c" text-anchor="middle">Trigger</text>
+                    <!-- 4. AWS Lambda Watchdog -->
+                    <rect x="470" y="60" width="125" height="90" rx="8" fill="#fefce8" stroke="#eab308" stroke-width="2"/>
+                    <text x="532" y="85" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#a16207" text-anchor="middle">Lambda Watchdog</text>
+                    <text x="532" y="100" font-family="'Segoe UI', sans-serif" font-size="9" fill="#475569" text-anchor="middle">Python 3.12 Serverless</text>
+                    <text x="532" y="115" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">1. Parses Stack Trace</text>
+                    <text x="532" y="129" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">2. Assigns INC-ID</text>
+                    <text x="532" y="142" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#ca8a04" text-anchor="middle">3. Formats User Story</text>
+                    <!-- Split Arrow A -> Amazon S3 -->
+                    <path d="M 532 60 L 532 25 L 635 25" stroke="#10b981" stroke-width="2" fill="none" marker-end="url(#diag-arrow-green)"/>
+                    <text x="560" y="18" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#047857">PutObject JSON</text>
+                    <!-- 5. Amazon S3 -->
+                    <rect x="640" y="8" width="160" height="52" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+                    <text x="720" y="28" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10.5" fill="#047857" text-anchor="middle">Amazon S3 Storage</text>
+                    <text x="720" y="42" font-family="monospace" font-size="8" fill="#475569" text-anchor="middle">s3://devops-...-logs/</text>
+                    <text x="720" y="53" font-family="'Segoe UI', sans-serif" font-size="8" fill="#059669" text-anchor="middle">Forensic Audit Archive</text>
+                    <!-- Split Arrow B -> GitHub Issues -->
+                    <path d="M 595 105 L 635 105" stroke="#6366f1" stroke-width="2" marker-end="url(#diag-arrow-purple)"/>
+                    <text x="615" y="98" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#4f46e5" text-anchor="middle">POST API</text>
+                    <!-- 6. GitHub Issues -->
+                    <rect x="640" y="75" width="160" height="60" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+                    <text x="720" y="95" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10.5" fill="#4338ca" text-anchor="middle">GitHub Issues Board</text>
+                    <text x="720" y="110" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">Agile Bug User Story</text>
+                    <text x="720" y="124" font-family="'Segoe UI', sans-serif" font-size="8" fill="#6366f1" text-anchor="middle">Sprint Backlog Ticket</text>
+                    <!-- Arrow GitHub -> CI/CD -->
+                    <path d="M 720 135 L 720 170" stroke="#8b5cf6" stroke-width="2" marker-end="url(#diag-arrow-violet)"/>
+                    <text x="725" y="155" font-family="'Segoe UI', sans-serif" font-size="8" font-weight="600" fill="#7c3aed">Dev Push: Fixes #1</text>
+                    <!-- 7. CI/CD Pipeline -->
+                    <rect x="640" y="175" width="160" height="75" rx="8" fill="#faf5ff" stroke="#8b5cf6" stroke-width="2"/>
+                    <text x="720" y="195" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="10.5" fill="#6d28d9" text-anchor="middle">GitHub Actions CI/CD</text>
+                    <text x="720" y="210" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">1. Run 8 Pytest Tests (Pass)</text>
+                    <text x="720" y="224" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">2. Deploy Updated Lambda</text>
+                    <text x="720" y="238" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="600" fill="#059669" text-anchor="middle">3. Auto-Close Ticket #1 (Done)</text>
+                    <!-- Feedback loop line to App -->
+                    <path d="M 640 215 L 217 215 L 217 145" stroke="#059669" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#diag-arrow-green)"/>
+                    <text x="400" y="210" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="700" fill="#047857" text-anchor="middle">Continuous Delivery: Zero-Downtime Patch Deployed to Production</text>
+                    <!-- Markers -->
+                    <defs>
+                        <marker id="diag-arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#3b82f6"/></marker>
+                        <marker id="diag-arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#ef4444"/></marker>
+                        <marker id="diag-arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#f97316"/></marker>
+                        <marker id="diag-arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981"/></marker>
+                        <marker id="diag-arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#6366f1"/></marker>
+                        <marker id="diag-arrow-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 8 5 L 0 9 z" fill="#8b5cf6"/></marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
         <!-- Code Diff Box -->
         <div class="code-diff-container">
             <div class="diff-header"><i class="fa-solid fa-code"></i> CODE INSPECTOR: app/app.py (Dark Store Stockout Edge Case)</div>
