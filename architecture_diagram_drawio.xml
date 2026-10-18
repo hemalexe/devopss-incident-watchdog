@@ -1,111 +1,109 @@
-<mxfile host="app.diagrams.net" modified="2026-10-18T12:00:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
-  <diagram id="DevOps-Watchdog-Arch" name="DevOps Incident Watchdog Architecture">
-    <mxGraphModel dx="1200" dy="750" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="650" math="0" shadow="0">
+<mxfile host="app.diagrams.net" modified="2026-10-18T15:30:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="Tiered-Architecture" name="Multi-Level Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="980" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <!-- BOUNDARY BOX: AWS CLOUD -->
-        <mxCell id="box-aws" value="Amazon Web Services (AWS Region: ap-southeast-2 Sydney)" style="swimlane;whiteSpace=wrap;html=1;dashed=1;strokeColor=#F58536;strokeWidth=2;fillColor=#FFF8F2;fontFamily=Arial;fontSize=13;fontStyle=1;startSize=28;" vertex="1" parent="1">
-          <mxGeometry x="270" y="40" width="540" height="520" as="geometry" />
+        <!-- ================= LEVEL 1 ================= -->
+        <mxCell id="lvl-1-box" value="LEVEL 1: CLIENT &amp; PRESENTATION LAYER" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#2563EB;strokeWidth=1.5;fillColor=#EFF6FF;fontFamily=Arial;fontSize=12;fontStyle=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="820" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="node-client" value="&lt;b&gt;Client Web Browser&lt;/b&gt;&lt;br&gt;E-Commerce Storefront UI&lt;br&gt;&lt;font color=&quot;#555555&quot; size=&quot;10&quot;&gt;Handles Customer Checkout &amp; Location Stockout Alerts&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;strokeWidth=1.5;fontFamily=Arial;fontSize=11;" vertex="1" parent="lvl-1-box">
+          <mxGeometry x="250" y="32" width="320" height="48" as="geometry" />
         </mxCell>
 
-        <!-- BOUNDARY BOX: AGILE & CI/CD -->
-        <mxCell id="box-github" value="GitHub Cloud (Agile &amp; CI/CD Environment)" style="swimlane;whiteSpace=wrap;html=1;dashed=1;strokeColor=#24292F;strokeWidth=2;fillColor=#F6F8FA;fontFamily=Arial;fontSize=13;fontStyle=1;startSize=28;" vertex="1" parent="1">
-          <mxGeometry x="840" y="40" width="240" height="520" as="geometry" />
+        <!-- ================= LEVEL 2 ================= -->
+        <mxCell id="lvl-2-box" value="LEVEL 2: COMPUTE &amp; APPLICATION MICROSERVICE LAYER" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#DC2626;strokeWidth=1.5;fillColor=#FEF2F2;fontFamily=Arial;fontSize=12;fontStyle=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="60" y="150" width="820" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="node-app" value="&lt;b&gt;Target Application Microservice (AWS Lambda)&lt;/b&gt;&lt;br&gt;Python 3.12 Flask WSGI Serverless Adapter (watchdog-target-app)&lt;br&gt;&lt;font color=&quot;#B91C1C&quot; size=&quot;10&quot;&gt;Calculates Order Allocation &amp; Emits Structured Logs (500 ZeroDivisionError on 0-stock)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEE2E2;strokeColor=#EF4444;strokeWidth=1.5;fontFamily=Arial;fontSize=11;" vertex="1" parent="lvl-2-box">
+          <mxGeometry x="190" y="35" width="440" height="52" as="geometry" />
         </mxCell>
 
-        <!-- 1. CLIENT BROWSER -->
-        <mxCell id="node-client" value="&lt;b&gt;Client Browser&lt;/b&gt;&lt;br&gt;Flash Sale Shopper&lt;br&gt;&lt;font color=&quot;#666666&quot; size=&quot;10&quot;&gt;VIT Vellore Campus&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF3FB;strokeColor=#3B82F6;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="40" y="100" width="160" height="80" as="geometry" />
+        <!-- ================= LEVEL 3 ================= -->
+        <mxCell id="lvl-3-box" value="LEVEL 3: TELEMETRY &amp; REAL-TIME MONITORING LAYER" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#D97706;strokeWidth=1.5;fillColor=#FFFBEB;fontFamily=Arial;fontSize=12;fontStyle=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="820" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="node-cloudwatch" value="&lt;b&gt;Amazon CloudWatch Observability Engine&lt;/b&gt;&lt;br&gt;Log Subscription Filter Pattern: [INCIDENT_DETECTED]&lt;br&gt;&lt;font color=&quot;#B45309&quot; size=&quot;10&quot;&gt;Monitors Log Group /aws/lambda/watchdog-target-app &amp; Triggers Asynchronous Lambda Event&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#F59E0B;strokeWidth=1.5;fontFamily=Arial;fontSize=11;" vertex="1" parent="lvl-3-box">
+          <mxGeometry x="190" y="35" width="440" height="52" as="geometry" />
         </mxCell>
 
-        <!-- 2. TARGET FLASK APPLICATION (AWS LAMBDA) -->
-        <mxCell id="node-target-app" value="&lt;b&gt;Target Application&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#B91C1C&quot;&gt;AWS Lambda Microservice&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;Function: watchdog-target-app&lt;br&gt;Python 3.12 Flask WSGI&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEE2E2;strokeColor=#EF4444;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="box-aws">
-          <mxGeometry x="30" y="60" width="200" height="90" as="geometry" />
+        <!-- ================= LEVEL 4 ================= -->
+        <mxCell id="lvl-4-box" value="LEVEL 4: AUTONOMOUS SRE TRIAGE &amp; CLOUD FORENSIC STORAGE LAYER" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#059669;strokeWidth=1.5;fillColor=#ECFDF5;fontFamily=Arial;fontSize=12;fontStyle=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="60" y="410" width="820" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="node-watchdog" value="&lt;b&gt;AWS Lambda Incident Watchdog&lt;/b&gt;&lt;br&gt;Function: watchdog-incident-creator&lt;br&gt;&lt;font color=&quot;#047857&quot; size=&quot;10&quot;&gt;1. Decodes Gzip CloudWatch Payload&lt;br&gt;2. Parses Stack Trace &amp; Generates INC-ID&lt;br&gt;3. Formats Standard Agile User Story&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#10B981;strokeWidth=1.5;fontFamily=Arial;fontSize=11;" vertex="1" parent="lvl-4-box">
+          <mxGeometry x="60" y="32" width="310" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="node-s3" value="&lt;b&gt;Amazon S3 Forensic Vault&lt;/b&gt;&lt;br&gt;Bucket: devops-incident-watchdog-logs&lt;br&gt;&lt;font color=&quot;#047857&quot; size=&quot;10&quot;&gt;Immutable Post-Mortem Audit Archive&lt;br&gt;Key: incidents/YYYY-MM-DD/INC-*.json&lt;br&gt;Block Public Access (Strict Security)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#10B981;strokeWidth=1.5;fontFamily=Arial;fontSize=11;" vertex="1" parent="lvl-4-box">
+          <mxGeometry x="460" y="32" width="310" height="66" as="geometry" />
         </mxCell>
 
-        <!-- 3. CLOUDWATCH LOGS & FILTER -->
-        <mxCell id="node-cloudwatch" value="&lt;b&gt;Amazon CloudWatch&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#C2410C&quot;&gt;Log Subscription Filter&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;Log Group: /aws/lambda/watchdog-target-app&lt;br&gt;Pattern: [INCIDENT_DETECTED]&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#F97316;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="box-aws">
-          <mxGeometry x="30" y="210" width="220" height="85" as="geometry" />
+        <!-- ================= LEVEL 5 ================= -->
+        <mxCell id="lvl-5-box" value="LEVEL 5: AGILE BACKLOG &amp; SPRINT MANAGEMENT LAYER" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#4F46E5;strokeWidth=1.5;fillColor=#EEF2FF;fontFamily=Arial;fontSize=12;fontStyle=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="60" y="550" width="820" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="node-github-issues" value="&lt;b&gt;GitHub Issues Sprint Backlog Board&lt;/b&gt;&lt;br&gt;REST API Endpoint: POST /repos/{owner}/{repo}/issues&lt;br&gt;&lt;font color=&quot;#4338CA&quot; size=&quot;10&quot;&gt;Auto-Generated Bug User Story | Labels: [bug, sprint-backlog] | Acceptance Criteria Checklist&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E7FF;strokeColor=#6366F1;strokeWidth=1.5;fontFamily=Arial;fontSize=11;" vertex="1" parent="lvl-5-box">
+          <mxGeometry x="190" y="35" width="440" height="52" as="geometry" />
         </mxCell>
 
-        <!-- 4. INCIDENT WATCHDOG LAMBDA -->
-        <mxCell id="node-watchdog-lambda" value="&lt;b&gt;AWS Lambda Watchdog&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#A16207&quot;&gt;Event-Driven Incident Triager&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;Function: watchdog-incident-creator&lt;br&gt;Parses Gzip CloudWatch Payload&lt;br&gt;Extracts Traceback &amp; Generates INC-ID&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF9C3;strokeColor=#EAB308;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="box-aws">
-          <mxGeometry x="290" y="210" width="230" height="95" as="geometry" />
+        <!-- ================= LEVEL 6 ================= -->
+        <mxCell id="lvl-6-box" value="LEVEL 6: CONTINUOUS INTEGRATION &amp; CLOSED-LOOP DELIVERY (CI/CD) LAYER" style="swimlane;whiteSpace=wrap;html=1;strokeColor=#7C3AED;strokeWidth=1.5;fillColor=#FAF5FF;fontFamily=Arial;fontSize=12;fontStyle=1;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="60" y="680" width="820" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="node-cicd" value="&lt;b&gt;GitHub Actions CI/CD Pipeline Engine&lt;/b&gt;&lt;br&gt;Workflow: .github/workflows/ci-cd.yml&lt;br&gt;&lt;font color=&quot;#6D28D9&quot; size=&quot;10&quot;&gt;1. Trigger: Developer Smart Commit (Fixes #1) &amp; Push to main&lt;br&gt;2. Test Stage: Automated Pytest Regression Suite (9 tests pass)&lt;br&gt;3. Deploy Stage: Zero-Downtime Package Updated to AWS Lambda&lt;br&gt;4. Close Stage: GitHub Issue #1 Automatically Transitioned to Done&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#8B5CF6;strokeWidth=1.5;fontFamily=Arial;fontSize=11;" vertex="1" parent="lvl-6-box">
+          <mxGeometry x="190" y="32" width="440" height="68" as="geometry" />
         </mxCell>
 
-        <!-- 5. AMAZON S3 BUCKET -->
-        <mxCell id="node-s3" value="&lt;b&gt;Amazon S3 Bucket&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#047857&quot;&gt;Forensic Crash Vault&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;Bucket: devops-incident-watchdog-logs&lt;br&gt;Private Storage (Public Access Blocked)&lt;br&gt;Immutable JSON Incident Report&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#10B981;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="box-aws">
-          <mxGeometry x="290" y="60" width="230" height="90" as="geometry" />
-        </mxCell>
+        <!-- ================= CONNECTORS / FLOW ================= -->
 
-        <!-- 6. GITHUB ISSUES (AGILE SPRINT BACKLOG) -->
-        <mxCell id="node-github-issues" value="&lt;b&gt;GitHub Issues&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#4338CA&quot;&gt;Agile Kanban Board&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;Issue #1: Automated Bug Story&lt;br&gt;Labels: [bug, sprint-backlog]&lt;br&gt;Acceptance Criteria Definition of Done&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#6366F1;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="box-github">
-          <mxGeometry x="20" y="60" width="200" height="90" as="geometry" />
-        </mxCell>
-
-        <!-- 7. GITHUB ACTIONS CI/CD -->
-        <mxCell id="node-github-actions" value="&lt;b&gt;GitHub Actions CI/CD&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#6D28D9&quot;&gt;Automated Delivery Pipeline&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;1. Trigger: git commit &quot;Fixes #1&quot;&lt;br&gt;2. Pytest: 9 Automated Tests Pass&lt;br&gt;3. Zero-Downtime AWS Deploy&lt;br&gt;4. Auto-Close Issue #1 (Done)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E8FF;strokeColor=#8B5CF6;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="box-github">
-          <mxGeometry x="20" y="210" width="200" height="100" as="geometry" />
-        </mxCell>
-
-        <!-- 8. DEVELOPER / SRE WORKSTATION -->
-        <mxCell id="node-developer" value="&lt;b&gt;Developer / SRE&lt;/b&gt;&lt;br&gt;S Hemal (24MIS0050)&lt;br&gt;&lt;font size=&quot;10&quot;&gt;Inspects Issue #1 &amp; S3 Dump&lt;br&gt;Pushes Defensive Boundary Fix&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#475569;strokeWidth=2;fontFamily=Arial;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="40" y="420" width="180" height="80" as="geometry" />
-        </mxCell>
-
-        <!-- CONNECTORS / DATA FLOW ARROWS -->
-
-        <!-- Arrow 1: Client -> App -->
-        <mxCell id="edge-1" value="1. Buy OnePlus 11R&lt;br&gt;(Stock=0 Flash Rush)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#3B82F6;strokeWidth=2;fontSize=11;fontStyle=1;" edge="1" parent="1" source="node-client" target="node-target-app">
+        <!-- 1. Level 1 -> Level 2 -->
+        <mxCell id="flow-1" value="1. POST /api/checkout (Buy Order)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#2563EB;strokeWidth=2;fontSize=10;fontStyle=1;" edge="1" parent="1" source="node-client" target="node-app">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- Arrow 2: App -> CloudWatch -->
-        <mxCell id="edge-2" value="2. 500 Server Error&lt;br&gt;ZeroDivisionError Log" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#EF4444;strokeWidth=2;fontSize=11;fontStyle=1;" edge="1" parent="box-aws" source="node-target-app" target="node-cloudwatch">
+        <!-- 2. Level 2 -> Level 3 -->
+        <mxCell id="flow-2" value="2. Structured Error Log Output (ZeroDivisionError on 0-stock)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#DC2626;strokeWidth=2;fontSize=10;fontStyle=1;" edge="1" parent="1" source="node-app" target="node-cloudwatch">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <!-- Arrow 3: CloudWatch -> Watchdog Lambda -->
-        <mxCell id="edge-3" value="3. Filter Anomaly Trigger&lt;br&gt;(Gzip Base64 Event)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#F97316;strokeWidth=2;fontSize=11;fontStyle=1;" edge="1" parent="box-aws" source="node-cloudwatch" target="node-watchdog-lambda">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <!-- Arrow 4a: Watchdog Lambda -> S3 -->
-        <mxCell id="edge-4a" value="4a. PutObject&lt;br&gt;INC-*.json Forensic Dump" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#10B981;strokeWidth=2;fontSize=11;fontStyle=1;" edge="1" parent="box-aws" source="node-watchdog-lambda" target="node-s3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <!-- Arrow 4b: Watchdog Lambda -> GitHub Issues -->
-        <mxCell id="edge-4b" value="4b. POST /repos/.../issues&lt;br&gt;Agile Bug User Story" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#6366F1;strokeWidth=2;fontSize=11;fontStyle=1;" edge="1" parent="1" source="node-watchdog-lambda" target="node-github-issues">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <!-- Arrow 5: GitHub Issues -> Developer -->
-        <mxCell id="edge-5" value="5. Triage User Story &amp; RCA" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#64748B;strokeWidth=1.5;dashed=1;fontSize=11;" edge="1" parent="1" source="node-github-issues" target="node-developer">
+        <!-- 3. Level 3 -> Level 4 (Watchdog) -->
+        <mxCell id="flow-3" value="3. Filter Anomaly Trigger (Gzip Base64 Event)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#D97706;strokeWidth=2;fontSize=10;fontStyle=1;" edge="1" parent="1" source="node-cloudwatch" target="node-watchdog">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="960" y="460" />
+              <mxPoint x="470" y="395" />
+              <mxPoint x="275" y="395" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <!-- Arrow 6: Developer -> CI/CD -->
-        <mxCell id="edge-6" value="6. git commit -m &quot;Fixes #1&quot; &amp; git push" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#8B5CF6;strokeWidth=2;fontSize=11;fontStyle=1;" edge="1" parent="1" source="node-developer" target="node-github-actions">
+        <!-- 4a. Level 4 (Watchdog -> S3) -->
+        <mxCell id="flow-4a" value="4a. PutObject (JSON Forensic Dump)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=2;fontSize=10;fontStyle=1;" edge="1" parent="lvl-4-box" source="node-watchdog" target="node-s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 4b. Level 4 -> Level 5 (GitHub Issues) -->
+        <mxCell id="flow-4b" value="4b. Authenticated POST /issues (Agile Bug User Story)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=2;fontSize=10;fontStyle=1;" edge="1" parent="1" source="node-watchdog" target="node-github-issues">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="960" y="460" />
+              <mxPoint x="275" y="535" />
+              <mxPoint x="360" y="535" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <!-- Arrow 7: CI/CD -> Target App (Deployment) -->
-        <mxCell id="edge-7" value="7. Zero-Downtime Patch Deployed to AWS Lambda" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#059669;strokeWidth=2;dashed=1;fontSize=11;fontStyle=1;" edge="1" parent="1" source="node-github-actions" target="node-target-app">
+        <!-- 5. Level 5 -> Level 6 (Developer commits to CI/CD) -->
+        <mxCell id="flow-5" value="5. Developer Commits Defensive Patch: git commit -m &quot;Fixes #1&quot; &amp; git push" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#4F46E5;strokeWidth=2;fontSize=10;fontStyle=1;" edge="1" parent="1" source="node-github-issues" target="node-cicd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 6. Level 6 -> Level 2 (Continuous Delivery Feedback Loop) -->
+        <mxCell id="flow-6" value="6. Automated Continuous Delivery (Zero-Downtime Patch Deployed to Production Microservice)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#7C3AED;strokeWidth=2;strokeDasharray=4 4;fontSize=10;fontStyle=1;" edge="1" parent="1" source="node-cicd" target="node-app">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="960" y="380" />
-              <mxPoint x="400" y="380" />
+              <mxPoint x="120" y="746" />
+              <mxPoint x="120" y="211" />
             </Array>
           </mxGeometry>
         </mxCell>
