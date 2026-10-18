@@ -167,6 +167,20 @@ def devops_status():
     return jsonify({"bug_fixed": BUG_FIXED}), 200
 
 
+@app.route("/report", methods=["GET"])
+def view_report():
+    """Serves the Architecture and Incident Lifecycle PDF report."""
+    from flask import send_from_directory
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    pdf_name = "DevOps_Incident_Watchdog_Architecture_Report.pdf"
+    if os.path.exists(os.path.join(base_dir, pdf_name)):
+        return send_from_directory(base_dir, pdf_name, mimetype="application/pdf")
+    # Also check current directory
+    if os.path.exists(pdf_name):
+        return send_from_directory(".", pdf_name, mimetype="application/pdf")
+    return jsonify({"error": "Report PDF not found"}), 404
+
+
 @app.route("/simulate-crash", methods=["GET", "POST"])
 def simulate_crash():
     """

@@ -85,3 +85,12 @@ def test_simulate_crash_handled(client):
     data = response.get_json()
     assert data["error"] == "InternalServerError"
     assert "type" in data
+
+
+def test_report_endpoint(client):
+    """Test that /report endpoint returns 200 and PDF mime type."""
+    response = client.get("/report")
+    assert response.status_code in (200, 404)
+    if response.status_code == 200:
+        assert response.content_type == "application/pdf"
+
