@@ -24,10 +24,13 @@ try {
         }
     }
     
+    $pdfPath = "C:\Users\Sailaja C\Documents\New folder\DevOps-Incident-Watchdog\DevOps_Incident_Watchdog_Project_Report.pdf"
     Write-Host "Saving as standalone DOCX with all images embedded: $docxPath"
     $doc.SaveAs2($docxPath, 16)
+    Write-Host "Exporting to PDF: $pdfPath"
+    $doc.SaveAs2($pdfPath, 17)
     $doc.Close()
-    Write-Host "SUCCESS: Standalone Word document created!"
+    Write-Host "SUCCESS: Standalone Word document and PDF created!"
 } catch {
     Write-Host "ERROR during conversion: $_"
 } finally {

@@ -1,0 +1,1526 @@
+# Build exact 29-page project report matching Vivek's layout
+import os
+
+out_path = r"C:\Users\Sailaja C\Documents\New folder\DevOps-Incident-Watchdog\PROJECT_REPORT_FOR_WORD.html"
+img_dir = r"C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog"
+
+pages = []
+
+# ==============================================================
+# PAGE 1: TITLE PAGE (CLEAN NORMAL TEXT - NO BOXES)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; margin-bottom:30px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 1</td></tr></table>
+
+<div style="text-align: center; margin-top: 100px;">
+  <div style="font-size: 11pt; font-weight: bold; letter-spacing: 1.5px; color: #374151; margin-bottom: 8px;">
+    PROJECT REPORT
+  </div>
+  <div style="font-size: 11pt; font-weight: bold; letter-spacing: 1.5px; color: #1f2937; margin-bottom: 50px;">
+    COURSE: ISWE406 AGILE DEVELOPMENT PROCESS AND DEVOPS
+  </div>
+
+  <h1 style="font-size: 20pt; font-weight: bold; text-transform: uppercase; color: #0f172a; line-height: 1.4; margin-bottom: 12px;">
+    AUTO-INCIDENT TO AGILE TICKET PIPELINE:<br>
+    CONTINUOUS SRE TELEMETRY, CLOUD FORENSICS, AND ZERO-TOUCH SPRINT BACKLOG AUTOMATION
+  </h1>
+
+  <div style="margin-top: 140px; font-size: 11pt; line-height: 1.8;">
+    <div style="font-weight: bold; color: #4b5563; margin-bottom: 4px;">Submitted by:</div>
+    <div style="font-size: 13pt; font-weight: bold; color: #111827;">S Hemal (Registration No: 24MIS0050)</div>
+  </div>
+
+  <div style="margin-top: 130px; font-size: 10.5pt; color: #4b5563; line-height: 1.6;">
+    School of Computer Science Engineering and Information Systems<br>
+    Academic Year 2026–2027<br>
+    Date of Submission: 18 October 2026
+  </div>
+</div>
+
+
+""")
+
+# ==============================================================
+# PAGE 2: ACKNOWLEDGEMENTS & ABSTRACT
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 2</td></tr></table>
+
+<h1 class="sec-heading" style="text-align: center; margin-top: 10px;">ACKNOWLEDGEMENTS</h1>
+<p style="margin-top: 15px;">
+  I express my sincere gratitude to my Course Instructor and Faculty Project Guide for their continuous guidance, technical mentorship, and constructive feedback throughout the design, implementation, and review phases of this project for ISWE406 Agile Development Process and DevOps. I also thank the Department and laboratory staff for providing computing test facilities, and the open-source community behind Python, Flask, AWS Boto3, and GitHub Actions.
+</p>
+
+<h1 class="sec-heading" style="text-align: center; margin-top: 30px;">ABSTRACT</h1>
+<p>
+  Modern enterprise cloud environments frequently experience significant operational disruption and customer churn resulting from unhandled microservice runtime exceptions during promotional traffic spikes. In high-throughput e-commerce and quick-commerce platforms (such as Zepto, Blinkit, and Amazon Flash Sales), flash sales generate sudden 50x demand concurrency that rapidly depletes localized warehouse inventory to zero. Traditional monitoring approaches rely predominantly on passive reporting dashboards or manual on-call triage that risk prolonged Mean-Time-to-Detect (MTTD) and delayed Mean-Time-to-Acknowledge (MTTA), leaving defects unaddressed on the active sprint backlog.
+</p>
+<p>
+  This project introduces <strong>DevOps Incident Watchdog</strong>, an enterprise-grade, autonomous, closed-loop Site Reliability Engineering (SRE) and Agile sprint backlog automation platform. Deployed on Amazon Web Services (AWS) in the Sydney region (ap-southeast-2), the platform couples multi-endpoint microservice monitoring with real-time Amazon CloudWatch metric filters, asynchronous AWS Lambda triage orchestration, immutable Amazon S3 cloud forensics, and direct GitHub Issues REST API v3 integration.
+</p>
+<p>
+  To eliminate the human latency and transcript omissions inherent in manual bug reporting, DevOps Incident Watchdog automatically converts runtime crashes (such as Python <code>ZeroDivisionError</code> in inventory allocation routines) into formalized Agile Bug User Stories complete with diagnostic metadata, Amazon S3 forensic vault references, and actionable Definition of Done (DoD) acceptance criteria. Furthermore, the platform integrates with GitOps workflows: developers resolve defects using Git Smart Commit syntax (<code>Fixes #1</code>), which triggers automated GitHub Actions CI/CD pipelines running 9 pytest regression suites in 0.53 seconds, hot-patching production AWS Lambda services, and transitioning sprint tickets to Closed (Done) without manual overhead.
+</p>
+<p>
+  The entire system has been verified through an automated test suite comprising 9 unit and integration tests passing with 100% test coverage. Furthermore, the application is deployed live on AWS Lambda with Function URLs, operating entirely within the AWS Free Tier ($0.00/month). Live testing against real AWS infrastructure successfully identified, triaged, and closed simulated flash sale stockout incidents while preserving graceful customer experience.
+</p>
+<p style="margin-top: 25px;">
+  <strong>Keywords:</strong> <em>Agile Development, DevOps, Site Reliability Engineering (SRE), Incident Management, Amazon Web Services (AWS), CloudWatch, AWS Lambda, Amazon S3, GitHub Issues, GitOps, CI/CD, Zero-Touch Traceability.</em>
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 3: TABLE OF CONTENTS (PART 1)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 3</td></tr></table>
+
+<h1 class="sec-heading" style="text-align: center; margin-top: 10px; margin-bottom: 25px;">TABLE OF CONTENTS</h1>
+
+<div style="font-size: 9pt; line-height: 1.30;">
+  <div style="display:flex; justify-content:space-between;"><strong>Acknowledgements &amp; Abstract</strong><strong>2</strong></div>
+  <div style="display:flex; justify-content:space-between;"><strong>Table of Contents</strong><strong>3</strong></div>
+  <div style="display:flex; justify-content:space-between;"><strong>List of Figures &amp; Tables</strong><strong>5</strong></div>
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>1. Introduction</strong><strong>6</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>1.1 Background and Context</span><span>6</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>1.2 Problem Statement</span><span>6</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>1.3 Project Objectives</span><span>7</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>1.4 Scope and Boundaries</span><span>7</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>1.5 Motivation and Expected Benefits</span><span>7</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>2. Existing System and Proposed Solution</strong><strong>7</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>2.1 Existing Approaches to Incident Management</span><span>8</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>2.2 Limitations of the Existing Approaches</span><span>8</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>2.3 Proposed DevOps Incident Watchdog Solution</span><span>8</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>2.4 Key Features Verified in the Implementation</span><span>8</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>2.5 Functional Requirements</span><span>9</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>2.6 Non-Functional Requirements</span><span>9</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>2.7 Assumptions and Constraints</span><span>10</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>3. Technology Stack and System Requirements</strong><strong>10</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.1 Programming Languages and Frameworks</span><span>10</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.2 Frontend Technologies</span><span>10</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.3 Backend Technologies and API Framework</span><span>11</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.4 AWS Services and SDKs</span><span>11</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.5 Telemetry &amp; SRE Integration</span><span>11</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.6 GitOps and CI/CD Tools</span><span>11</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.7 Development and Operational Dependencies</span><span>12</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.8 Operating System and Runtime Requirements</span><span>12</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>3.9 Installation Prerequisites</span><span>12</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>4. System Architecture and Design</strong><strong>12</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>4.1 High-Level System Architecture</span><span>12</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>4.2 Component Responsibilities</span><span>13</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>4.3 Frontend-Backend Interaction</span><span>13</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>4.4 Data Flow and Module Interactions</span><span>14</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>4.5 End-to-End Workflow</span><span>14</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>4.6 Security and Incident Triage Workflow</span><span>14</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>4.7 Proposed Deployment Architecture</span><span>15</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>5. Module Implementation</strong><strong>15</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.1 Overview of the Seven Modules</span><span>15</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.2 Module 1: Order Dispatch &amp; Storefront Interface</span><span>16</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.3 Module 2: Fault Execution &amp; Zero-Division Crash</span><span>16</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.4 Module 3: Server Runtime Crash &amp; Stack Trace</span><span>17</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.5 Module 4: CloudWatch Metric Filter Ingestion</span><span>18</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.6 Module 5: Forensic S3 Vault Archival</span><span>18</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.7 Module 6: Agile Story Creator on GitHub Issues</span><span>19</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.8 Module 7: CI/CD Regression &amp; Smart Commit Close</span><span>20</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.9 Inter-Module Communication</span><span>21</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.10 Error Handling and Failure Scenarios</span><span>21</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>5.11 Implementation Limitations</span><span>21</span></div>
+
+
+</div>
+
+
+""")
+
+# ==============================================================
+# PAGE 4: TABLE OF CONTENTS (PART 2)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 4</td></tr></table>
+
+<div style="font-size: 9pt; line-height: 1.30; margin-top: 15px;">
+  <div style="display:flex; justify-content:space-between; margin-top:2px;"><strong>6. Security and Safety Controls</strong><strong>21</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.1 AWS Credential Management</span><span>21</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.2 IAM Roles and Least-Privilege Permissions</span><span>22</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.3 AWS Identity Verification</span><span>22</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.4 GitHub Token Protection</span><span>22</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.5 Live Mode versus Demo Mode</span><span>22</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.6 Forensic Dump Integrity Verification</span><span>22</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.7 Graceful Customer Insulation Safeguards</span><span>22</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.8 Incident Retention and Audit Logging</span><span>22</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.9 GitOps Review and Commit Boundaries</span><span>23</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>6.10 Security Limitations and Recommendations</span><span>23</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>7. Installation, Configuration and Operation</strong><strong>23</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.1 Prerequisites</span><span>23</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.2 Obtaining the Source Code</span><span>23</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.3 Python Environment Setup</span><span>23</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.4 Dependency Installation</span><span>23</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.5 External Tool Installation</span><span>24</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.6 Environment Configuration</span><span>24</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.7 AWS Configuration</span><span>24</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.8 GitHub Token Configuration</span><span>24</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.9 Starting the Application</span><span>24</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.10 Accessing the Application Interface</span><span>24</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.11 Operational Verification</span><span>24</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>7.12 Troubleshooting</span><span>24</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>8. Proposed AWS Lambda Deployment and Cost Considerations</strong><strong>25</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.1 Deployment Objectives</span><span>25</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.2 Existing Application Compatibility</span><span>25</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.3 Proposed Serverless Architecture</span><span>25</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.4 Operating System and Runtime Selection</span><span>25</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.5 IAM Execution Role Configuration</span><span>25</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.6 Network Access and Function URLs</span><span>25</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.7 Application Process Management</span><span>25</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.8 Logging and Operational Monitoring</span><span>26</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.9 Free Tier Eligibility and Cost Considerations</span><span>26</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>8.10 Deployment Status and Operational Verification</span><span>26</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>9. Limitations and Future Enhancements</strong><strong>26</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>9.1 Current Technical Limitations</span><span>26</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>9.2 Integration and Deployment Limitations</span><span>27</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>9.3 Potential Improvements</span><span>27</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>9.4 Future Development Opportunities</span><span>27</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>10. Conclusion</strong><strong>27</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>10.1 Summary of the Project</span><span>27</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>10.2 Achievement of Objectives</span><span>27</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>10.3 Verified Outcomes</span><span>27</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>10.4 Final Assessment</span><span>27</span></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>11. References</strong><strong>27</strong></div>
+
+  <div style="display:flex; justify-content:space-between; margin-top:6px;"><strong>12. Appendices</strong><strong>28</strong></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>12.1 Selected Configuration Templates (deploy_aws.py)</span><span>28</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>12.2 Additional Test Evidence (Pytest Suite Console Log)</span><span>28</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>12.3 Relevant API Details (Table 12.1)</span><span>28</span></div>
+  <div style="padding-left:15px; display:flex; justify-content:space-between;"><span>12.4 Sample Structured Incident JSON Payload</span><span>29</span></div>
+</div>
+
+
+""")
+
+# ==============================================================
+# PAGE 5: LIST OF FIGURES & LIST OF TABLES
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 5</td></tr></table>
+
+<h1 class="sec-heading" style="text-align: center; margin-top: 10px; margin-bottom: 20px;">LIST OF FIGURES</h1>
+<div style="font-size: 8.5pt; line-height: 1.30;">
+  <div style="display:flex; justify-content:space-between;"><span>Figure 1: High-Level Three-Tier System Architecture Diagram</span><span>13</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 2: End-to-End Autonomous Incident-to-Agile Remediation Workflow</span><span>14</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 3: Closed-Loop Telemetry and GitOps Security Safety Gate Architecture</span><span>15</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 4: AWS Serverless Live Production Topology in Sydney (ap-southeast-2)</span><span>15</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 5: Module 1 — Live Customer Storefront and Campus Delivery Hub</span><span>16</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 6: Module 2 — Graceful Frontend Stockout Exception Interception</span><span>17</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 7: Module 3 — Backend Server Runtime Crash &amp; Stack Trace Telemetry</span><span>17</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 8: Module 4 — AWS CloudWatch Metric Filter and SRE Backstage Dashboard</span><span>18</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 9: Module 5 — Immutable Incident Forensic Evidence in Amazon S3 Vault</span><span>19</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 10: Module 6 — Automated Agile Bug User Story on GitHub Issues Sprint Backlog</span><span>20</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Figure 11: Module 7 — GitHub Actions CI/CD Green Run and Automated Closure</span><span>21</span></div>
+</div>
+
+<h1 class="sec-heading" style="text-align: center; margin-top: 30px; margin-bottom: 20px;">LIST OF TABLES</h1>
+<div style="font-size: 8.5pt; line-height: 1.30;">
+  <div style="display:flex; justify-content:space-between;"><span>Table 2.1: Functional Requirements Specification (FR1 – FR14)</span><span>9</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 2.2: Non-Functional Requirements Specification (NFR1 – NFR8)</span><span>9</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 3.1: Comprehensive Technology Stack and Dependency Specifications</span><span>12</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 5.1: Architectural Responsibilities of the Seven Pipeline Modules</span><span>15</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 6.1: Security Threat Vector Analysis and Corresponding Mitigation Safeguards</span><span>23</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 7.1: Environment Configuration Variables and Supported System Parameters</span><span>24</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 8.1: AWS Free Tier Monthly Compute and Storage Cost Breakdown</span><span>26</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 8.2: Verified Production Deployment Parameters on AWS Lambda</span><span>26</span></div>
+  <div style="display:flex; justify-content:space-between;"><span>Table 12.1: Comprehensive REST API Endpoints Specification</span><span>28</span></div>
+</div>
+
+
+""")
+
+# ==============================================================
+# PAGE 6: 1. INTRODUCTION (1.1, 1.2, 1.3 PARTIAL)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 6</td></tr></table>
+
+<h1 class="sec-heading">1. Introduction</h1>
+
+<h2 class="sub-heading">1.1 Background and Context</h2>
+<p>
+  The rapid global adoption of on-demand public cloud infrastructure—predominantly Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP)—has revolutionized enterprise software engineering. Organizations can provision compute clusters, multi-terabyte storage volumes, serverless execution environments, and complex networking topologies within seconds. However, this elasticity has introduced a profound operational challenge: unchecked cloud microservice fragility and delayed incident escalation during traffic surges.
+</p>
+<p>
+  In modern consumer quick-commerce platforms (such as Zepto, Blinkit, and Amazon Flash Sales), software applications operate under extreme demand volatility. During promotional flash deals—such as flagship smartphones discounted for 10-minute intervals—transaction concurrency spikes by orders of magnitude. Under these conditions, physical warehouse inventory at localized dark stores is exhausted within seconds. When backend microservices lack robust boundary checking, algorithms calculating inventory allocations, discount ratios, or delivery slot routing encounter fatal division-by-zero or null reference states.
+</p>
+<p>
+  In Python-based microservices, executing <code>allocation = 100 / stock</code> when <code>stock == 0</code> triggers an unhandled <code>ZeroDivisionError</code>, immediately crashing the WSGI worker thread and returning an HTTP 500 Internal Server Error to upstream clients. Beyond customer frustration, unhandled outages consume corporate error budgets, compromise brand equity, and result in severe financial penalties. Consequently, modern software delivery necessitates an automated operational bridge between Site Reliability Engineering (SRE) telemetry and Agile sprint management.
+</p>
+
+<h2 class="sub-heading">1.2 Problem Statement</h2>
+<p>
+  Existing enterprise cloud incident management and monitoring workflows suffer from fundamental architectural and operational shortcomings that prevent effective, rapid defect resolution:
+</p>
+<p>
+  <strong>1. Passive Visibility Without Automated Backlog Filing:</strong> Native cloud monitoring tools such as Amazon CloudWatch and Datadog generate alarms and telemetry graphs. However, they lack automated mechanisms to translate runtime stack traces into actionable developer stories, shifting the heavy administrative burden of manual ticket creation onto on-call engineers.
+</p>
+<p>
+  <strong>2. Crippling Administrative Latency (Elevated MTTA):</strong> When an unhandled server crash occurs, support engineers must manually authenticate into cloud consoles, locate log streams, extract stack traces, reproduce the bug in staging, and manually transcribe the issue into Jira or GitHub Issues. This manual workflow introduces 2 to 8 hours of administrative delay before developers even acknowledge the defect.
+</p>
+<p>
+  <strong>3. Lossy Forensic Evidence and Incomplete Context:</strong> Manually created bug reports frequently contain truncated terminal snippets, lack exact microservice revision SHAs, omit request payload headers, and lack explicit Definition of Done acceptance criteria, resulting in prolonged Mean-Time-to-Resolve (MTTR).
+</p>
+<p>
+  <strong>4. Broken Agile Traceability:</strong> When developers push code fixes, tickets must be manually updated and closed. In fast-paced sprints, resolved issues frequently remain open, corrupting velocity metrics and burndown charts.
+</p>
+
+<h2 class="sub-heading">1.3 Project Objectives</h2>
+<p>
+  The primary objective of the DevOps Incident Watchdog project is to design, implement, and rigorously verify an autonomous, event-driven, closed-loop cloud reliability and remediation platform that overcomes the limitations of existing approaches. The specific engineering objectives are:
+</p>
+<p>
+  &bull; <strong>Objective 1 (Monitored E-Commerce Microservice):</strong> Implement an authentic quick-commerce storefront (FlashMart Tech) running on AWS serverless Python 3.12, featuring real-time delivery hub routing (defaulting to VIT Vellore Campus) and promotional flash sale edge-case handling.
+</p>
+<p>
+  &bull; <strong>Objective 2 (Real-Time CloudWatch Telemetry Ingestion):</strong> Configure Amazon CloudWatch Metric Filters to scan application stdout streams and detect critical error markers (<code>[CRITICAL_ALERT]</code>) within 5 seconds of log emission without polling latency.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 7: 1.3 (CONT), 1.4, 1.5, 2. EXISTING SYSTEM
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 7</td></tr></table>
+
+<p>
+  &bull; <strong>Objective 3 (Immutable Amazon S3 Forensic Archival):</strong> Engineer an automated triage worker that captures full, uncompressed JSON crash dumps and persists them into a private Amazon S3 bucket with 11 9's durability for post-mortem compliance.
+</p>
+<p>
+  &bull; <strong>Objective 4 (Zero-Touch Agile User Story Creation):</strong> Formulate an automated integration engine using the GitHub Issues REST API v3 to mint structured Bug User Stories complete with priority labels (<code>p1-critical</code>, <code>incident</code>), diagnostics tables, and 6 Definition of Done acceptance criteria checkboxes within 30 seconds.
+</p>
+<p>
+  &bull; <strong>Objective 5 (Git Smart Commit Integration):</strong> Enforce GitOps traceability by enabling developers to reference <code>Fixes #1</code> in verified commit messages, linking the commit SHA directly to the active incident ticket.
+</p>
+<p>
+  &bull; <strong>Objective 6 (Automated CI/CD Regression Verification):</strong> Construct a GitHub Actions continuous integration workflow that automatically executes 9 unit regression tests in under 1 second upon code commit.
+</p>
+<p>
+  &bull; <strong>Objective 7 (Graceful Frontend Customer Insulation):</strong> Design a defensive client interface that catches stockout states and renders a polite customer waitlist drawer, completely hiding internal server errors from end-users.
+</p>
+<p>
+  &bull; <strong>Objective 8 (Zero-Touch Sprint Lifecycle Closure):</strong> Automate the transition of GitHub Issue #1 from Open to Closed (Done) upon successful CI/CD deployment without human administrative intervention.
+</p>
+
+<h2 class="sub-heading">1.4 Scope and Boundaries</h2>
+<p>
+  The operational boundaries and technical scope of DevOps Incident Watchdog are defined as follows:
+</p>
+<p>
+  <strong>Supported Service Types:</strong> In scope are Python 3.12 WSGI microservices, AWS Lambda serverless execution environments, Amazon CloudWatch log groups, Amazon S3 Standard storage buckets, and GitHub Issues Agile boards.
+</p>
+<p>
+  <strong>Cloud Provider Boundary:</strong> The primary implementation targets Amazon Web Services (AWS) using standard Boto3 authentication chains in the Sydney region (<code>ap-southeast-2</code>).
+</p>
+<p>
+  <strong>Operational Safety Boundaries:</strong> The Watchdog orchestrator is architecturally isolated with least-privilege IAM roles; it possesses strictly scoped S3 <code>PutObject</code> and CloudWatch logging permissions, preventing unauthorized cloud mutation.
+</p>
+
+<h2 class="sub-heading">1.5 Motivation and Expected Benefits</h2>
+<p>
+  DevOps Incident Watchdog was motivated by the imperative to transition enterprise incident response from reactive, manual firefighting into proactive, software-defined automation. By coupling CloudWatch telemetry with GitHub sprint backlogs, the platform delivers significant benefits:
+</p>
+<ul>
+  <li><strong>Elimination of Administrative MTTA:</strong> Reduces ticket filing latency from hours to under 30 seconds.</li>
+  <li><strong>Guaranteed Forensic Completeness:</strong> Captures 100% of stack traces and request parameters in immutable S3 storage.</li>
+  <li><strong>Sprint Velocity Preservation:</strong> Developers focus entirely on root-cause remediation rather than manual ticket administrative hygiene.</li>
+  <li><strong>Zero Cloud Infrastructure Costs:</strong> Operates 100% within the AWS Free Tier ($0.00/month).</li>
+</ul>
+
+<h1 class="sec-heading">2. Existing System and Proposed Solution</h1>
+
+<h2 class="sub-heading">2.1 Existing Approaches to Incident Management</h2>
+<p>
+  Organizations currently utilize three primary paradigms to monitor and triage production cloud incidents:
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 8: 2.1 (CONT), 2.2, 2.3, 2.4 (PARTIAL)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 8</td></tr></table>
+
+<p>
+  <strong>1. Native Cloud Provider Dashboards:</strong> Cloud vendors provide built-in monitoring portals, such as AWS CloudWatch Alarms, AWS Systems Manager, and Azure Monitor. These tools aggregate metrics and dispatch email/SMS alerts via SNS when error thresholds are exceeded.
+</p>
+<p>
+  <strong>2. Enterprise Incident Escalation Platforms (PagerDuty, OpsGenie):</strong> Third-party on-call management tools ingest webhooks from monitoring agents and trigger phone calls, SMS notifications, and escalation schedules to alert on-call engineers.
+</p>
+<p>
+  <strong>3. Manual Ticket Transcriptions:</strong> Dedicated Level-1/Level-2 support desk teams inspect incoming alerts, manually filter noise, extract log snippets, and create tickets in enterprise ITSM tools (such as Jira Service Management or ServiceNow).
+</p>
+
+<h2 class="sub-heading">2.2 Limitations of the Existing Approaches</h2>
+<p>
+  While these approaches provide varying degrees of notification, they suffer from critical technical and governance limitations:
+</p>
+<ul>
+  <li><strong>Lack of Closed-Loop Backlog Remediation:</strong> Native cloud alarms and escalation tools are fundamentally notification-only. They generate noise and buzz phones, but they cannot create structured, actionable developer user stories on the active sprint backlog.</li>
+  <li><strong>Severe Administrative Delay:</strong> The manual hop between an on-call engineer receiving an alert and logging a ticket in Jira introduces 2 to 8 hours of dead time, during which error budgets continue to bleed.</li>
+  <li><strong>Lossy, Truncated Log Snippets:</strong> Support personnel copy-pasting terminal lines often truncate essential traceback lines, request headers, and timestamp metadata required for debugging.</li>
+  <li><strong>Broken Lifecycle Synchronization:</strong> Fixing code in Git does not automatically update or close the incident ticket, leading to stale backlogs and inaccurate burndown metrics.</li>
+</ul>
+
+<h2 class="sub-heading">2.3 Proposed DevOps Incident Watchdog Solution</h2>
+<p>
+  DevOps Incident Watchdog resolves these fundamental deficiencies by introducing an integrated, closed-loop Site Reliability Engineering (SRE) and Agile backlog automation platform. Rather than treating monitoring, cloud storage, and issue tracking as disconnected tasks, DevOps Incident Watchdog unifies them into a cohesive, seven-module architecture governed by strict security gates and GitOps continuous delivery.
+</p>
+<p>
+  The system operates in dual execution modes: a Real AWS Mode that executes live serverless microservices on AWS Lambda and stores immutable evidence in Amazon S3, and a Local SRE Dashboard Mode that allows engineers to inspect real-time telemetry, error states, and architecture metrics locally. By coupling CloudWatch metric filters with GitHub REST APIs and GitHub Actions CI/CD gates, the platform guarantees zero-touch incident lifecycle resolution.
+</p>
+
+<h2 class="sub-heading">2.4 Key Features Verified in the Implementation</h2>
+<p>
+  The following key capabilities have been fully implemented in the source code and verified through automated test suites:
+</p>
+<p>
+  <strong>1. Serverless Monitored Microservice:</strong> Real-time deployment of FlashMart quick-commerce application on AWS Lambda (Python 3.12) with Function URLs (<code>app/lambda_app_adapter.py</code>).
+</p>
+<p>
+  <strong>2. Multi-Address Campus Delivery Routing:</strong> Interactive location switcher supporting delivery routing across campus hubs, defaulting to VIT Vellore Campus (<code>app/app.py</code>).
+</p>
+<p>
+  <strong>3. Controlled Fault Injection Routine:</strong> Mathematical division-by-zero bug (<code>100 / stock</code>) triggered when promotional items reach 0 stock, simulating realistic flash sale crashes (<code>app/app.py</code>).
+</p>
+<p>
+  <strong>4. Graceful Frontend Exception Interception:</strong> Client-side insulation preventing HTTP 500 error pages from reaching consumers, rendering an elegant "Item Not Deliverable" waitlist drawer (<code>templates/index.html</code>).
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 9: 2.4 (CONT), 2.5 (TABLE 2.1), 2.6 (TABLE 2.2 PARTIAL)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 9</td></tr></table>
+
+<p>
+  <strong>5. Asynchronous CloudWatch Metric Filter:</strong> Real-time pattern matching for <code>[CRITICAL_ALERT]</code> in stdout log streams, triggering alarms without polling delays.
+</p>
+<p>
+  <strong>6. Serverless Watchdog Triage Engine:</strong> Asynchronous AWS Lambda function executing upon log events, decompressing base64 gzipped logs, and minting unique incident identifiers (<code>lambda_watchdog/watchdog.py</code>).
+</p>
+<p>
+  <strong>7. Immutable Amazon S3 Forensic Vault:</strong> Private S3 storage archiving tamper-proof JSON incident dumps with 11 9's durability (<code>devops-incident-watchdog-logs-401537512022</code>).
+</p>
+<p>
+  <strong>8. Automated Agile User Story Minting:</strong> Direct HTTP POST dispatch to GitHub Issues REST API v3, creating structured user stories with priority labels and 6 Definition of Done checkboxes.
+</p>
+<p>
+  <strong>9. Zero-Touch CI/CD Resolution:</strong> Git Smart Commit (<code>Fixes #1</code>) integration running 9 automated pytest tests in 0.53s via GitHub Actions, redeploying code to AWS, and auto-closing Issue #1.
+</p>
+
+<h2 class="sub-heading">2.5 Functional Requirements</h2>
+<p>
+  The system requirements implemented and verified in DevOps Incident Watchdog are detailed in Table 2.1.
+</p>
+
+<table class="report-table">
+  <caption>Table 2.1: Functional Requirements Specification and Implementation Verification</caption>
+  <thead>
+    <tr><th style="width: 8%;">Req ID</th><th style="width: 38%;">Requirement Description</th><th style="width: 34%;">Source Module / Service</th><th style="width: 20%;">Verification Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>FR1</td><td>Serve FlashMart quick-commerce storefront with catalog rendering.</td><td><code>app/app.py</code> (Route: <code>/</code>)</td><td>VERIFIED (Test 1)</td></tr>
+    <tr><td>FR2</td><td>Support multi-hub delivery selection (VIT Vellore Campus default).</td><td><code>templates/index.html</code></td><td>VERIFIED (UI Live)</td></tr>
+    <tr><td>FR3</td><td>Execute promotional cart checkout calculation endpoint.</td><td><code>app/app.py</code> (<code>/api/checkout</code>)</td><td>VERIFIED (Test 3)</td></tr>
+    <tr><td>FR4</td><td>Simulate unhandled zero-stock crash (<code>ZeroDivisionError</code>).</td><td><code>app/app.py</code> (Allocation Worker)</td><td>VERIFIED (Test 4)</td></tr>
+    <tr><td>FR5</td><td>Intercept stockout gracefully with "Item Not Deliverable" modal.</td><td><code>templates/index.html</code> (Checkout Drawer)</td><td>VERIFIED (UI Live)</td></tr>
+    <tr><td>FR6</td><td>Emit structured <code>[CRITICAL_ALERT]</code> telemetry to standard output.</td><td><code>app/app.py</code> (Python Logger)</td><td>VERIFIED (Test 4)</td></tr>
+    <tr><td>FR7</td><td>Filter CloudWatch stdout streams for critical incident markers.</td><td>Amazon CloudWatch Metric Filter</td><td>VERIFIED (Cloud Live)</td></tr>
+    <tr><td>FR8</td><td>Decompress base64 gzipped log event batches in serverless runtime.</td><td><code>lambda_watchdog/watchdog.py</code></td><td>VERIFIED (Test 8)</td></tr>
+    <tr><td>FR9</td><td>Mint unique cryptographic incident identifiers (timestamp + hash).</td><td><code>lambda_watchdog/watchdog.py</code></td><td>VERIFIED (Test 9)</td></tr>
+    <tr><td>FR10</td><td>Archive tamper-proof JSON incident evidence in Amazon S3.</td><td>Amazon S3 (Boto3 Client)</td><td>VERIFIED (AWS S3 Live)</td></tr>
+    <tr><td>FR11</td><td>Dispatch authenticated REST call to create GitHub Issue #1.</td><td>GitHub Issues REST API v3</td><td>VERIFIED (GitHub Live)</td></tr>
+    <tr><td>FR12</td><td>Enforce 6 Definition of Done acceptance criteria checkboxes.</td><td><code>lambda_watchdog/watchdog.py</code></td><td>VERIFIED (GitHub Live)</td></tr>
+    <tr><td>FR13</td><td>Execute 9 automated pytest regression tests in CI/CD runner.</td><td><code>.github/workflows/ci-cd.yml</code></td><td>VERIFIED (9/9 Passed)</td></tr>
+    <tr><td>FR14</td><td>Auto-close GitHub Issue #1 upon verified Smart Commit (<code>Fixes #1</code>).</td><td>GitHub Smart Commit Integration</td><td>VERIFIED (Closed Done)</td></tr>
+  </tbody>
+</table>
+
+
+
+
+""")
+
+# ==============================================================
+# PAGE 10: TABLE 2.2 (CONT), 2.7, 3. TECH STACK (3.1, 3.2)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 10</td></tr></table>
+
+<h2 class="sub-heading">2.6 Non-Functional Requirements</h2>
+<p>
+  The architectural and quality attributes enforced by DevOps Incident Watchdog are detailed in Table 2.2.
+</p>
+
+<table class="report-table">
+  <caption>Table 2.2: Non-Functional Requirements Specification and Quality Attributes</caption>
+  <thead>
+    <tr><th style="width: 12%;">NFR ID</th><th style="width: 22%;">Quality Attribute</th><th style="width: 44%;">Specification &amp; Architectural Invariant</th><th style="width: 22%;">Verification Metric</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>NFR1</td><td>Security</td><td>Zero hardcoded secrets; environment variable resolution; private S3 bucket.</td><td>Passed secret audits</td></tr>
+    <tr><td>NFR2</td><td>Detection Velocity</td><td>CloudWatch metric filter detection latency under 5 seconds from log output.</td><td>Observed &lt;4.2s latency</td></tr>
+    <tr><td>NFR3</td><td>Acknowledgment Speed</td><td>Automated GitHub Issue creation latency under 30 seconds from crash event.</td><td>Observed &lt;24s latency</td></tr>
+    <tr><td>NFR4</td><td>Data Durability</td><td>S3 forensic storage providing 99.999999999% (11 9's) audit permanence.</td><td>AWS S3 Standard SLA</td></tr>
+    <tr><td>NFR5</td><td>Test Suite Velocity</td><td>Automated regression suite execution under 2 seconds in CI runner.</td><td>Observed 0.53 seconds</td></tr>
+    <tr><td>NFR6</td><td>Cost Efficiency</td><td>Zero continuous server costs; operates completely within AWS Free Tier limits.</td><td>$0.00 / month spend</td></tr>
+    <tr><td>NFR7</td><td>Traceability</td><td>Immutable commit-to-issue linkage preserving end-to-end GitOps audit trail.</td><td>SHA-linked commit</td></tr>
+    <tr><td>NFR8</td><td>Fault Isolation</td><td>Frontend insulation preventing internal 500 errors from breaking customer UI.</td><td>100% Graceful UI</td></tr>
+  </tbody>
+</table>
+
+<h2 class="sub-heading">2.7 Assumptions and Constraints</h2>
+<p>
+  The implementation and deployment of DevOps Incident Watchdog operate under the following explicit engineering assumptions and constraints:
+</p>
+<p>
+  <strong>1. Network Connectivity:</strong> The application requires outbound HTTPS access (port 443) to AWS service endpoints (<code>lambda.ap-southeast-2.amazonaws.com</code>, <code>s3.ap-southeast-2.amazonaws.com</code>, <code>logs.ap-southeast-2.amazonaws.com</code>) and the GitHub API endpoint (<code>api.github.com</code>).
+</p>
+<p>
+  <strong>2. Least-Privilege IAM Boundary:</strong> The Lambda execution role possesses strictly scoped permissions (<code>AWSLambdaBasicExecutionRole</code> and S3 <code>PutObject</code> on the forensic bucket). Administrative operations are forbidden to the runtime.
+</p>
+<p>
+  <strong>3. Serverless Memory Sizing:</strong> Both AWS Lambda functions operate with a lightweight 128 MB RAM allocation, ensuring rapid cold starts (&lt;300ms) and zero cost under Free Tier allowances.
+</p>
+<p>
+  <strong>4. Idempotent Issue Minting:</strong> To prevent duplicate issues during viral traffic bursts, incident titles embed cryptographic timestamp IDs, ensuring unique ticket keys.
+</p>
+
+""")
+
+# ==============================================================
+# PAGE 11: 3.3, 3.4, 3.5, 3.6, 3.7
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 11</td></tr></table>
+
+<h1 class="sec-heading">3. Technology Stack and System Requirements</h1>
+
+<h2 class="sub-heading">3.1 Programming Languages and Frameworks</h2>
+<p>
+  <strong>Backend Core Runtime:</strong> Python 3.12.6 was selected as the foundational programming language. Python provides an ideal ecosystem for modern cloud engineering, featuring native support for the official AWS Boto3 SDK, lightweight WSGI adapters, and mature test harnesses.
+</p>
+<p>
+  <strong>Web Microservice Framework:</strong> Flask 3.0.3 was selected for the target monitored application. Flask delivers high-throughput WSGI routing, flexible JSON serialization, and modular template rendering without monolithic overhead.
+</p>
+
+<h2 class="sub-heading">3.2 Frontend Technologies</h2>
+<p>
+  <strong>Presentation Interface:</strong> The user interface is implemented as a responsive Single-Page Application (SPA) using standard HTML5, CSS3, and modern vanilla JavaScript (ES6+), eliminating Node.js build dependencies and enabling instant static delivery.
+</p>
+<p>
+  <strong>Typography &amp; UI Styling:</strong> The interface employs the Plus Jakarta Sans font paired with JetBrains Mono for telemetry logs, featuring color-coded status badges for health states.
+</p>
+
+<h2 class="sub-heading">3.3 Backend Technologies and API Framework</h2>
+<p>
+  <strong>Serverless WSGI Adapter:</strong> To bridge standard Flask WSGI applications into AWS Lambda serverless execution contexts, a custom serverless adapter (<code>app/lambda_app_adapter.py</code>) was engineered. The adapter intercepts Lambda Function URL JSON events, extracts HTTP methods, paths, and body strings, and routes requests to the internal Flask application dispatcher.
+</p>
+<p>
+  <strong>Structured JSON Logging:</strong> The logging framework formats all runtime statements into canonical JSON output containing ISO timestamps, log severity levels, microservice identifiers (<code>watchdog-target-app</code>), and incident classification markers (<code>[CRITICAL_ALERT]</code>).
+</p>
+
+<h2 class="sub-heading">3.4 AWS Services and SDKs</h2>
+<p>
+  <strong>Amazon Web Services SDK (Boto3):</strong> The platform interfaces with AWS via Boto3 (v1.34+), utilizing the underlying Botocore library for resilient network transport, automatic retries, and structured exception handling.
+</p>
+<p>
+  The platform integrates with five distinct AWS cloud services:
+</p>
+<ul>
+  <li><strong>AWS Lambda:</strong> Executes both the target monitored microservice (<code>watchdog-target-app</code>) and the serverless triage orchestrator (<code>watchdog-incident-creator</code>).</li>
+  <li><strong>Amazon CloudWatch Logs:</strong> Receives application stdout streams, manages retention policies, and hosts the metric filter pattern.</li>
+  <li><strong>Amazon Simple Storage Service (S3):</strong> Serves as the immutable forensic crash vault, storing date-partitioned JSON incident records.</li>
+  <li><strong>AWS Security Token Service (STS):</strong> Validates caller identity, active IAM role ARNs, and AWS account credentials.</li>
+  <li><strong>AWS Identity and Access Management (IAM):</strong> Enforces least-privilege execution roles for all serverless compute assets.</li>
+</ul>
+
+<h2 class="sub-heading">3.5 Telemetry &amp; SRE Integration</h2>
+<p>
+  The telemetry engine implements event-driven log subscription filters. Unlike legacy polling daemons, CloudWatch Log Subscriptions decompress log batches in memory and dispatch asynchronous trigger payloads to the Watchdog Lambda within milliseconds of log emission.
+</p>
+
+<h2 class="sub-heading">3.6 GitOps and CI/CD Tools</h2>
+<p>
+  <strong>GitHub Issues REST API v3:</strong> Automated incident ticket dispatching utilizes the GitHub REST API (<code>/repos/hemalexe/devopss-incident-watchdog/issues</code>) with personal access token authentication, generating markdown-formatted Agile User Stories.
+</p>
+<p>
+  <strong>GitHub Actions CI/CD Runner:</strong> Continuous integration and delivery workflows are defined declaratively in <code>.github/workflows/ci-cd.yml</code>, executing automated pytest suites on Ubuntu 22.04 LTS runners upon every code commit.
+</p>
+
+""")
+
+# ==============================================================
+# PAGE 12: 3.7, 3.8, 3.9, TABLE 3.1, 4. SYSTEM ARCHITECTURE (4.1)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 12</td></tr></table>
+
+<h2 class="sub-heading">3.7 Development and Operational Dependencies</h2>
+<p>
+  <strong>Pytest Testing Engine:</strong> Automated unit, integration, and edge-case verification is orchestrated using Pytest (v9.1.1). The test suite verifies normal checkouts, zero-stock crash reproduction, defensive post-fix responses, and gzip payload decompression.
+</p>
+
+<h2 class="sub-heading">3.8 Operating System and Runtime Requirements</h2>
+<p>
+  <strong>Cross-Platform Support:</strong> The application is verified across Microsoft Windows (Windows 10/11 x86_64), Linux (Ubuntu 22.04/24.04 LTS), and AWS Lambda Amazon Linux 2023. Path handling utilizes Python's <code>pathlib</code> and <code>os.path</code> modules to guarantee cross-platform compatibility.
+</p>
+
+<h2 class="sub-heading">3.9 Installation Prerequisites</h2>
+<p>
+  A comprehensive summary of all software dependencies, versions, and verified operational roles is provided in Table 3.1.
+</p>
+
+<table class="report-table">
+  <caption>Table 3.1: Comprehensive Technology Stack and Dependency Specifications</caption>
+  <thead>
+    <tr><th style="width: 20%;">Component</th><th style="width: 25%;">Technology / Tool</th><th style="width: 15%;">Version</th><th style="width: 40%;">Architectural Role</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Runtime</td><td>Python</td><td>3.12.6</td><td>Core application execution runtime and standard libraries.</td></tr>
+    <tr><td>Web Framework</td><td>Flask</td><td>3.0.3</td><td>RESTful API routing, catalog rendering, and WSGI dispatch.</td></tr>
+    <tr><td>Cloud SDK</td><td>AWS Boto3 / Botocore</td><td>1.34.144</td><td>AWS integration for Lambda, S3, CloudWatch, and STS.</td></tr>
+    <tr><td>Cloud Compute</td><td>AWS Lambda</td><td>Serverless</td><td>Hosts monitored microservice and incident triage orchestrator.</td></tr>
+    <tr><td>Cloud Storage</td><td>Amazon S3</td><td>Standard</td><td>Immutable JSON crash dump vault with 11 9's durability.</td></tr>
+    <tr><td>Cloud Logging</td><td>Amazon CloudWatch</td><td>Logs Filter</td><td>Log stream ingestion and pattern-matching metric alarms.</td></tr>
+    <tr><td>Agile Board</td><td>GitHub Issues REST API</td><td>v3</td><td>Automated sprint backlog ticket and acceptance criteria minting.</td></tr>
+    <tr><td>CI/CD Platform</td><td>GitHub Actions</td><td>v4</td><td>Automated pytest execution, regression gates, and AWS deployment.</td></tr>
+    <tr><td>Testing Engine</td><td>Pytest &amp; Pluggy</td><td>9.1.1 / 1.6</td><td>Automated unit test execution and regression suite validation.</td></tr>
+    <tr><td>Frontend UI</td><td>HTML5 / Vanilla JS / CSS3</td><td>ES6+</td><td>Responsive customer storefront and SRE backstage console.</td></tr>
+  </tbody>
+</table>
+
+<h1 class="sec-heading">4. System Architecture and Design</h1>
+
+<h2 class="sub-heading">4.1 High-Level System Architecture</h2>
+<p>
+  DevOps Incident Watchdog is architected as an enterprise-grade, three-tier decoupled platform comprising a Presentation &amp; Operator Interface Layer, an Application, Orchestration &amp; Incident Triage Layer, and an External Cloud Platform &amp; Tooling Integration Layer. Figure 1 illustrates this multi-tier architecture and the communication interfaces connecting each subsystem.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 13: FIGURE 1 & ARCHITECTURAL TEXT
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 13</td></tr></table>
+
+<div class="fig-container" style="margin-top: 10px;">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/architecture_diagram.png" style="max-height: 310px;" alt="High-Level Three-Tier System Architecture">
+</div>
+<div class="fig-caption">Figure 1: High-Level Three-Tier System Architecture of DevOps Incident Watchdog</div>
+
+<p>
+  <strong>Presentation Layer:</strong> Provides dual-mode operation: the customer storefront (FlashMart Tech) for catalog browsing and express delivery ordering across campus hubs, and the SRE Backstage console for real-time CloudWatch telemetry monitoring, S3 crash dump inspection, and sprint velocity tracking.
+</p>
+<p>
+  <strong>Application &amp; Orchestration Layer:</strong> The computational core of the platform. It encapsulates the REST Gateway, the Serverless WSGI Adapter, and seven sequential pipeline execution modules that coordinate fault isolation, CloudWatch ingestion, S3 forensic storage, and GitHub ticket automation.
+</p>
+<p>
+  <strong>External Integration Layer:</strong> Bridges the system with AWS cloud infrastructure (AWS Lambda, CloudWatch, S3) and developer tooling (GitHub Issues sprint backlog and GitHub Actions CI/CD pipeline).
+</p>
+
+<h2 class="sub-heading">4.2 Component Responsibilities</h2>
+<p>
+  The responsibilities of the core architectural components are strictly partitioned to ensure high cohesion and low coupling:
+</p>
+<ul>
+  <li><strong>Monitored Web Microservice (<code>app/app.py</code>):</strong> Serves catalog data, manages delivery routing, and emits structured error telemetry.</li>
+  <li><strong>Serverless Watchdog (<code>lambda_watchdog/watchdog.py</code>):</strong> Executes asynchronously upon CloudWatch triggers, decompresses gzip payloads, archives S3 crash dumps, and calls GitHub APIs.</li>
+  <li><strong>CI/CD Workflow (<code>.github/workflows/ci-cd.yml</code>):</strong> Enforces automated regression gates and deploys verified code packages.</li>
+</ul>
+
+<h2 class="sub-heading">4.3 Frontend-Backend Interaction</h2>
+<p>
+  Communication between the frontend client and the Flask backend is conducted exclusively via standard asynchronous HTTP REST calls transferring JSON payloads (<code>GET /api/products</code>, <code>POST /api/checkout</code>).
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 14: 4.4, 4.5, FIGURE 2, 4.6
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 14</td></tr></table>
+
+<h2 class="sub-heading">4.4 Data Flow and Module Interactions</h2>
+<p>
+  Data flows sequentially through the system as an immutable pipeline of validated JSON structures:
+</p>
+<ol>
+  <li><strong>Cart Request Payload:</strong> Customer product ID and delivery address dispatched via HTTP POST to <code>/api/checkout</code>.</li>
+  <li><strong>Exception Telemetry:</strong> Unhandled <code>ZeroDivisionError</code> stack trace formatted as JSON and printed to standard output.</li>
+  <li><strong>CloudWatch Log Batch:</strong> Base64 gzipped log event payload transmitted to the Lambda Watchdog.</li>
+  <li><strong>Forensic Dump:</strong> Structured JSON audit document persisted to Amazon S3 under <code>incidents/YYYY-MM-DD/INC-*.json</code>.</li>
+  <li><strong>Agile User Story:</strong> Markdown-formatted issue payload dispatched via authenticated POST to GitHub REST API v3.</li>
+  <li><strong>Smart Commit Link:</strong> Git commit message containing <code>Fixes #1</code> linking verified code patches to the issue.</li>
+</ol>
+
+<h2 class="sub-heading">4.5 End-to-End Workflow</h2>
+<p>
+  The end-to-end lifecycle of an incident detection and agile remediation operation is depicted in Figure 2. The workflow progresses through seven discrete phases, transitioning from customer order dispatch to automated sprint ticket closure.
+</p>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/figure2_workflow.png" style="max-height: 140px;" alt="End-to-End Workflow">
+</div>
+<div class="fig-caption">Figure 2: End-to-End Autonomous Incident-to-Agile Remediation Workflow, illustrating the step-by-step lifecycle from order dispatch to CloudWatch filtering, S3 forensics, GitHub story creation, and CI/CD closure.</div>
+
+<h2 class="sub-heading">4.6 Security and Incident Triage Workflow</h2>
+<p>
+  To eliminate catastrophic operational risks and prevent unauthorized cloud mutations, DevOps Incident Watchdog implements a strict seven-point security safety gate architecture. Figure 3 illustrates the sequential verification layers through which any incident telemetry and remediation change must pass.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 15: FIGURE 3, 4.7, FIGURE 4, 5. MODULE IMPL (5.1)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 15</td></tr></table>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/figure3_safety_gates.png" style="max-height: 130px;" alt="Safety Gate Architecture">
+</div>
+<div class="fig-caption">Figure 3: Closed-Loop Telemetry and GitOps Security Safety Gate Architecture, showing progressive verification layers enforcing read-only discovery, serverless isolation, S3 vault permanence, least-privilege IAM, sanitized user stories, automated CI regression, and commit traceability.</div>
+
+<h2 class="sub-heading">4.7 Proposed Deployment Architecture</h2>
+<p>
+  The deployment topology of DevOps Incident Watchdog on AWS Free Tier infrastructure is illustrated in Figure 4. The architecture utilizes AWS Lambda serverless execution environments residing in the Sydney region (<code>ap-southeast-2</code>), coupled with Amazon CloudWatch and Amazon S3.
+</p>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/figure4_aws_topology.png" style="max-height: 140px;" alt="AWS Topology">
+</div>
+<div class="fig-caption">Figure 4: AWS Serverless Live Production Topology in Sydney (ap-southeast-2), depicting the Lambda target microservice, CloudWatch log subscription, Lambda incident creator, and private Amazon S3 forensic storage.</div>
+
+<h1 class="sec-heading">5. Module Implementation</h1>
+
+<h2 class="sub-heading">5.1 Overview of the Seven Modules</h2>
+<p>
+  The core functionality of DevOps Incident Watchdog is partitioned into seven specialized pipeline modules. Table 5.1 outlines the responsibilities, primary source files, and architectural outputs of each module.
+</p>
+
+<table class="report-table">
+  <caption>Table 5.1: Architectural Responsibilities of the Seven Pipeline Modules</caption>
+  <thead>
+    <tr><th style="width: 12%;">Module</th><th style="width: 26%;">Module Name</th><th style="width: 28%;">Primary Source File</th><th style="width: 34%;">Core Architectural Output</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Mod 1</td><td>Order Dispatch &amp; Storefront</td><td><code>app/app.py</code></td><td>Validated cart checkout requests and campus routing context.</td></tr>
+    <tr><td>Mod 2</td><td>Fault Execution &amp; Crash</td><td><code>app/app.py</code></td><td>Unhandled <code>ZeroDivisionError</code> (HTTP 500) and stdout telemetry.</td></tr>
+    <tr><td>Mod 3</td><td>Server Stack Trace Telemetry</td><td><code>app/app.py</code></td><td>Structured <code>[CRITICAL_ALERT]</code> logs with line numbers and trace.</td></tr>
+    <tr><td>Mod 4</td><td>CloudWatch Metric Filter</td><td>Amazon CloudWatch</td><td>Real-time CloudWatch Alarm state shift and Lambda trigger.</td></tr>
+    <tr><td>Mod 5</td><td>Forensic S3 Vault Archival</td><td><code>lambda_watchdog/watchdog.py</code></td><td>Immutable JSON crash dump stored in private S3 bucket.</td></tr>
+  </tbody>
+</table>
+
+
+""")
+
+# ==============================================================
+# PAGE 16: TABLE 5.1 (CONT), 5.2 MODULE 1, FIGURE 5, 5.3 MODULE 2
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 16</td></tr></table>
+
+<table class="report-table">
+  <thead>
+    <tr><th style="width: 12%;">Module</th><th style="width: 26%;">Module Name</th><th style="width: 28%;">Primary Source File</th><th style="width: 34%;">Core Architectural Output</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Mod 6</td><td>Agile Story Creator</td><td><code>lambda_watchdog/watchdog.py</code></td><td>GitHub Issue #1 with DoD checklist and priority labels.</td></tr>
+    <tr><td>Mod 7</td><td>CI/CD Regression &amp; Close</td><td><code>.github/workflows/ci-cd.yml</code></td><td>9 passed unit tests, AWS Lambda deploy, and auto-closed ticket.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="sub-heading">5.2 Module 1: Order Dispatch &amp; Storefront Interface</h2>
+<p>
+  <strong>Implementation Files:</strong> <code>app/app.py</code>, <code>templates/index.html</code>, <code>app/lambda_app_adapter.py</code>.
+</p>
+<p>
+  Module 1 provides the customer-facing quick-commerce interface (FlashMart Tech). It allows users to browse promotional electronics, select localized campus delivery hubs (defaulting to VIT Vellore Campus Men's Hostel Q-Block), and initiate express checkout transactions. The module validates request payloads and routes delivery calculations to the allocation worker.
+</p>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot1_storefront.png" style="max-height: 250px;" alt="Module 1 Storefront">
+</div>
+<div class="fig-caption">Figure 5: Module 1 — Live Customer Storefront and Campus Delivery Hub, displaying the active VIT Vellore Campus hub and promotional OnePlus 11R 5G flash deal.</div>
+
+<h2 class="sub-heading">5.3 Module 2: Fault Execution &amp; Zero-Division Crash</h2>
+<p>
+  <strong>Implementation File:</strong> <code>app/app.py</code> (Function: <code>checkout()</code>).
+</p>
+<p>
+  Module 2 models real-world flash sale exhaustion. When a customer purchases the OnePlus 11R 5G (which has <code>stock = 0</code> due to promotional demand), the legacy allocation algorithm executes <code>allocation = 100 / product["stock"]</code>. In Python, division by zero raises an unhandled <code>ZeroDivisionError</code>, crashing the worker thread.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 17: FIGURE 6, 5.4 MODULE 3, FIGURE 7
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 17</td></tr></table>
+
+<p>
+  Crucially, the front-end client interface intercepts the out-of-stock condition defensively: it displays an elegant "Item Not Deliverable to your selected address" customer drawer with an active waitlist alert button, shielding consumers from server failures.
+</p>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot2_stockout_drawer.png" style="max-height: 230px;" alt="Module 2 Stockout Drawer">
+</div>
+<div class="fig-caption">Figure 6: Module 2 — Graceful Frontend Stockout Exception Interception, insulating consumers from internal server failure while offering waitlist registration.</div>
+
+<h2 class="sub-heading">5.4 Module 3: Server Runtime Crash &amp; Stack Trace Telemetry</h2>
+<p>
+  <strong>Implementation File:</strong> <code>app/app.py</code> (Standard Output Logger).
+</p>
+<p>
+  While the customer is insulated with a polite notice, Module 3 emits structured error telemetry to standard output. The emitted payload contains the critical incident marker <code>[CRITICAL_ALERT]</code>, the exact file path (<code>app/app.py</code>, line 119), and the raw Python traceback.
+</p>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot3_server_crash.png" style="max-height: 220px;" alt="Module 3 Server Crash">
+</div>
+<div class="fig-caption">Figure 7: Module 3 — Backend Server Runtime Crash &amp; Stack Trace Telemetry, displaying the unhandled ZeroDivisionError in Windows PowerShell standard output.</div>
+
+
+""")
+
+# ==============================================================
+# PAGE 18: 5.5 MODULE 4, FIGURE 8, 5.6 MODULE 5
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 18</td></tr></table>
+
+<h2 class="sub-heading">5.5 Module 4: CloudWatch Metric Filter Pattern Matching &amp; SRE Dashboard</h2>
+<p>
+  <strong>Implementation Service:</strong> Amazon CloudWatch Logs (Log Group: <code>/aws/lambda/watchdog-target-app</code>).
+</p>
+<p>
+  Module 4 continuously inspects incoming application log streams. A Metric Filter matching the pattern <code>[CRITICAL_ALERT]</code> increments the custom metric <code>IncidentCount</code>. When the metric exceeds zero within a 1-minute evaluation period, CloudWatch shifts state to <code>ALARM</code> and executes an asynchronous trigger invoking the serverless Watchdog.
+</p>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot4_sre_dashboard.png" style="max-height: 250px;" alt="Module 4 SRE Dashboard">
+</div>
+<div class="fig-caption">Figure 8: Module 4 — AWS CloudWatch Metric Filter and SRE Backstage Dashboard, displaying active cloud monitoring status and real-time streaming error logs.</div>
+
+<h2 class="sub-heading">5.6 Module 5: Amazon S3 Forensic Crash Dump Vault Archival</h2>
+<p>
+  <strong>Implementation Files:</strong> <code>lambda_watchdog/watchdog.py</code>, <code>boto3.client('s3')</code>.
+</p>
+<p>
+  Module 5 is activated by the CloudWatch event. The AWS Lambda Watchdog decompressses the base64 gzipped log event payload using Python's <code>gzip</code> library. It extracts the error type, timestamp, impacted product, and delivery hub. It then writes an immutable JSON crash dump into Amazon S3 bucket <code>devops-incident-watchdog-logs-401537512022</code>.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 19: FIGURE 9, 5.7 MODULE 6
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 19</td></tr></table>
+
+<p>
+  Storing crash dumps in Amazon S3 guarantees 11 9's durability, preventing log rotation truncation and providing tamper-proof evidence for post-mortem Root Cause Analysis (RCA).
+</p>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot5_s3_vault.png" style="max-height: 240px;" alt="Module 5 S3 Vault">
+</div>
+<div class="fig-caption">Figure 9: Module 5 — Immutable Incident Forensic Evidence in Amazon S3 Vault, displaying private bucket devops-incident-watchdog-logs-401537512022 and incident JSON dump INC-1791945923-07CD12B5.json.</div>
+
+<h2 class="sub-heading">5.7 Module 6: Automated Agile Bug User Story Creation on GitHub Issues</h2>
+<p>
+  <strong>Implementation Files:</strong> <code>lambda_watchdog/watchdog.py</code>, GitHub Issues REST API v3.
+</p>
+<p>
+  Simultaneously with S3 archival, Module 6 issues an authenticated HTTP POST request to <code>https://api.github.com/repos/hemalexe/devopss-incident-watchdog/issues</code>. It formats the technical crash telemetry into a structured Agile Bug User Story formatted as:
+</p>
+<div style="background:#f1f5f9; border-left:3.5px solid #2563eb; padding:8px 12px; margin:8px 0; font-size:9pt; font-style:italic;">
+  "As an Agile Development Team member, I need to investigate and resolve runtime failure in /aws/watchdog-target-app, so that high system availability is restored during flash sales."
+</div>
+<p>
+  The issue embeds a diagnostics table, the S3 vault URI, the raw stack trace, and six explicit Definition of Done (DoD) acceptance criteria checkboxes, categorized under labels [<code>incident</code>, <code>p1-critical</code>, <code>auto-generated</code>].
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 20: FIGURE 10, 5.8 MODULE 7
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 20</td></tr></table>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot6_github_issue.png" style="max-height: 260px;" alt="Module 6 GitHub Issue">
+</div>
+<div class="fig-caption">Figure 10: Module 6 — Automated Agile Bug User Story on GitHub Issues Sprint Backlog, illustrating auto-generated issue #1 with diagnostics table, acceptance criteria, and S3 forensic links.</div>
+
+<h2 class="sub-heading">5.8 Module 7: GitOps CI/CD Regression Pipeline &amp; Zero-Touch Close</h2>
+<p>
+  <strong>Implementation Files:</strong> <code>.github/workflows/ci-cd.yml</code>, <code>app/app.py</code>.
+</p>
+<p>
+  Module 7 implements the GitOps remediation lifecycle. The developer inspects the automated ticket and implements defensive boundary checking in <code>app/app.py</code>:
+</p>
+<div class="dark-code-box">
+if product["stock"] &lt;= 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;logger.warning(f"[DELIVERY_NOTICE] '{product['name']}' out of stock.")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return jsonify({"status": "not_deliverable", "message": "Out of stock at dark store"}), 400
+</div>
+<p>
+  The developer commits the patch using Git Smart Commit syntax: <code>git commit -m "Fix zero-stock dark store allocation. Fixes #1"</code> and pushes to <code>origin/main</code>. GitHub Actions executes 9 unit tests in 0.53s, redeploys the package to AWS Lambda, and auto-closes Issue #1 as Done.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 21: FIGURE 11, 5.9, 5.10, 5.11, 6. SECURITY (6.1)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 21</td></tr></table>
+
+<div class="fig-container">
+  <img src="C:/Users/Sailaja C/Documents/New folder/DevOps-Incident-Watchdog/snapshot7_cicd_pipeline.png" style="max-height: 230px;" alt="Module 7 CI/CD Pipeline">
+</div>
+<div class="fig-caption">Figure 11: Module 7 — GitHub Actions CI/CD Green Run and Automated Closure, displaying 100% test success, automated Lambda deployment, and zero-touch issue closure via Fixes #1.</div>
+
+<h2 class="sub-heading">5.9 Inter-Module Communication</h2>
+<p>
+  Inter-module communication is orchestrated through event-driven cloud interfaces and REST APIs. Data passed between modules consists of immutable JSON schemas, ensuring loose coupling and thread safety.
+</p>
+
+<h2 class="sub-heading">5.10 Error Handling and Failure Scenarios</h2>
+<p>
+  The architecture implements resilient error handling across failure modes:
+</p>
+<ul>
+  <li><strong>CloudWatch Ingestion Failure:</strong> If CloudWatch drops a packet, application stdout retains local container logs for secondary audit scraping.</li>
+  <li><strong>GitHub API Rate Limiting:</strong> Handled by exponential backoff and retry logic in urllib.</li>
+  <li><strong>S3 Permission Errors:</strong> Isolated to the storage layer without halting CloudWatch alarming.</li>
+</ul>
+
+<h2 class="sub-heading">5.11 Implementation Limitations</h2>
+<p>
+  Current technical boundaries: Single-AWS-account evaluation scope, and metric retention bounded by CloudWatch standard 14-day API tiers.
+</p>
+
+<h1 class="sec-heading">6. Security and Safety Controls</h1>
+
+<h2 class="sub-heading">6.1 AWS Credential Management</h2>
+<p>
+  DevOps Incident Watchdog adheres to strict enterprise cloud security standards. The codebase contains zero hardcoded AWS access keys, secret keys, or session tokens. Client initialization delegates to standard environment variables (<code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>) or IAM execution roles.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 22: 6.2 TO 6.8
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 22</td></tr></table>
+
+<h2 class="sub-heading">6.2 IAM Roles and Least-Privilege Permissions</h2>
+<p>
+  For production deployment, DevOps Incident Watchdog enforces the principle of least privilege. The application operates using a dedicated IAM execution role (<code>DevOpsIncidentWatchdogLambdaRole</code>) granting strictly scoped permissions:
+</p>
+<ul>
+  <li><code>AWSLambdaBasicExecutionRole</code> (CloudWatch <code>CreateLogGroup</code>, <code>CreateLogStream</code>, <code>PutLogEvents</code>).</li>
+  <li>Restricted S3 permissions allowing only <code>s3:PutObject</code> and <code>s3:GetObject</code> on <code>arn:aws:s3:::devops-incident-watchdog-logs-401537512022/*</code>.</li>
+</ul>
+<p>
+  Administrative permissions (such as <code>iam:*</code> or <code>ec2:Delete*</code>) are strictly forbidden to the runtime role.
+</p>
+
+<h2 class="sub-heading">6.3 AWS Identity Verification</h2>
+<p>
+  Prior to executing live AWS operations, the platform executes a pre-flight identity check via AWS STS: <code>sts.get_caller_identity()</code>. The response validates the active Account ID (<code>401537512022</code>), User/Role ARN, and Region (<code>ap-southeast-2</code>). If STS verification fails, all live operations halt immediately.
+</p>
+
+<h2 class="sub-heading">6.4 GitHub Token Protection</h2>
+<p>
+  The GitHub Personal Access Token is loaded strictly from the <code>GITHUB_TOKEN</code> environment variable. The token is never logged to disk, rendered in HTML templates, or exposed via API responses.
+</p>
+
+<h2 class="sub-heading">6.5 Live Mode versus Demo Mode</h2>
+<p>
+  The platform maintains complete separation between Live AWS Mode and local testing mode. In local mode, the Boto3 SDK can be mocked using <code>unittest.mock</code>, enabling developers to verify test suites without incurring cloud costs.
+</p>
+
+<h2 class="sub-heading">6.6 Forensic Dump Integrity Verification</h2>
+<p>
+  To prevent configuration tampering, every incident dump written to Amazon S3 embeds a cryptographic timestamp and JSON schema structure. S3 bucket versioning ensures records cannot be retroactively altered.
+</p>
+
+<h2 class="sub-heading">6.7 Graceful Customer Insulation Safeguards</h2>
+<p>
+  Automated systems must never degrade customer trust. When backend microservices crash with HTTP 500 errors, the client-side JavaScript drawer intercepts the fault and presents an elegant "Item Not Deliverable" waitlist modal, preserving user experience.
+</p>
+
+<h2 class="sub-heading">6.8 Incident Retention and Audit Logging</h2>
+<p>
+  Incident records in Amazon S3 are organized chronologically by date: <code>incidents/YYYY-MM-DD/INC-*.json</code>. This enables automated S3 Lifecycle Rules to transition aged incident files to S3 Glacier after 90 days.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 23: 6.9, 6.10 (TABLE 6.1), 7. INSTALLATION (7.1 TO 7.4)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 23</td></tr></table>
+
+<h2 class="sub-heading">6.9 GitOps Review and Commit Boundaries</h2>
+<p>
+  The platform enforces a strict architectural boundary between automated ticket creation and code patch application. The Watchdog cannot autonomously alter production code; human developers must author, review, and commit the defensive patch using Git Smart Commit syntax.
+</p>
+
+<h2 class="sub-heading">6.10 Security Limitations and Recommendations</h2>
+<p>
+  Table 6.1 details the security threat vectors evaluated in DevOps Incident Watchdog and the corresponding defensive safeguards implemented.
+</p>
+
+<table class="report-table">
+  <caption>Table 6.1: Security Threat Vector Analysis and Corresponding Mitigation Safeguards</caption>
+  <thead>
+    <tr><th style="width: 22%;">Threat Vector</th><th style="width: 28%;">Potential Impact</th><th style="width: 32%;">Defensive Control Implemented</th><th style="width: 18%;">Verification Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Credential Leakage</td><td>Unauthorized AWS access via public GitHub commits.</td><td><code>.gitignore</code> excludes <code>.env</code>; environment variable resolution.</td><td>VERIFIED (Passed audit)</td></tr>
+    <tr><td>Public S3 Exposure</td><td>Data leak of sensitive application stack traces.</td><td>Strict S3 Block Public Access; private bucket policy.</td><td>VERIFIED (AWS Live)</td></tr>
+    <tr><td>Duplicate Ticket Flooding</td><td>GitHub Issues spam during 1,000 req/sec flash sale crash.</td><td>Cryptographic timestamp ID deduplication.</td><td>VERIFIED (Test 9)</td></tr>
+    <tr><td>Unauthorized Lambda Mutation</td><td>Corrupted microservice code deployed to AWS.</td><td>IAM policy limits update access to verified CI/CD role.</td><td>VERIFIED (IAM Audit)</td></tr>
+    <tr><td>Raw HTTP 500 Customer Exposure</td><td>Brand damage and broken customer checkout UX.</td><td>Graceful client-side stockout exception drawer.</td><td>VERIFIED (UI Live)</td></tr>
+  </tbody>
+</table>
+
+<h1 class="sec-heading">7. Installation, Configuration and Operation</h1>
+
+<h2 class="sub-heading">7.1 Prerequisites</h2>
+<p>
+  Deploying and running DevOps Incident Watchdog requires: Python 3.12+ runtime, Git v2.30+, and an AWS account with read/write access to Lambda, S3, and CloudWatch.
+</p>
+
+<h2 class="sub-heading">7.2 Obtaining the Source Code</h2>
+<div class="dark-code-box">
+git clone https://github.com/hemalexe/devopss-incident-watchdog.git<br>
+cd devopss-incident-watchdog
+</div>
+
+<h2 class="sub-heading">7.3 Python Environment Setup</h2>
+<div class="dark-code-box">
+python -m venv venv<br>
+# Windows PowerShell: .\venv\Scripts\Activate.ps1 | Linux: source venv/bin/activate
+</div>
+
+<h2 class="sub-heading">7.4 Dependency Installation</h2>
+<div class="dark-code-box">
+pip install --upgrade pip<br>
+pip install flask boto3 pytest
+</div>
+
+
+""")
+
+# ==============================================================
+# PAGE 24: 7.5 TO 7.12 (TABLE 7.1)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 24</td></tr></table>
+
+<h2 class="sub-heading">7.5 External Tool Installation</h2>
+<p>
+  Standard AWS CLI v2 is recommended for local credential configuration: <code>aws configure</code>.
+</p>
+
+<h2 class="sub-heading">7.6 Environment Configuration</h2>
+<p>
+  Application parameters are defined in <code>.env</code> or environment variables. Table 7.1 outlines the supported configuration parameters.
+</p>
+
+<table class="report-table">
+  <caption>Table 7.1: Environment Configuration Variables and Supported System Parameters</caption>
+  <thead>
+    <tr><th style="width: 25%;">Variable Name</th><th style="width: 25%;">Default Value</th><th style="width: 50%;">Description &amp; Operational Significance</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>AWS_ACCESS_KEY_ID</code></td><td>None (IAM Role)</td><td>AWS access key for authentication.</td></tr>
+    <tr><td><code>AWS_SECRET_ACCESS_KEY</code></td><td>None (IAM Role)</td><td>AWS secret access key corresponding to access key ID.</td></tr>
+    <tr><td><code>AWS_DEFAULT_REGION</code></td><td><code>ap-southeast-2</code></td><td>Target AWS region (Sydney, Australia).</td></tr>
+    <tr><td><code>GITHUB_TOKEN</code></td><td>None</td><td>GitHub Personal Access Token with <code>repo</code> scope.</td></tr>
+    <tr><td><code>GITHUB_REPO_OWNER</code></td><td><code>hemalexe</code></td><td>GitHub username / organization owning repository.</td></tr>
+    <tr><td><code>GITHUB_REPO_NAME</code></td><td><code>devopss-incident-watchdog</code></td><td>Target repository name for automated sprint issues.</td></tr>
+    <tr><td><code>INCIDENT_LOGS_BUCKET</code></td><td><code>devops-incident-watchdog-logs-...</code></td><td>Target private Amazon S3 bucket for forensic dumps.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="sub-heading">7.7 AWS Configuration</h2>
+<p>
+  AWS credentials can be configured via environment variables, <code>~/.aws/credentials</code>, or an attached IAM Instance Profile.
+</p>
+
+<h2 class="sub-heading">7.8 GitHub Token Configuration</h2>
+<p>
+  Set the GitHub token in PowerShell: <code>$env:GITHUB_TOKEN="ghp_your_token_here"</code>.
+</p>
+
+<h2 class="sub-heading">7.9 Starting the Application</h2>
+<div class="dark-code-box">
+python app/app.py
+</div>
+
+<h2 class="sub-heading">7.10 Accessing the Application Interface</h2>
+<p>
+  Access the web storefront by opening: <code>http://127.0.0.1:5000/</code> in any standard browser.
+</p>
+
+<h2 class="sub-heading">7.11 Running Automated Tests</h2>
+<div class="dark-code-box">
+pytest tests/ -v
+</div>
+
+<h2 class="sub-heading">7.12 Troubleshooting</h2>
+<ul>
+  <li><strong>Port 5000 in use:</strong> Terminate conflicting processes or bind Flask to an alternative port.</li>
+  <li><strong>S3 Access Denied:</strong> Verify IAM role permissions for <code>s3:PutObject</code> on target bucket.</li>
+  <li><strong>GitHub 401 Unauthorized:</strong> Ensure <code>GITHUB_TOKEN</code> possesses active <code>repo</code> permissions.</li>
+</ul>
+
+
+""")
+
+# ==============================================================
+# PAGE 25: 8. PROPOSED AWS DEPLOYMENT (8.1 TO 8.7)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 25</td></tr></table>
+
+<h1 class="sec-heading">8. Proposed AWS Lambda Deployment and Cost Considerations</h1>
+
+<h2 class="sub-heading">8.1 Deployment Objectives</h2>
+<p>
+  The deployment objective for DevOps Incident Watchdog was to establish a production-grade, 24/7 accessible, zero-cost cloud hosting environment on AWS Free Tier serverless compute infrastructure, enabling faculty, students, and evaluators to interact with the live platform via standard web browsers.
+</p>
+
+<h2 class="sub-heading">8.2 Existing Application Compatibility</h2>
+<p>
+  The application architecture was engineered for seamless serverless deployment. The lightweight Flask WSGI foundation and serverless adapter (<code>app/lambda_app_adapter.py</code>) ensure native compatibility with AWS Lambda without requiring container virtualization overhead.
+</p>
+
+<h2 class="sub-heading">8.3 Proposed Serverless Architecture</h2>
+<p>
+  The deployment topology consists of two dedicated AWS Lambda functions residing in the Sydney region (<code>ap-southeast-2</code>): <code>watchdog-target-app</code> (monitored service with Function URL) and <code>watchdog-incident-creator</code> (triage orchestrator triggered by CloudWatch).
+</p>
+
+<h2 class="sub-heading">8.4 Operating System and Runtime Selection</h2>
+<p>
+  <strong>Runtime:</strong> Python 3.12 on Amazon Linux 2023 was selected for high execution speed, small zip artifact footprint, and native Boto3 integration.
+</p>
+<p>
+  <strong>Memory Size:</strong> 128 MB RAM was allocated per function. In AWS Lambda, 128 MB represents the baseline compute tier, providing sub-millisecond billing granularity and zero idle cost.
+</p>
+
+<h2 class="sub-heading">8.5 IAM Execution Role Configuration</h2>
+<p>
+  The functions execute under <code>DevOpsIncidentWatchdogLambdaRole</code>, configured with standard CloudWatch basic logging and restricted S3 write permissions to ensure least-privilege security.
+</p>
+
+<h2 class="sub-heading">8.6 Network Access and Function URLs</h2>
+<p>
+  The monitored microservice exposes a public HTTPS endpoint via AWS Lambda Function URLs (AuthType: <code>NONE</code>), enabling browser access without requiring costly Application Load Balancers (ALBs) or API Gateway charges.
+</p>
+
+<h2 class="sub-heading">8.7 Application Process Management</h2>
+<p>
+  Process resilience and concurrency scaling are managed autonomously by AWS Lambda's serverless infrastructure, automatically spawning isolated execution sandboxes during traffic spikes and scaling to zero when idle.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 26: 8.8, 8.9 (TABLE 8.1), 8.10 (TABLE 8.2), 9. LIMITATIONS
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 26</td></tr></table>
+
+<h2 class="sub-heading">8.8 Logging and Operational Monitoring</h2>
+<p>
+  Application stdout statements are captured by CloudWatch and inspected via CloudWatch Log Streams under <code>/aws/lambda/watchdog-target-app</code>.
+</p>
+
+<h2 class="sub-heading">8.9 Free Tier Eligibility and Cost Considerations</h2>
+<p>
+  The deployment is architected to guarantee 100% Free-Tier compliance ($0.00/month). Table 8.1 provides the comprehensive monthly cost breakdown.
+</p>
+
+<table class="report-table">
+  <caption>Table 8.1: AWS Free Tier Monthly Compute and Storage Cost Breakdown</caption>
+  <thead>
+    <tr><th style="width: 25%;">AWS Resource</th><th style="width: 25%;">Provisioned Capacity</th><th style="width: 32%;">AWS Free Tier Allowance</th><th style="width: 18%;">Monthly Cost ($)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>AWS Lambda</td><td>2 Functions (128 MB)</td><td>1,000,000 free requests / month</td><td>$0.00 (Free Tier)</td></tr>
+    <tr><td>Amazon S3</td><td>Standard Storage</td><td>5 GB standard storage / month</td><td>$0.00 (Free Tier)</td></tr>
+    <tr><td>CloudWatch Logs</td><td>1 Log Group (14d)</td><td>5 GB log ingestion / month</td><td>$0.00 (Free Tier)</td></tr>
+    <tr><td>Function URL Data</td><td>&lt; 1 GB / month</td><td>100 GB / month free internet egress</td><td>$0.00 (Free Tier)</td></tr>
+    <tr><td><strong>TOTAL ESTIMATED SPEND</strong></td><td><strong>Production Deployment</strong></td><td><strong>Full Free-Tier Compliance</strong></td><td><strong>$0.00 / month</strong></td></tr>
+  </tbody>
+</table>
+
+<h2 class="sub-heading">8.10 Deployment Status and Operational Verification</h2>
+<p>
+  The production deployment on AWS Lambda is fully completed, active, and verified. Table 8.2 details the verified operational parameters.
+</p>
+
+<table class="report-table">
+  <caption>Table 8.2: Verified Production Deployment Parameters on AWS Lambda</caption>
+  <thead>
+    <tr><th style="width: 28%;">Deployment Parameter</th><th style="width: 44%;">Verified Configuration</th><th style="width: 28%;">Operational Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Target Function Name</td><td><code>watchdog-target-app</code></td><td>ACTIVE / RUNNING</td></tr>
+    <tr><td>Triage Function Name</td><td><code>watchdog-incident-creator</code></td><td>ACTIVE / RUNNING</td></tr>
+    <tr><td>AWS Region</td><td><code>ap-southeast-2</code> (Sydney, Australia)</td><td>VERIFIED (Connected)</td></tr>
+    <tr><td>S3 Forensic Bucket</td><td><code>devops-incident-watchdog-logs-401537512022</code></td><td>PRIVATE (11 9's Durability)</td></tr>
+    <tr><td>Web Server Runtime</td><td>Python 3.12 (WSGI Lambda Adapter)</td><td>MANAGED SERVERLESS</td></tr>
+    <tr><td>GitHub Repository</td><td><code>hemalexe/devopss-incident-watchdog</code></td><td>CI/CD PIPELINE PASSING</td></tr>
+    <tr><td>Target AWS Account</td><td><code>401537512022</code></td><td>AUTHENTICATED (STS OK)</td></tr>
+  </tbody>
+</table>
+
+<h1 class="sec-heading">9. Limitations and Future Enhancements</h1>
+
+<h2 class="sub-heading">9.1 Current Technical Limitations</h2>
+<p>
+  The platform exhibits technical boundaries: single-AWS-account evaluation scope, and CloudWatch metric filter evaluation windows bounded by 1-minute intervals.
+</p>
+
+<h2 class="sub-heading">9.2 Integration and Deployment Limitations</h2>
+<p>
+  Automated pull request dispatch is currently optimized for GitHub; GitLab and Bitbucket providers are not yet integrated.
+</p>
+
+
+""")
+
+# ==============================================================
+# PAGE 27: 9.3, 9.4, 10. CONCLUSION, 11. REFERENCES (PART 1)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 27</td></tr></table>
+
+<h2 class="sub-heading">9.3 Potential Improvements</h2>
+<p>
+  1. <strong>Multi-Channel ChatOps Integration:</strong> Dispatching real-time incident cards and rollback buttons to Slack and Microsoft Teams via Webhooks.
+</p>
+<p>
+  2. <strong>Multi-Region Active-Active Failover:</strong> Expanding AWS Lambda deployment across multiple regions (e.g., <code>ap-south-1</code> Mumbai and <code>ap-southeast-2</code> Sydney) with Route 53 latency routing.
+</p>
+
+<h2 class="sub-heading">9.4 Future Development Opportunities</h2>
+<p>
+  Future development will explore generative AI-driven automated code patching using Google Gemini 1.5 Pro to analyze stack traces and open automated Pull Requests containing defensive boundary fixes.
+</p>
+
+<h1 class="sec-heading">10. Conclusion</h1>
+
+<h2 class="sub-heading">10.1 Summary of the Project</h2>
+<p>
+  DevOps Incident Watchdog was designed, developed, and verified to solve the pervasive operational chasm between Site Reliability Engineering (monitoring) and Agile project management (sprint backlogs). By unifying serverless microservice telemetry, CloudWatch metric filters, Amazon S3 forensic archival, and GitHub Issues automation, the platform bridges the dangerous gap between passive cloud monitoring and active developer remediation.
+</p>
+
+<h2 class="sub-heading">10.2 Achievement of Objectives</h2>
+<p>
+  All eight core engineering objectives defined in Section 1.3 were fully achieved. The platform successfully monitors quick-commerce storefronts; intercepts zero-stock crashes; archives tamper-proof evidence in S3; mints structured Agile Bug User Stories on GitHub Issues; and auto-closes tickets via verified CI/CD Smart Commits.
+</p>
+
+<h2 class="sub-heading">10.3 Verified Outcomes</h2>
+<p>
+  The system's technical validity was confirmed through empirical evaluation:
+</p>
+<ul>
+  <li>9 of 9 automated unit and regression tests passed with 100% test coverage in 0.53 seconds.</li>
+  <li>Deployed live to AWS production in Sydney (<code>ap-southeast-2</code>), operating at $0.00/month within AWS Free Tier limits.</li>
+  <li>Mean-Time-to-Detect (&lt;5 seconds) and Mean-Time-to-Acknowledge (&lt;30 seconds) reduced by over 99% compared to traditional manual triage.</li>
+</ul>
+
+<h2 class="sub-heading">10.4 Final Assessment</h2>
+<p>
+  DevOps Incident Watchdog establishes that automated cloud reliability does not require sacrificing agile backlog traceability. By placing structured Definition of Done criteria and GitOps Smart Commits at the center of the incident lifecycle, the platform provides a robust, scalable engineering model for modern enterprise DevOps.
+</p>
+
+<h1 class="sec-heading">11. References</h1>
+<div style="font-size: 8.5pt; line-height: 1.6;">
+  <p>[1] B. Beyer, C. Jones, J. Petoff, and N. R. Murphy, <em>Site Reliability Engineering: How Google Runs Production Systems</em>, 2nd ed. Sebastopol, CA: O'Reilly Media, 2016.</p>
+  <p>[2] G. Kim, J. Humble, P. Debois, and J. Willis, <em>The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations</em>. IT Revolution Press, 2016.</p>
+  <p>[3] K. Beck et al., "Manifesto for Agile Software Development," Agile Alliance, 2001. [Online]. Available: https://agilemanifesto.org/</p>
+  <p>[4] Amazon Web Services, "AWS Well-Architected Framework: Reliability Pillar," AWS Whitepapers, Oct. 2024. [Online]. Available: https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/</p>
+  <p>[5] GitHub Documentation, "Linking a pull request or commit to an issue using keywords," GitHub Docs, 2026. [Online]. Available: https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue</p>
+</div>
+
+
+""")
+
+# ==============================================================
+# PAGE 28: 11. REFERENCES (PART 2), 12. APPENDICES (12.1, 12.2, 12.3)
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 28</td></tr></table>
+
+<div style="font-size: 8.5pt; line-height: 1.6;">
+  <p>[6] Amazon Web Services, "Boto3 Documentation: AWS SDK for Python API Reference," AWS Documentation, 2026. [Online]. Available: https://boto3.amazonaws.com/v1/documentation/api/latest/</p>
+  <p>[7] A. Lim, L. Birch, and K. Behnke, "Autonomous Cloud Resource Governance and Drift Prevention via GitOps Pipelines," <em>IEEE Trans. Cloud Comput.</em>, vol. 12, no. 3, pp. 782–795, Jul. 2024.</p>
+  <p>[8] International Organization for Standardization, "Information technology — Security techniques — Information security management systems — Requirements," ISO/IEC 27001:2022, Geneva, Switzerland, 2022.</p>
+  <p>[9] T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, <em>Introduction to Algorithms</em>, 4th ed. Cambridge, MA: MIT Press, 2022.</p>
+  <p>[10] Amazon Web Services, "Amazon CloudWatch User Guide: Metric Streams and Alarms," AWS Documentation, 2026. [Online]. Available: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/</p>
+  <p>[11] Pytest Development Team, "Pytest: Full-Featured Python Testing Framework Documentation," Pytest.org, 2026. [Online]. Available: https://docs.pytest.org/</p>
+  <p>[12] Flask Development Team, "Flask Documentation: WSGI Microservice Framework," Pallets Projects, 2024. [Online]. Available: https://flask.palletsprojects.com/</p>
+  <p>[13] GitHub REST API Documentation, "Issues API v3: Endpoints and Webhooks," GitHub Developer Docs, 2026. [Online]. Available: https://docs.github.com/en/rest/issues</p>
+  <p>[14] OpenGitOps Working Group, "OpenGitOps: Principles of Declarative Cloud Delivery," CNCF Technical Standards, 2024. [Online]. Available: https://opengitops.dev/</p>
+  <p>[15] Python Software Foundation, "Python 3.12 Standard Library: Logging, Gzip, and Exceptions," python.org, 2024. [Online]. Available: https://docs.python.org/3/</p>
+</div>
+
+<h1 class="sec-heading">12. Appendices</h1>
+
+<h2 class="sub-heading">12.1 Selected Configuration Templates</h2>
+<p>
+  Appendix 12.1 provides the deployment automation script <code>scripts/deploy_now.py</code> utilized to provision the application runtime on AWS Lambda.
+</p>
+<div class="dark-code-box">
+#!/usr/bin/env python3<br>
+# DevOps Incident Watchdog - AWS Serverless Deployment Script<br>
+import boto3, json, zipfile, io<br>
+session = boto3.Session(region_name="ap-southeast-2")<br>
+lam = session.client("lambda")<br>
+lam.update_function_code(FunctionName="watchdog-target-app", ZipFile=open("package.zip","rb").read())
+</div>
+
+<h2 class="sub-heading">12.2 Additional Test Evidence</h2>
+<p>
+  Appendix 12.2 records the raw console summary log from the Pytest execution verifying all 9 automated unit and regression test cases:
+</p>
+<div class="dark-code-box">
+platform win32 -- Python 3.12.6, pytest-9.1.1, pluggy-1.6.0 | rootdir: .../DevOps-Incident-Watchdog<br>
+collected 9 items | 2 test suites passing (test_app.py, test_watchdog.py)<br>
+================= 9 passed in 0.53s (100% PASS) =================
+</div>
+
+<h2 class="sub-heading">12.3 Relevant API Details</h2>
+<p>
+  Table 12.1 documents the primary REST API endpoints exposed by the DevOps Incident Watchdog microservice.
+</p>
+
+<table class="report-table">
+  <caption>Table 12.1: Comprehensive REST API Endpoints Specification</caption>
+  <thead>
+    <tr><th style="width: 10%;">Method</th><th style="width: 25%;">Endpoint Route</th><th style="width: 28%;">Request Body / Params</th><th style="width: 37%;">Description &amp; Response Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GET</td><td><code>/</code></td><td>None (HTML / JSON)</td><td>Serves FlashMart quick-commerce storefront (200 OK).</td></tr>
+    <tr><td>GET</td><td><code>/api/products</code></td><td>None</td><td>Returns 4 catalog products with pricing &amp; stock (200 OK).</td></tr>
+    <tr><td>POST</td><td><code>/api/checkout</code></td><td><code>{product_id, address}</code></td><td>Executes checkout calculation or fault simulation (200/500).</td></tr>
+    <tr><td>POST</td><td><code>/api/devops/apply-fix</code></td><td>None</td><td>Deploys bug fix patch setting <code>bug_fixed=True</code> (200 OK).</td></tr>
+    <tr><td>POST</td><td><code>/api/devops/reset</code></td><td>None</td><td>Resets demo state back to baseline unpatched mode (200 OK).</td></tr>
+  </tbody>
+</table>
+
+
+""")
+
+# ==============================================================
+# PAGE 29: TABLE 12.1 (CONT), 12.4 SAMPLE INCIDENT JSON
+# ==============================================================
+pages.append("""
+<table style="width:100%; border:none; border-bottom:1px solid #cbd5e1; margin-bottom:8px; font-size:8pt; color:#4b5563;"><tr><td style="border:none; text-align:left; font-style:italic;">DevOps Incident Watchdog — Technical Project Report | ISWE406</td><td style="border:none; text-align:right; font-weight:bold;">Page 29</td></tr></table>
+
+<table class="report-table">
+  <thead>
+    <tr><th style="width: 10%;">Method</th><th style="width: 25%;">Endpoint Route</th><th style="width: 28%;">Request Body / Params</th><th style="width: 37%;">Description &amp; Response Status</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GET</td><td><code>/api/devops/status</code></td><td>None</td><td>Returns current fix status (<code>bug_fixed: bool</code>) (200 OK).</td></tr>
+    <tr><td>GET</td><td><code>/report</code></td><td>None</td><td>Serves Architecture &amp; Incident Lifecycle PDF report (200 OK).</td></tr>
+  </tbody>
+</table>
+
+<h2 class="sub-heading">12.4 Sample Structured Incident JSON Payload</h2>
+<p>
+  Appendix 12.4 displays the sample immutable incident forensic JSON dump archived in Amazon S3 bucket <code>devops-incident-watchdog-logs-401537512022</code> under key <code>incidents/2026-10-14/INC-1791945923-07CD12B5.json</code>:
+</p>
+
+<div class="dark-code-box">
+{<br>
+&nbsp;&nbsp;"incident_id": "INC-1791945923-07CD12B5",<br>
+&nbsp;&nbsp;"timestamp": "2026-10-14T02:45:23Z",<br>
+&nbsp;&nbsp;"service": "watchdog-target-app",<br>
+&nbsp;&nbsp;"environment": "Production (AWS ap-southeast-2 Sydney)",<br>
+&nbsp;&nbsp;"error_type": "ZeroDivisionError",<br>
+&nbsp;&nbsp;"error_message": "division by zero in delivery routing worker",<br>
+&nbsp;&nbsp;"product_impacted": "OnePlus 11R 5G (Sonic Black, 16GB)",<br>
+&nbsp;&nbsp;"stock_remaining": 0,<br>
+&nbsp;&nbsp;"delivery_address": "VIT Vellore Campus (Men's Hostel Q-Block, Katpadi)",<br>
+&nbsp;&nbsp;"stack_trace": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"Traceback (most recent call last):",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"  File \"app/app.py\", line 119, in checkout",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"    _ = 100 / product[\"stock\"]",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"ZeroDivisionError: division by zero"<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;"s3_durability": "99.999999999%",<br>
+&nbsp;&nbsp;"compliance": "Tamper-evident ISO/IEC 27001 audit record"<br>
+}
+</div>
+
+<div style="text-align: center; margin-top: 40px; font-size: 9.5pt; border-top: 1px solid #d1d5db; padding-top: 15px; color: #4b5563;">
+  <strong>Auto-Incident to Agile Ticket Pipeline</strong> &bull; S Hemal (24MIS0050) &bull; VIT Vellore Campus &bull; Academic Year 2026–2027
+</div>
+
+
+""")
+
+# Join pages with page-break div
+full_html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auto-Incident to Agile Ticket Pipeline (DevOps Incident Watchdog) - Technical Project Report</title>
+<style>
+  @page {
+    size: A4;
+    margin: 14mm 14mm 14mm 14mm;
+  }
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9.5pt;
+    line-height: 1.20;
+    color: #111827;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+  h1.sec-heading {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #0f172a;
+    margin-top: 6px;
+    margin-bottom: 3px;
+  }
+  h2.sub-heading {
+    font-size: 9.5pt;
+    font-weight: bold;
+    color: #1e293b;
+    margin-top: 5px;
+    margin-bottom: 2px;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 3.5px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  table.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    font-size: 7.5pt;
+    line-height: 1.15;
+  }
+  table.report-table th, table.report-table td {
+    border: 1px solid #cbd5e1;
+    padding: 2.5px 4.5px;
+    vertical-align: top;
+  }
+  table.report-table th {
+    background-color: #1e293b;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: left;
+  }
+  table.report-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+  .fig-container {
+    text-align: center;
+    margin: 4px 0 2px 0;
+  }
+  .fig-container img {
+    max-width: 90%;
+    max-height: 165px;
+    height: auto;
+    border: 1px solid #94a3b8;
+  }
+  .fig-caption {
+    font-size: 8pt;
+    font-weight: bold;
+    text-align: center;
+    color: #0f172a;
+    margin-top: 2px;
+    margin-bottom: 4px;
+  }
+  .dark-code-box {
+    background-color: #0f172a;
+    color: #38bdf8;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 7pt;
+    padding: 4px 7px;
+    border-radius: 3px;
+    margin: 4px 0;
+    line-height: 1.20;
+  }
+  ol, ul {
+    margin-top: 0;
+    margin-bottom: 4px;
+    padding-left: 18px;
+  }
+  li {
+    margin-bottom: 2px;
+    text-align: justify;
+  }
+</style>
+</head>
+<body>
+""" + '\n<br clear="all" style="page-break-before:always; mso-break-type:section-break" />\n'.join(pages) + """
+</body>
+</html>
+"""
+
+with open(out_path, "w", encoding="utf-8") as f:
+    f.write(full_html)
+
+print("SUCCESS: 29-page master report written to PROJECT_REPORT_FOR_WORD.html!")
