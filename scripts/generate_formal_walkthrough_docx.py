@@ -21,15 +21,17 @@ pdf_output = os.path.join(base_dir, "FlashMart_Incident_Watchdog_Application_Gui
 doc = docx.Document()
 
 # -------------------------------------------------------------
-# PAGE SETUP (A4, 0.8 in margins)
+# PAGE SETUP (A4, VIT Academic Standard: Left 1.25", Others 1.0")
 # -------------------------------------------------------------
 section = doc.sections[0]
 section.page_width = Inches(8.27)
 section.page_height = Inches(11.69)
-section.top_margin = Inches(0.8)
-section.bottom_margin = Inches(0.8)
-section.left_margin = Inches(0.8)
-section.right_margin = Inches(0.8)
+section.top_margin = Inches(1.0)
+section.bottom_margin = Inches(1.0)
+section.left_margin = Inches(1.25)
+section.right_margin = Inches(1.0)
+section.header_distance = Inches(0.5)
+section.footer_distance = Inches(0.5)
 
 # Different First Page (Cover page has NO header/footer)
 section.different_first_page_header_footer = True
@@ -73,10 +75,10 @@ style_normal.font.color.rgb = RGBColor(17, 24, 39)
 # -------------------------------------------------------------
 # HELPER FUNCTIONS (11.5pt, Justified, Continuous Narrative)
 # -------------------------------------------------------------
-def p(text="", bold_prefix="", italic=False, space_after=5):
+def p(text="", bold_prefix="", italic=False, space_after=4):
     par = doc.add_paragraph()
     par.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    par.paragraph_format.line_spacing = 1.25
+    par.paragraph_format.line_spacing = 1.2
     par.paragraph_format.space_after = Pt(space_after)
     par.paragraph_format.space_before = Pt(0)
     
@@ -97,8 +99,8 @@ def p(text="", bold_prefix="", italic=False, space_after=5):
 
 def h1(title):
     par = doc.add_paragraph()
-    par.paragraph_format.space_before = Pt(16)
-    par.paragraph_format.space_after = Pt(6)
+    par.paragraph_format.space_before = Pt(13)
+    par.paragraph_format.space_after = Pt(4)
     par.paragraph_format.keep_with_next = True
     r = par.add_run(title)
     r.font.name = 'Times New Roman'
@@ -109,8 +111,8 @@ def h1(title):
 
 def h2(title):
     par = doc.add_paragraph()
-    par.paragraph_format.space_before = Pt(12)
-    par.paragraph_format.space_after = Pt(4)
+    par.paragraph_format.space_before = Pt(9)
+    par.paragraph_format.space_after = Pt(3)
     par.paragraph_format.keep_with_next = True
     r = par.add_run(title)
     r.font.name = 'Times New Roman'
@@ -143,7 +145,7 @@ def code_block(code_text):
     tbl = doc.add_table(rows=1, cols=1)
     tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
     cell = tbl.rows[0].cells[0]
-    cell.width = Inches(6.4)
+    cell.width = Inches(5.8)
     
     shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="0F172A"/>')
     cell._tc.get_or_add_tcPr().append(shd)
@@ -181,7 +183,7 @@ def code_block(code_text):
     p_gap.paragraph_format.space_before = Pt(0)
     p_gap.paragraph_format.space_after = Pt(4)
 
-def figure(img_filename, caption_text, width_inches=6.0):
+def figure(img_filename, caption_text, width_inches=5.8):
     img_path = os.path.join(base_dir, img_filename)
     if not os.path.exists(img_path):
         print(f"WARNING: Image not found: {img_path}")
@@ -189,7 +191,7 @@ def figure(img_filename, caption_text, width_inches=6.0):
         
     p_img = doc.add_paragraph()
     p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_img.paragraph_format.space_before = Pt(8)
+    p_img.paragraph_format.space_before = Pt(6)
     p_img.paragraph_format.space_after = Pt(2)
     p_img.paragraph_format.keep_with_next = True
     
@@ -199,7 +201,7 @@ def figure(img_filename, caption_text, width_inches=6.0):
     p_cap = doc.add_paragraph()
     p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_cap.paragraph_format.space_before = Pt(2)
-    p_cap.paragraph_format.space_after = Pt(10)
+    p_cap.paragraph_format.space_after = Pt(6)
     p_cap.paragraph_format.keep_with_next = False
     
     r_cap = p_cap.add_run(caption_text)
@@ -356,30 +358,7 @@ r.font.color.rgb = RGBColor(75, 85, 99)
 doc.add_page_break()
 
 # =============================================================
-# PAGE 2: EXECUTIVE SUMMARY & ABSTRACT
-# =============================================================
-p_ack_h = doc.add_paragraph()
-p_ack_h.alignment = WD_ALIGN_PARAGRAPH.CENTER
-p_ack_h.paragraph_format.space_before = Pt(10)
-p_ack_h.paragraph_format.space_after = Pt(10)
-r = p_ack_h.add_run("EXECUTIVE SUMMARY")
-r.font.name = 'Times New Roman'
-r.font.size = Pt(14)
-r.font.bold = True
-r.font.color.rgb = RGBColor(15, 23, 42)
-
-p("This application and incident walkthrough document details the operational behavior, architectural features, fault reproduction mechanics, and closed-loop Site Reliability Engineering (SRE) remediation capabilities of DevOps Incident Watchdog. The monitored target application, FlashMart Tech, models high-velocity 10-minute quick-commerce delivery, featuring localized dark store fulfillment centered at the VIT Vellore Campus (Men's Hostel Q-Block Dark Store).")
-
-p("During high-concurrency promotional flash deals, localized warehouse inventory depletes to zero within seconds. When backend routing algorithms calculate discount allocations without boundary validation, an unhandled ZeroDivisionError crashes the microservice worker thread with an HTTP 500 Internal Server Error. This guide demonstrates how the autonomous DevOps Incident Watchdog pipeline detects the failure in Amazon CloudWatch within 4.2 seconds, isolates the customer from white-screen crashes via defensive frontend exception interception, archives immutable forensic dumps in Amazon S3 with 11 9's durability, and mints an actionable Bug User Story on GitHub Issues complete with 6 Definition of Done acceptance criteria.")
-
-p("Furthermore, this guide details the closed-loop remediation phase: an engineer commits a code fix referencing Smart Commit syntax (Fixes #1), which triggers GitHub Actions continuous integration runners to execute 9 Pytest automated regression suites in 0.53 seconds, redeploy the updated serverless microservice to AWS Lambda, and auto-close GitHub Issue #1 without manual administrative overhead.")
-
-p("Keywords: Agile DevOps, Site Reliability Engineering, Automated Incident Triage, Microservice Telemetry, Amazon CloudWatch, Amazon S3, GitHub Issues, Continuous Integration, Zero-Touch Closure.", bold_prefix="Keywords: ", italic=True)
-
-doc.add_page_break()
-
-# =============================================================
-# PAGE 3: TABLE OF CONTENTS
+# PAGE 2: TABLE OF CONTENTS (DIRECTLY AFTER COVER PAGE)
 # =============================================================
 p_toc_h = doc.add_paragraph()
 p_toc_h.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -392,49 +371,48 @@ r.font.bold = True
 r.font.color.rgb = RGBColor(15, 23, 42)
 
 toc_items = [
-    ("Executive Summary", "2"),
-    ("Table of Contents", "3"),
-    ("List of Figures & List of Tables", "4"),
-    ("1. Application Overview & System Architecture", "5"),
-    ("   1.1 Purpose and Industry Motivation", "5"),
-    ("   1.2 Architectural Decoupling: Three-Tier Model (Figure 1)", "5"),
-    ("   1.3 Component Responsibilities Matrix (Table 1.1)", "6"),
-    ("2. Storefront Presentation & Multi-Hub Logistics", "6"),
-    ("   2.1 FlashMart E-Commerce Interface (Figure 2)", "6"),
-    ("   2.2 VIT Vellore Campus Dark Store Routing", "7"),
-    ("   2.3 Promotional Flash Sale Concurrency Engine", "7"),
-    ("3. The Runtime Incident: Zero-Stock Exhaustion & Crash", "7"),
-    ("   3.1 Fault Simulation Mechanics", "7"),
-    ("   3.2 Mathematical Division-by-Zero Exception (Figure 3)", "8"),
-    ("   3.3 WSGI Worker Thread Crash & [CRITICAL_ALERT] Logging", "8"),
-    ("4. Defensive Presentation Engineering: Customer Insulation", "9"),
-    ("   4.1 Client-Side HTTP 500 Interception (Figure 4)", "9"),
-    ("   4.2 Informative Stockout Waitlist Modal", "9"),
+    ("Table of Contents", "2"),
+    ("List of Figures & List of Tables", "3"),
+    ("1. Application Overview & System Architecture", "4"),
+    ("   1.1 Purpose and Industry Motivation", "4"),
+    ("   1.2 Architectural Decoupling: Three-Tier Model (Figure 1)", "4"),
+    ("   1.3 Component Responsibilities Matrix (Table 1.1)", "5"),
+    ("2. Storefront Presentation & Multi-Hub Logistics", "5"),
+    ("   2.1 FlashMart E-Commerce Interface (Figure 2)", "5"),
+    ("   2.2 VIT Vellore Campus Dark Store Routing", "6"),
+    ("   2.3 Promotional Flash Sale Concurrency Engine", "6"),
+    ("3. The Runtime Incident: Zero-Stock Exhaustion & Crash", "6"),
+    ("   3.1 Fault Simulation Mechanics", "6"),
+    ("   3.2 Mathematical Division-by-Zero Exception (Figure 3)", "7"),
+    ("   3.3 WSGI Worker Thread Crash & [CRITICAL_ALERT] Logging", "7"),
+    ("4. Defensive Presentation Engineering: Customer Insulation", "8"),
+    ("   4.1 Client-Side HTTP 500 Interception (Figure 4)", "8"),
+    ("   4.2 Informative Stockout Waitlist Modal", "8"),
     ("   4.3 Customer Trust and Brand Equity Protection", "9"),
-    ("5. SRE Observability: Sub-5-Second Metric Ingestion", "10"),
-    ("   5.1 Event-Driven CloudWatch Log Filtering", "10"),
-    ("   5.2 Operator SRE Backstage Dashboard (Figure 5)", "10"),
+    ("5. SRE Observability: Sub-5-Second Metric Ingestion", "9"),
+    ("   5.1 Event-Driven CloudWatch Log Filtering", "9"),
+    ("   5.2 Operator SRE Backstage Dashboard (Figure 5)", "9"),
     ("   5.3 Zero-Polling Telemetry Architecture", "10"),
-    ("6. Cloud Forensics: Immutable S3 Vault Archival", "11"),
-    ("   6.1 Cryptographic Incident ID Minting", "11"),
-    ("   6.2 Private Amazon S3 Storage & 11 9's Durability (Figure 6)", "11"),
+    ("6. Cloud Forensics: Immutable S3 Vault Archival", "10"),
+    ("   6.1 Cryptographic Incident ID Minting", "10"),
+    ("   6.2 Private Amazon S3 Storage & 11 9's Durability (Figure 6)", "10"),
     ("   6.3 Structured Forensic JSON Payload Specification", "11"),
-    ("7. Agile Backlog Automation: GitHub Issue Minting", "12"),
-    ("   7.1 REST API v3 Automated Ticket Creation (Figure 7)", "12"),
+    ("7. Agile Backlog Automation: GitHub Issue Minting", "11"),
+    ("   7.1 REST API v3 Automated Ticket Creation (Figure 7)", "11"),
     ("   7.2 Standardized Diagnostics Table & Priority Labels", "12"),
-    ("   7.3 Enforcing 6 Definition of Done (DoD) Criteria", "13"),
-    ("8. Continuous Remediation: GitOps Smart Commit & CI/CD", "13"),
-    ("   8.1 Developer Defensive Code Fix Implementation", "13"),
+    ("   7.3 Enforcing 6 Definition of Done (DoD) Criteria", "12"),
+    ("8. Continuous Remediation: GitOps Smart Commit & CI/CD", "12"),
+    ("   8.1 Developer Defensive Code Fix Implementation", "12"),
     ("   8.2 GitHub Actions Automated Pytest Regression Runner (Figure 8)", "13"),
-    ("   8.3 Zero-Touch Sprint Backlog Closure via Smart Commits", "14"),
+    ("   8.3 Zero-Touch Sprint Backlog Closure via Smart Commits", "13"),
     ("9. Security Architecture & Serverless Cloud Topology", "14"),
     ("   9.1 Seven Closed-Loop Security Safety Gates (Figure 9)", "14"),
-    ("   9.2 AWS Serverless Live Deployment Topology (Figure 10)", "15"),
-    ("   9.3 Monthly Free Tier Cost Breakdown (Table 9.1)", "15"),
-    ("10. End-to-End Workflow Synthesis & Conclusion", "16"),
-    ("   10.1 Complete 7-Stage Remediation Lifecycle (Figure 11)", "16"),
-    ("   10.2 Verified Performance Metrics & Engineering Achievements", "16"),
-    ("   10.3 Final Assessment for Faculty Evaluation", "16"),
+    ("   9.2 AWS Serverless Live Deployment Topology (Figure 10)", "14"),
+    ("   9.3 Monthly Free Tier Cost Breakdown (Table 9.1)", "14"),
+    ("10. End-to-End Workflow Synthesis & Conclusion", "15"),
+    ("   10.1 Complete 7-Stage Remediation Lifecycle (Figure 11)", "15"),
+    ("   10.2 Verified Performance Metrics & Engineering Achievements", "15"),
+    ("   10.3 Final Assessment for Faculty Evaluation", "15"),
 ]
 
 for title, page_no in toc_items:
@@ -478,17 +456,17 @@ r.font.bold = True
 r.font.color.rgb = RGBColor(15, 23, 42)
 
 figures_list = [
-    ("Figure 1: High-Level Minimal Architecture Diagram of DevOps Incident Watchdog", "5"),
-    ("Figure 2: FlashMart Customer Storefront & VIT Vellore Delivery Hub Selection Interface", "7"),
-    ("Figure 3: Backend Server ZeroDivisionError Crash Terminal Output & Structured Telemetry", "8"),
-    ("Figure 4: Graceful Frontend Stockout Exception Interception and Customer Insulation", "9"),
+    ("Figure 1: High-Level Minimal Architecture Diagram of DevOps Incident Watchdog", "4"),
+    ("Figure 2: FlashMart Customer Storefront & VIT Vellore Delivery Hub Selection Interface", "6"),
+    ("Figure 3: Backend Server ZeroDivisionError Crash Terminal Output & Structured Telemetry", "7"),
+    ("Figure 4: Graceful Frontend Stockout Exception Interception and Customer Insulation", "8"),
     ("Figure 5: AWS CloudWatch Metric Filter & SRE Telemetry Backstage Dashboard", "10"),
     ("Figure 6: Immutable Incident Forensic Evidence Archived in Amazon S3 Bucket Vault", "11"),
     ("Figure 7: Automated Agile Bug User Story Minted on GitHub Issues with Definition of Done", "12"),
-    ("Figure 8: GitHub Actions CI/CD Automated Pytest Regression Suite and Zero-Touch Closure", "14"),
-    ("Figure 9: Closed-Loop Telemetry & GitOps Security Safety Gate Architecture", "15"),
-    ("Figure 10: AWS Serverless Live Production Topology in Sydney (ap-southeast-2)", "15"),
-    ("Figure 11: End-to-End Autonomous Incident-to-Agile Remediation Workflow", "16"),
+    ("Figure 8: GitHub Actions CI/CD Automated Pytest Regression Suite and Zero-Touch Closure", "13"),
+    ("Figure 9: Closed-Loop Telemetry & GitOps Security Safety Gate Architecture", "14"),
+    ("Figure 10: AWS Serverless Live Production Topology in Sydney (ap-southeast-2)", "14"),
+    ("Figure 11: End-to-End Autonomous Incident-to-Agile Remediation Workflow", "15"),
 ]
 
 for fig_name, p_no in figures_list:
@@ -517,8 +495,8 @@ r.font.bold = True
 r.font.color.rgb = RGBColor(15, 23, 42)
 
 tables_list = [
-    ("Table 1.1: Component Architectural Responsibilities Across the Three Tiers", "6"),
-    ("Table 9.1: AWS Free Tier Monthly Compute and Storage Cost Breakdown", "15"),
+    ("Table 1.1: Component Architectural Responsibilities Across the Three Tiers", "5"),
+    ("Table 9.1: AWS Free Tier Monthly Compute and Storage Cost Breakdown", "14"),
 ]
 
 for tbl_name, p_no in tables_list:
@@ -553,7 +531,7 @@ p("DevOps Incident Watchdog bridges this critical operational chasm. It establis
 h2("1.2 Architectural Decoupling: Three-Tier Model")
 p("The entire platform is architected according to decoupled, service-oriented principles across three distinct operational layers. Figure 1 illustrates this decoupled minimal system architecture and the directional data flow governing inter-tier communication.")
 
-figure("architecture_diagram.png", "Figure 1: High-Level Minimal Architecture Diagram of DevOps Incident Watchdog", width_inches=6.2)
+figure("architecture_diagram.png", "Figure 1: High-Level Minimal Architecture Diagram of DevOps Incident Watchdog")
 
 h2("1.3 Component Responsibilities Matrix")
 p("Table 1.1 specifies the primary source files, execution runtimes, and core architectural responsibilities across all platform components.")
@@ -568,7 +546,7 @@ t1_data = [
     ["Tier 3: Cloud", "Amazon S3 Vault", "S3 Standard Bucket", "Immutable JSON forensic crash dump persistence with 11 9's durability."],
     ["Tier 3: Cloud", "GitHub Issues & CI", "GitHub REST API & Actions", "Automated Bug User Story minting and zero-touch smart commit closure."],
 ]
-make_table(t1_headers, t1_data, [1.0, 1.4, 1.6, 2.4], "Table 1.1: Component Architectural Responsibilities Across the Three Tiers")
+make_table(t1_headers, t1_data, [1.0, 1.2, 1.5, 2.1], "Table 1.1: Component Architectural Responsibilities Across the Three Tiers")
 
 # =============================================================
 # CHAPTER 2: STOREFRONT PRESENTATION & MULTI-HUB LOGISTICS
@@ -578,7 +556,7 @@ h1("2. Storefront Presentation & Multi-Hub Logistics")
 h2("2.1 FlashMart E-Commerce Interface")
 p("The consumer-facing presentation layer, FlashMart Tech, is engineered as a modern Single-Page Application (SPA) leveraging standard HTML5, CSS3 CSS variables, and vanilla JavaScript (ES6+). By eliminating external build tooling and heavy Node.js runtimes, the application achieves instantaneous browser rendering, sub-100ms DOM hydration, and minimal network payload transfer overhead. The interface is optimized for rapid catalog browsing and promotional flash deal checkouts. Figure 2 illustrates the FlashMart storefront user interface.")
 
-figure("snapshot1_storefront.png", "Figure 2: FlashMart Customer Storefront & VIT Vellore Delivery Hub Selection Interface", width_inches=6.0)
+figure("snapshot1_storefront.png", "Figure 2: FlashMart Customer Storefront & VIT Vellore Delivery Hub Selection Interface")
 
 h2("2.2 VIT Vellore Campus Dark Store Routing")
 p("A foundational feature of FlashMart Tech is its localized delivery hub routing engine. Built specifically to model campus micro-fulfillment, the application defaults to the VIT Vellore Campus hub (Men's Hostel Q-Block Dark Store, Katpadi). When an order is placed, the frontend serializes the selected delivery hub string along with the product identifier into a structured JSON payload: {product_id: 3, delivery_hub: 'VIT Vellore Campus (Men\\'s Hostel Q-Block)'}. The backend microservice evaluates localized dark store inventory specifically for the selected fulfillment node, demonstrating geographic warehouse isolation.")
@@ -603,7 +581,7 @@ allocation = 100 / product['stock']  # When stock == 0, raises ZeroDivisionError
 
 p("Because product['stock'] equals 0, Python's runtime immediately throws an unhandled ZeroDivisionError: division by zero. Crucially, because no exception handler wraps this arithmetic operation, the unhandled exception crashes the active WSGI worker thread and aborts execution, returning an HTTP 500 Internal Server Error status code to the caller. Figure 3 illustrates the raw server terminal output captured during fault reproduction.")
 
-figure("snapshot3_server_crash.png", "Figure 3: Backend Server ZeroDivisionError Crash Terminal Output & Structured Telemetry", width_inches=6.0)
+figure("snapshot3_server_crash.png", "Figure 3: Backend Server ZeroDivisionError Crash Terminal Output & Structured Telemetry")
 
 h2("3.3 WSGI Worker Thread Crash & [CRITICAL_ALERT] Logging")
 p("Prior to thread termination, the microservice application logger intercepts the unhandled crash context. It serializes the exception event and emits a structured telemetry string to standard output (stdout):")
@@ -624,7 +602,7 @@ p("In conventional, fragile web applications, an unhandled HTTP 500 response pro
 
 p("FlashMart Tech enforces a strict Site Reliability Engineering client-insulation invariant: internal server errors must never reach the customer interface. The client Single-Page Application intercepts non-200 HTTP response codes before browser rendering. When the checkout worker returns HTTP 500 due to stock depletion, the client gracefully swallows the raw exception and opens an informative 'Item Not Deliverable to Your Location' waitlist drawer. Figure 4 illustrates this customer insulation mechanism.")
 
-figure("snapshot2_stockout_drawer.png", "Figure 4: Graceful Frontend Stockout Exception Interception and Customer Insulation", width_inches=6.0)
+figure("snapshot2_stockout_drawer.png", "Figure 4: Graceful Frontend Stockout Exception Interception and Customer Insulation")
 
 h2("4.2 Informative Stockout Waitlist Modal")
 p("The modal provides complete operational transparency without alarming the user. It explicitly informs the customer: 'We're sorry! OnePlus 11R 5G is currently out of stock at your nearest dark store fulfillment center (VIT Vellore Campus - Men's Hostel Q-Block)'. It presents two prominent call-to-action buttons: a high-contrast 'Notify Me When Available at This Address' button that registers the user for replenishment waitlists, and an alternate delivery hub selector allowing the customer to reroute delivery to Katpadi or Vellore Town hubs.")
@@ -645,7 +623,7 @@ p("DevOps Incident Watchdog implements event-driven, push-based telemetry ingest
 h2("5.2 Operator SRE Backstage Dashboard")
 p("To provide operational visibility, the platform includes an SRE Backstage Control Center. The dashboard displays real-time AWS CloudWatch metric filter states, active Lambda function health (200 OK), S3 forensic bucket storage links, and live Agile backlog sync statuses. Figure 5 illustrates the SRE Backstage dashboard.")
 
-figure("snapshot4_sre_dashboard.png", "Figure 5: AWS CloudWatch Metric Filter & SRE Telemetry Backstage Dashboard", width_inches=6.0)
+figure("snapshot4_sre_dashboard.png", "Figure 5: AWS CloudWatch Metric Filter & SRE Telemetry Backstage Dashboard")
 
 h2("5.3 Zero-Polling Telemetry Architecture")
 p("Because the telemetry pipeline leverages native CloudWatch Log Subscriptions rather than polling daemons, the monitoring infrastructure incurs zero idle CPU overhead and zero network polling bandwidth costs.")
@@ -661,7 +639,7 @@ p("Upon invocation, the Watchdog Lambda decompress the incoming base64 gzipped l
 h2("6.2 Private Amazon S3 Storage & 11 9's Durability")
 p("To satisfy compliance audit requirements and guarantee permanent post-mortem forensic completeness, the Watchdog Lambda packages the full crash traceback, HTTP request headers, active git commit SHA, and dark store hub identifier into a structured JSON evidence document. It uploads this dump to a private Amazon S3 bucket (devops-incident-watchdog-logs-401537512022) with 11 9's durability (99.999999999%) and AES-256 server-side encryption. Figure 6 displays the archived forensic evidence in the Amazon S3 Management Console.")
 
-figure("snapshot5_s3_vault.png", "Figure 6: Immutable Incident Forensic Evidence Archived in Amazon S3 Bucket Vault", width_inches=6.0)
+figure("snapshot5_s3_vault.png", "Figure 6: Immutable Incident Forensic Evidence Archived in Amazon S3 Bucket Vault")
 
 h2("6.3 Structured Forensic JSON Payload Specification")
 p("The archived JSON forensic dump contains complete diagnostic context for post-mortem investigations:")
@@ -684,7 +662,7 @@ h1("7. Agile Backlog Automation: GitHub Issue Minting")
 h2("7.1 REST API v3 Automated Ticket Creation")
 p("Rather than requiring human engineers to manually transcribe crash logs into sprint issue trackers, the Watchdog Lambda dispatches an authenticated HTTP POST request to the GitHub Issues REST API v3 (/repos/hemalexe/devopss-incident-watchdog/issues). The automated ticket is minted on the active sprint board within 24 seconds of the initial crash event. Figure 7 illustrates the minted Agile Bug User Story.")
 
-figure("snapshot6_github_issue.png", "Figure 7: Automated Agile Bug User Story Minted on GitHub Issues with Definition of Done", width_inches=6.0)
+figure("snapshot6_github_issue.png", "Figure 7: Automated Agile Bug User Story Minted on GitHub Issues with Definition of Done")
 
 h2("7.2 Standardized Diagnostics Table & Priority Labels")
 p("The minted ticket embeds standardized Agile metadata: priority labels (incident, p1-critical, auto-generated), an Agile User Story narrative ('As an Agile SRE Team Member, I need to investigate and resolve the unhandled ZeroDivisionError...'), and a formatted diagnostics table mapping the incident ID, error type, target microservice, campus fulfillment hub, and direct Amazon S3 forensic URI.")
@@ -716,7 +694,7 @@ allocation = 100 / product['stock']""")
 h2("8.2 GitHub Actions Automated Pytest Regression Runner")
 p("The engineer commits the code using Git Smart Commit syntax: git commit -am 'Fixes #1: Handled division by zero in checkout logic'. Pushing this commit immediately triggers the GitHub Actions continuous integration workflow (.github/workflows/ci-cd.yml). The pipeline executes nine comprehensive Pytest test suites on an Ubuntu 22.04 LTS runner in 0.53 seconds (100% test pass rate). Figure 8 illustrates the GitHub Actions CI/CD execution.")
 
-figure("snapshot7_cicd_pipeline.png", "Figure 8: GitHub Actions CI/CD Automated Pytest Regression Suite and Zero-Touch Closure", width_inches=6.0)
+figure("snapshot7_cicd_pipeline.png", "Figure 8: GitHub Actions CI/CD Automated Pytest Regression Suite and Zero-Touch Closure")
 
 h2("8.3 Zero-Touch Sprint Backlog Closure via Smart Commits")
 p("Upon successful test verification, the CI runner packages the updated microservice and redeploys the code to AWS Lambda. Because the commit message referenced Fixes #1, GitHub natively links the commit SHA to Issue #1 and automatically transitions the ticket from Open to Closed (Done) without human administrative bookkeeping.")
@@ -729,12 +707,12 @@ h1("9. Security Architecture & Serverless Cloud Topology")
 h2("9.1 Seven Closed-Loop Security Safety Gates")
 p("The operational integrity of DevOps Incident Watchdog is enforced across seven distinct security safety gates governing read-only telemetry ingestion, serverless container sandboxing, S3 immutable storage, least-privilege IAM execution roles, ticket sanitization, mandatory pytest CI verification, and GitOps commit traceability. Figure 9 illustrates this closed-loop safety gate architecture.")
 
-figure("figure3_safety_gates.png", "Figure 9: Closed-Loop Telemetry & GitOps Security Safety Gate Architecture", width_inches=6.2)
+figure("figure3_safety_gates.png", "Figure 9: Closed-Loop Telemetry & GitOps Security Safety Gate Architecture", width_inches=5.2)
 
 h2("9.2 AWS Serverless Live Deployment Topology")
 p("The platform is deployed live in the AWS Sydney region (ap-southeast-2) under AWS Account 401537512022. Both microservices execute as decoupled AWS Lambda functions configured with 128 MB RAM, providing sub-300ms cold starts and auto-scaling up to thousands of concurrent requests. Figure 10 illustrates the production AWS cloud topology.")
 
-figure("figure4_aws_topology.png", "Figure 10: AWS Serverless Live Production Topology in Sydney (ap-southeast-2)", width_inches=6.2)
+figure("figure4_aws_topology.png", "Figure 10: AWS Serverless Live Production Topology in Sydney (ap-southeast-2)", width_inches=5.2)
 
 h2("9.3 Monthly Free Tier Cost Breakdown")
 p("Table 9.1 confirms that the entire serverless infrastructure operates completely within AWS Free Tier monthly limits ($0.00/month continuous cloud spend).")
@@ -746,7 +724,7 @@ t9_data = [
     ["Amazon S3 Storage", "50 MB JSON crash dumps / mo", "5.0 GB free Standard storage / mo", "$0.00 / month"],
     ["Total Cloud Spend", "Complete Infrastructure", "100% Covered Under AWS Free Tier", "$0.00 / month"],
 ]
-make_table(t9_headers, t9_data, [2.0, 2.0, 2.0, 1.0], "Table 9.1: AWS Free Tier Monthly Compute and Storage Cost Breakdown")
+make_table(t9_headers, t9_data, [1.5, 1.5, 1.6, 1.2], "Table 9.1: AWS Free Tier Monthly Compute and Storage Cost Breakdown")
 
 # =============================================================
 # CHAPTER 10: END-TO-END WORKFLOW SYNTHESIS & CONCLUSION
@@ -756,7 +734,7 @@ h1("10. End-to-End Workflow Synthesis & Conclusion")
 h2("10.1 Complete 7-Stage Remediation Lifecycle")
 p("The complete operational lifecycle of DevOps Incident Watchdog progresses through seven automated stages, from customer order dispatch to GitOps automated closure. Figure 11 illustrates this end-to-end remediation workflow.")
 
-figure("figure2_workflow.png", "Figure 11: End-to-End Autonomous Incident-to-Agile Remediation Workflow", width_inches=6.2)
+figure("figure2_workflow.png", "Figure 11: End-to-End Autonomous Incident-to-Agile Remediation Workflow", width_inches=5.2)
 
 h2("10.2 Verified Performance Metrics & Engineering Achievements")
 p("The implementation and rigorous testing of DevOps Incident Watchdog substantiate four key engineering achievements:")
