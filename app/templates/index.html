@@ -893,7 +893,7 @@
             <!-- Search Bar -->
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for 'OnePlus 11R', 'MacBook Air M3', 'Sony XM5'...">
+                <input type="text" id="store-search-input" onkeyup="filterSearch()" placeholder="Search 12 products: 'OnePlus', 'MacBook', 'AirPods', 'S24 Ultra'...">
             </div>
 
             <!-- Customer Profile & Cart -->
@@ -914,12 +914,13 @@
     <!-- 2. CATEGORY SUBNAV -->
     <nav class="subnav">
         <div class="subnav-inner">
-            <a class="cat-chip hot"><i class="fa-solid fa-fire"></i> Mega Flash Deals</a>
-            <a class="cat-chip active"><i class="fa-solid fa-mobile-screen"></i> Smartphones</a>
-            <a class="cat-chip"><i class="fa-solid fa-laptop"></i> Laptops & PCs</a>
-            <a class="cat-chip"><i class="fa-solid fa-headphones"></i> Audio & Sound</a>
-            <a class="cat-chip"><i class="fa-solid fa-clock"></i> Wearables</a>
-            <a class="cat-chip"><i class="fa-solid fa-gamepad"></i> Gaming Gear</a>
+            <button class="cat-chip active" id="cat-all" onclick="filterCategory('all', this)"><i class="fa-solid fa-layer-group"></i> All Products (12)</button>
+            <button class="cat-chip hot" id="cat-flash" onclick="filterCategory('flash', this)"><i class="fa-solid fa-fire"></i> ⚡ Flash Deals</button>
+            <button class="cat-chip" id="cat-smartphones" onclick="filterCategory('smartphones', this)"><i class="fa-solid fa-mobile-screen"></i> Smartphones</button>
+            <button class="cat-chip" id="cat-laptops" onclick="filterCategory('laptops', this)"><i class="fa-solid fa-laptop"></i> Laptops & PCs</button>
+            <button class="cat-chip" id="cat-audio" onclick="filterCategory('audio', this)"><i class="fa-solid fa-headphones"></i> Audio & Sound</button>
+            <button class="cat-chip" id="cat-wearables" onclick="filterCategory('wearables', this)"><i class="fa-solid fa-clock"></i> Wearables</button>
+            <button class="cat-chip" id="cat-gaming" onclick="filterCategory('gaming', this)"><i class="fa-solid fa-gamepad"></i> Gaming & Power</button>
         </div>
     </nav>
 
@@ -956,7 +957,7 @@
         <div class="product-grid">
 
             <!-- PRODUCT 1: ONEPLUS 11R 5G (PROMOTIONAL DEAL ITEM) -->
-            <div class="product-card flash-highlight" id="item-oneplus-card">
+            <div class="product-card flash-highlight" id="item-oneplus-card" data-category="smartphones flash" data-title="oneplus 11r 5g sonic black 16gb">
                 <div>
                     <div class="product-img-box">
                         <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60" alt="OnePlus 11R 5G">
@@ -992,7 +993,7 @@
             </div>
 
             <!-- PRODUCT 2: MACBOOK AIR M3 (IN STOCK) -->
-            <div class="product-card">
+            <div class="product-card" data-category="laptops" data-title="apple macbook air m3 laptop">
                 <div>
                     <div class="product-img-box">
                         <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60" alt="MacBook Air M3">
@@ -1027,7 +1028,7 @@
             </div>
 
             <!-- PRODUCT 3: SONY WH-1000XM5 (IN STOCK) -->
-            <div class="product-card">
+            <div class="product-card" data-category="audio" data-title="sony wh-1000xm5 anc wireless headphones">
                 <div>
                     <div class="product-img-box">
                         <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60" alt="Sony Headphones">
@@ -1062,7 +1063,7 @@
             </div>
 
             <!-- PRODUCT 4: APPLE WATCH SERIES 9 (IN STOCK) -->
-            <div class="product-card">
+            <div class="product-card" data-category="wearables" data-title="apple watch series 9 gps 45mm smartwatch">
                 <div>
                     <div class="product-img-box">
                         <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=60" alt="Apple Watch">
@@ -1092,6 +1093,245 @@
                 </div>
 
                 <button class="btn-buy" onclick="openCheckout('Apple Watch Series 9 GPS (45mm)', 41900, 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500&auto=format&fit=crop&q=60', 4)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+            <!-- PRODUCT 5: SAMSUNG GALAXY S24 ULTRA -->
+            <div class="product-card" data-category="smartphones" data-title="samsung galaxy s24 ultra titanium flagship">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop&q=60" alt="Samsung S24 Ultra">
+                        <span class="badge-discount" style="background:#4338ca;">12% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Flagship Smartphone</div>
+                        <h4 class="product-title">Samsung Galaxy S24 Ultra (Titanium Gray, 256GB, 200MP AI Camera)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.9</span>
+                            <span>(7,650 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹1,29,999</span>
+                            <span class="mrp-price">₹1,39,999</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (4 units at Q-Block Dark Store)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('Samsung Galaxy S24 Ultra (256GB)', 129999, 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&auto=format&fit=crop&q=60', 5)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 6: APPLE IPHONE 15 PRO -->
+            <div class="product-card" data-category="smartphones" data-title="apple iphone 15 pro natural titanium a17 pro">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500&auto=format&fit=crop&q=60" alt="iPhone 15 Pro">
+                        <span class="badge-discount" style="background:#0284c7;">8% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Apple Flagship</div>
+                        <h4 class="product-title">Apple iPhone 15 Pro (Natural Titanium, 128GB, A17 Pro Chip)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.9</span>
+                            <span>(11,200 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹1,24,900</span>
+                            <span class="mrp-price">₹1,34,900</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (7 units at Campus Hub)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('Apple iPhone 15 Pro (128GB)', 124900, 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500&auto=format&fit=crop&q=60', 6)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 7: APPLE AIRPODS PRO 2 -->
+            <div class="product-card" data-category="audio" data-title="apple airpods pro 2 usb-c anc spatial audio">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=500&auto=format&fit=crop&q=60" alt="AirPods Pro 2">
+                        <span class="badge-discount" style="background:#16a34a;">12% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Wireless Earbuds</div>
+                        <h4 class="product-title">Apple AirPods Pro (2nd Gen, USB-C MagSafe Case, Active Noise Cancellation)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.8</span>
+                            <span>(15,800 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹21,900</span>
+                            <span class="mrp-price">₹24,900</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (12 units)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('Apple AirPods Pro 2 (USB-C)', 21900, 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=500&auto=format&fit=crop&q=60', 7)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 8: ASUS ROG ZEPHYRUS G14 GAMING LAPTOP -->
+            <div class="product-card" data-category="laptops gaming" data-title="asus rog zephyrus g14 gaming laptop rtx 4060 ryzen 9">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop&q=60" alt="ASUS ROG G14">
+                        <span class="badge-discount" style="background:#e11d48;">14% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-truck"></i> 15 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Gaming Laptop</div>
+                        <h4 class="product-title">ASUS ROG Zephyrus G14 (AMD Ryzen 9, RTX 4060, 16GB, 1TB SSD, 165Hz)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.8</span>
+                            <span>(1,840 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹1,49,990</span>
+                            <span class="mrp-price">₹1,74,990</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (3 units at Alpha Dark Store)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('ASUS ROG Zephyrus G14 Laptop', 149990, 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&auto=format&fit=crop&q=60', 8)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 9: SAMSUNG GALAXY WATCH 6 CLASSIC -->
+            <div class="product-card" data-category="wearables" data-title="samsung galaxy watch 6 classic lte rotating bezel smartwatch">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&auto=format&fit=crop&q=60" alt="Galaxy Watch 6 Classic">
+                        <span class="badge-discount" style="background:#7c3aed;">14% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Wearables</div>
+                        <h4 class="product-title">Samsung Galaxy Watch 6 Classic LTE (47mm Rotating Bezel, ECG Monitor)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.6</span>
+                            <span>(2,940 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹36,999</span>
+                            <span class="mrp-price">₹42,999</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (8 units)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('Samsung Galaxy Watch 6 Classic', 36999, 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&auto=format&fit=crop&q=60', 9)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 10: KEYCHRON K2 MECHANICAL KEYBOARD -->
+            <div class="product-card" data-category="gaming" data-title="keychron k2 wireless mechanical keyboard rgb gateron hot-swap">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60" alt="Keychron K2 Keyboard">
+                        <span class="badge-discount" style="background:#ea580c;">23% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Mechanical Keyboards</div>
+                        <h4 class="product-title">Keychron K2 Wireless Mechanical Keyboard (RGB Backlit, Gateron Brown)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.7</span>
+                            <span>(4,620 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹8,499</span>
+                            <span class="mrp-price">₹10,999</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (14 units)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('Keychron K2 Wireless Keyboard', 8499, 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60', 10)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 11: MARSHALL EMBERTON II SPEAKER -->
+            <div class="product-card" data-category="audio" data-title="marshall emberton ii portable bluetooth speaker brass 30 hours">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=60" alt="Marshall Speaker">
+                        <span class="badge-discount" style="background:#b45309;">25% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Premium Bluetooth Audio</div>
+                        <h4 class="product-title">Marshall Emberton II Portable Bluetooth Speaker (Black & Brass, 30+ Hrs)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.7</span>
+                            <span>(3,410 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹14,999</span>
+                            <span class="mrp-price">₹19,999</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (9 units)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('Marshall Emberton II Speaker', 14999, 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=60', 11)">
+                    <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+            </div>
+
+            <!-- PRODUCT 12: ANKER 737 GAN 140W POWER BANK -->
+            <div class="product-card" data-category="gaming" data-title="anker 737 gan power bank 140w 24000mah digital display">
+                <div>
+                    <div class="product-img-box">
+                        <img src="https://images.unsplash.com/photo-1609592424369-026c483a9032?w=500&auto=format&fit=crop&q=60" alt="Anker Power Bank">
+                        <span class="badge-discount" style="background:#059669;">20% OFF</span>
+                        <span class="badge-speed"><i class="fa-solid fa-bolt"></i> 10 MINS</span>
+                    </div>
+                    <div class="product-meta">
+                        <div class="product-cat">Tech Essentials & Power</div>
+                        <h4 class="product-title">Anker 737 GaN 140W Power Bank (24,000mAh Smart Digital Display)</h4>
+                        <div class="rating-strip">
+                            <span class="rating-badge"><i class="fa-solid fa-star"></i> 4.9</span>
+                            <span>(6,120 reviews)</span>
+                        </div>
+                        <div class="price-row">
+                            <span class="current-price">₹11,999</span>
+                            <span class="mrp-price">₹14,999</span>
+                        </div>
+                        <div class="stock-indicator stock-in">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>In Stock (18 units across Campus Lockers)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-buy" onclick="openCheckout('Anker 737 GaN 140W Power Bank', 11999, 'https://images.unsplash.com/photo-1609592424369-026c483a9032?w=500&auto=format&fit=crop&q=60', 12)">
                     <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                 </button>
             </div>
@@ -1280,6 +1520,13 @@
                     </div>
                 </div>
 
+                <!-- Promo Code Engine -->
+                <div style="background:#f1f5f9; padding:10px 14px; border-radius:10px; margin-bottom:12px; display:flex; gap:8px;">
+                    <input type="text" id="coupon-input" placeholder="Promo code (e.g. VITFEST50)" style="flex:1; border:1px solid #cbd5e1; border-radius:6px; padding:6px 10px; font-size:12.5px; font-weight:600; text-transform:uppercase; outline:none;">
+                    <button type="button" onclick="applyPromoCoupon()" style="background:#4f46e5; color:white; border:none; padding:6px 14px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Apply</button>
+                </div>
+                <div id="coupon-alert" style="display:none; font-size:11.5px; margin-bottom:10px; padding:4px 8px; border-radius:6px;"></div>
+
                 <div class="bill-details">
                     <div class="bill-row">
                         <span>Item Subtotal</span>
@@ -1287,15 +1534,34 @@
                     </div>
                     <div class="bill-row">
                         <span>Delivery Fee (FlashMart Express)</span>
-                        <span style="color:#059669; font-weight:700;">FREE</span>
+                        <span style="color:#059669; font-weight:700;" id="bill-delivery-fee">FREE</span>
                     </div>
                     <div class="bill-row">
-                        <span>Flash Sale Discount Coupon</span>
-                        <span class="bill-discount">-₹2,000</span>
+                        <span id="bill-coupon-label">Flash Sale Discount Coupon</span>
+                        <span class="bill-discount" id="bill-discount-val">-₹2,000</span>
                     </div>
                     <div class="bill-row total">
                         <span>Grand Total</span>
                         <span id="bill-grand-total">₹32,999</span>
+                    </div>
+                </div>
+
+                <!-- Payment Method Selector -->
+                <div style="margin-bottom:16px;">
+                    <div style="font-size:12px; font-weight:700; color:#475569; margin-bottom:6px;">SELECT PAYMENT METHOD:</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+                        <label style="display:flex; align-items:center; gap:6px; padding:8px 10px; border:1px solid #6366f1; border-radius:8px; background:#eff6ff; cursor:pointer;">
+                            <input type="radio" name="pay-method" value="upi" checked> <strong><i class="fa-solid fa-qrcode" style="color:#4f46e5;"></i> UPI (GPay/PhonePe)</strong>
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px; padding:8px 10px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                            <input type="radio" name="pay-method" value="vit-card"> <span><i class="fa-solid fa-id-card" style="color:#f59e0b;"></i> VIT Smart Card</span>
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px; padding:8px 10px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                            <input type="radio" name="pay-method" value="card"> <span><i class="fa-solid fa-credit-card" style="color:#059669;"></i> Debit/Credit Card</span>
+                        </label>
+                        <label style="display:flex; align-items:center; gap:6px; padding:8px 10px; border:1px solid #e2e8f0; border-radius:8px; cursor:pointer;">
+                            <input type="radio" name="pay-method" value="cod"> <span><i class="fa-solid fa-money-bill" style="color:#0284c7;"></i> Cash on Delivery</span>
+                        </label>
                     </div>
                 </div>
 
@@ -1350,8 +1616,11 @@
                     </div>
                 </div>
 
-                <button class="btn-buy" onclick="closeModal()">
-                    <i class="fa-solid fa-check"></i> Done
+                <button class="btn-buy" style="background:#10b981; margin-bottom:8px;" onclick="openTrackingModal()">
+                    <i class="fa-solid fa-truck-fast"></i> Track Live 10-Min Delivery
+                </button>
+                <button class="btn-buy" style="background:#475569;" onclick="closeModal()">
+                    <i class="fa-solid fa-check"></i> Continue Shopping
                 </button>
             </div>
 
@@ -1369,40 +1638,58 @@
                 Choose your delivery address to check real-time dark store fulfillment:
             </p>
 
-            <!-- Address 1: VIT Vellore Campus -->
+            <!-- Address 1: VIT Vellore Men's Hostel -->
             <div class="location-option selected" id="loc-opt-1" onclick="selectLocation('VIT Vellore Campus', 'Men\'s Hostel Q-Block, Katpadi • 10 Mins', 'loc-opt-1')">
                 <div>
-                    <strong style="font-size:13.5px;">VIT Vellore Campus</strong>
-                    <div style="font-size:12px; color:#64748b;">Men's Hostel Q-Block, Katpadi, Vellore - 632014</div>
+                    <strong style="font-size:13.5px;"><i class="fa-solid fa-building-user" style="color:#6366f1;"></i> VIT Vellore (Men's Hostel Q-Block)</strong>
+                    <div style="font-size:12px; color:#64748b;">Alpha Dark Store • Express 10-Min Delivery Node</div>
                 </div>
-                <span style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:700;">Active</span>
+                <span style="font-size:11px; background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:12px; font-weight:700;">Active Hub</span>
             </div>
 
-            <!-- Address 2: Gandhi Nagar, Vellore -->
-            <div class="location-option" id="loc-opt-2" onclick="selectLocation('Gandhi Nagar, Vellore', 'Near Katpadi Junction • 12 Mins', 'loc-opt-2')">
+            <!-- Address 2: VIT Ladies Hostel -->
+            <div class="location-option" id="loc-opt-2" onclick="selectLocation('VIT Ladies Hostel Complex', 'LH Block L & Lake View Hub • 12 Mins', 'loc-opt-2')">
                 <div>
-                    <strong style="font-size:13.5px;">Gandhi Nagar, Vellore</strong>
-                    <div style="font-size:12px; color:#64748b;">Near Katpadi Railway Station, Vellore - 632006</div>
+                    <strong style="font-size:13.5px;"><i class="fa-solid fa-hotel" style="color:#ec4899;"></i> VIT Ladies Hostel (Block L Complex)</strong>
+                    <div style="font-size:12px; color:#64748b;">Beta Dark Store • Express 12-Min Delivery Node</div>
                 </div>
-                <span style="font-size:11px; color:#64748b;">Dark Store #2</span>
+                <span style="font-size:11px; color:#64748b;">Beta Dark Store</span>
             </div>
 
-            <!-- Address 3: Anna Nagar, Chennai -->
-            <div class="location-option" id="loc-opt-3" onclick="selectLocation('Anna Nagar, Chennai', '2nd Avenue, Roundtana • 15 Mins', 'loc-opt-3')">
+            <!-- Address 3: Technology Tower TT -->
+            <div class="location-option" id="loc-opt-3" onclick="selectLocation('Technology Tower (TT)', 'Academic Zone, Ground Floor Lockers • 8 Mins', 'loc-opt-3')">
                 <div>
-                    <strong style="font-size:13.5px;">Anna Nagar, Chennai</strong>
-                    <div style="font-size:12px; color:#64748b;">2nd Avenue, Anna Nagar West, Chennai - 600040</div>
+                    <strong style="font-size:13.5px;"><i class="fa-solid fa-graduation-cap" style="color:#3b82f6;"></i> Technology Tower (TT Academic Hub)</strong>
+                    <div style="font-size:12px; color:#64748b;">Express Tech Locker 01 • Ultra-Fast 8 Mins</div>
                 </div>
-                <span style="font-size:11px; color:#64748b;">Dark Store #5</span>
+                <span style="font-size:11px; color:#64748b;">Locker Hub</span>
             </div>
 
-            <!-- Address 4: Indiranagar, Bangalore -->
-            <div class="location-option" id="loc-opt-4" onclick="selectLocation('Indiranagar, Bangalore', '100ft Road, Stage 2 • 15 Mins', 'loc-opt-4')">
+            <!-- Address 4: Anna Auditorium & Food Court -->
+            <div class="location-option" id="loc-opt-4" onclick="selectLocation('Anna Auditorium & Food Court', 'Central Campus Gazebo Hub • 10 Mins', 'loc-opt-4')">
                 <div>
-                    <strong style="font-size:13.5px;">Indiranagar, Bangalore</strong>
-                    <div style="font-size:12px; color:#64748b;">100ft Road, Indiranagar, Bangalore - 560038</div>
+                    <strong style="font-size:13.5px;"><i class="fa-solid fa-utensils" style="color:#f59e0b;"></i> Anna Auditorium & Food Court Hub</strong>
+                    <div style="font-size:12px; color:#64748b;">Central Campus Micro-Fulfillment Point</div>
                 </div>
-                <span style="font-size:11px; color:#64748b;">Dark Store #8</span>
+                <span style="font-size:11px; color:#64748b;">Campus Hub #3</span>
+            </div>
+
+            <!-- Address 5: Katpadi Railway Junction -->
+            <div class="location-option" id="loc-opt-5" onclick="selectLocation('Katpadi Railway Junction', 'Station Road Commercial Dark Store • 15 Mins', 'loc-opt-5')">
+                <div>
+                    <strong style="font-size:13.5px;"><i class="fa-solid fa-train" style="color:#059669;"></i> Katpadi Railway Junction Hub</strong>
+                    <div style="font-size:12px; color:#64748b;">Peripheral Warehouse #4 • Katpadi Zone</div>
+                </div>
+                <span style="font-size:11px; color:#64748b;">Station Dark Store</span>
+            </div>
+
+            <!-- Address 6: Vellore Fort Town Hub -->
+            <div class="location-option" id="loc-opt-6" onclick="selectLocation('Vellore Fort Town Hub', 'Gandhi Nagar Commercial Hub • 18 Mins', 'loc-opt-6')">
+                <div>
+                    <strong style="font-size:13.5px;"><i class="fa-solid fa-landmark" style="color:#7c3aed;"></i> Vellore Fort Town (Gandhi Nagar)</strong>
+                    <div style="font-size:12px; color:#64748b;">Town Fulfillment Hub #7 • Fort Area</div>
+                </div>
+                <span style="font-size:11px; color:#64748b;">Town Hub</span>
             </div>
 
             <button class="btn-buy" style="margin-top:10px;" onclick="closeLocationModal()">
@@ -1610,7 +1897,168 @@
             if (timerElem) timerElem.innerText = `${hrs}:${mins}:${secs}`;
         }, 1000);
 
+        
+        // Real-Time Category Filtering
+        function filterCategory(category, btnElem) {
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+            if (btnElem) btnElem.classList.add('active');
+
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category') || '';
+                if (category === 'all') {
+                    card.style.display = 'flex';
+                } else if (category === 'flash') {
+                    card.style.display = cardCat.includes('flash') ? 'flex' : 'none';
+                } else {
+                    card.style.display = cardCat.includes(category) ? 'flex' : 'none';
+                }
+            });
+        }
+
+        // Real-Time Search Filtering
+        function filterSearch() {
+            const query = (document.getElementById('store-search-input').value || '').toLowerCase().trim();
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const title = (card.getAttribute('data-title') || '').toLowerCase();
+                const cardText = card.innerText.toLowerCase();
+                if (!query || title.includes(query) || cardText.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Promo Coupon Engine
+        let appliedDiscount = 2000;
+        function applyPromoCoupon() {
+            const code = (document.getElementById('coupon-input').value || '').trim().toUpperCase();
+            const alertBox = document.getElementById('coupon-alert');
+            const subtotalText = document.getElementById('bill-subtotal').innerText.replace(/[₹,]/g, '');
+            const subtotal = parseInt(subtotalText, 10) || 34999;
+            
+            if (code === 'VITFEST50') {
+                appliedDiscount = Math.min(Math.round(subtotal * 0.10), 5000);
+                alertBox.style.display = 'block';
+                alertBox.style.background = '#dcfce7';
+                alertBox.style.color = '#15803d';
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> Code <strong>VITFEST50</strong> Applied: 10% Off (-₹' + appliedDiscount.toLocaleString() + ')';
+            } else if (code === 'FLASHTECH2000') {
+                appliedDiscount = 2000;
+                alertBox.style.display = 'block';
+                alertBox.style.background = '#dcfce7';
+                alertBox.style.color = '#15803d';
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> Code <strong>FLASHTECH2000</strong> Applied: Flat ₹2,000 Off!';
+            } else if (code === 'CAMPUSFREE') {
+                appliedDiscount = 2000;
+                alertBox.style.display = 'block';
+                alertBox.style.background = '#dcfce7';
+                alertBox.style.color = '#15803d';
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> Code <strong>CAMPUSFREE</strong> Applied: Free Express Delivery Guaranteed!';
+            } else {
+                alertBox.style.display = 'block';
+                alertBox.style.background = '#fee2e2';
+                alertBox.style.color = '#b91c1c';
+                alertBox.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Invalid code! Try <strong>VITFEST50</strong> or <strong>FLASHTECH2000</strong>.';
+                return;
+            }
+
+            document.getElementById('bill-discount-val').innerText = '-₹' + appliedDiscount.toLocaleString();
+            const grandTotal = Math.max(subtotal - appliedDiscount, 0);
+            document.getElementById('bill-grand-total').innerText = '₹' + grandTotal.toLocaleString();
+        }
+
+        // Live Order Tracking Modal Handlers
+        function openTrackingModal() {
+            closeModal();
+            document.getElementById('track-hub-name').innerText = selectedLocationName;
+            document.getElementById('tracking-modal').style.display = 'flex';
+        }
+
+        function closeTrackingModal() {
+            document.getElementById('tracking-modal').style.display = 'none';
+        }
+
         checkState();
     </script>
+
+    <!-- 7. LIVE 10-MINUTE ORDER TRACKING MODAL -->
+    <div class="modal-overlay" id="tracking-modal" style="display:none;">
+        <div class="modal-card" style="max-width:520px;">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-truck-fast" style="color:#10b981;"></i> Live 10-Min Delivery Tracking</h3>
+                <button class="btn-close" onclick="closeTrackingModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <!-- Live Status Header -->
+            <div style="background:linear-gradient(135deg, #065f46, #047857); color:white; border-radius:12px; padding:16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.5px; opacity:0.85;">Order Status #FM-94812</div>
+                    <div style="font-size:17px; font-weight:800; margin-top:2px;">Out for Express Delivery ⚡</div>
+                    <div style="font-size:12px; opacity:0.9; margin-top:4px;">Delivery Hub: <strong id="track-hub-name">VIT Vellore Campus</strong></div>
+                </div>
+                <div style="text-align:center; background:rgba(255,255,255,0.15); padding:8px 14px; border-radius:10px;">
+                    <div style="font-size:10px; text-transform:uppercase;">Arriving In</div>
+                    <div style="font-size:22px; font-weight:800; font-family:monospace;" id="track-eta-countdown">05:42</div>
+                </div>
+            </div>
+
+            <!-- 4-Stage Visual Progress Bar -->
+            <div style="margin:20px 10px 24px 10px; position:relative;">
+                <div style="position:absolute; top:14px; left:10px; right:10px; height:3px; background:#e2e8f0; z-index:1;"></div>
+                <div style="position:absolute; top:14px; left:10px; width:70%; height:3px; background:#10b981; z-index:2;"></div>
+                
+                <div style="display:flex; justify-content:space-between; position:relative; z-index:3;">
+                    <div style="text-align:center; width:65px;">
+                        <div style="width:28px; height:28px; border-radius:50%; background:#10b981; color:white; display:flex; align-items:center; justify-content:center; margin:0 auto; font-size:12px;"><i class="fa-solid fa-check"></i></div>
+                        <div style="font-size:10.5px; font-weight:700; color:#047857; margin-top:4px;">Confirmed</div>
+                    </div>
+                    <div style="text-align:center; width:65px;">
+                        <div style="width:28px; height:28px; border-radius:50%; background:#10b981; color:white; display:flex; align-items:center; justify-content:center; margin:0 auto; font-size:12px;"><i class="fa-solid fa-box"></i></div>
+                        <div style="font-size:10.5px; font-weight:700; color:#047857; margin-top:4px;">Packed</div>
+                    </div>
+                    <div style="text-align:center; width:65px;">
+                        <div style="width:28px; height:28px; border-radius:50%; background:#6366f1; color:white; display:flex; align-items:center; justify-content:center; margin:0 auto; font-size:12px; box-shadow:0 0 0 4px rgba(99,102,241,0.25);"><i class="fa-solid fa-motorcycle"></i></div>
+                        <div style="font-size:10.5px; font-weight:800; color:#4f46e5; margin-top:4px;">On the Way</div>
+                    </div>
+                    <div style="text-align:center; width:65px;">
+                        <div style="width:28px; height:28px; border-radius:50%; background:#e2e8f0; color:#94a3b8; display:flex; align-items:center; justify-content:center; margin:0 auto; font-size:12px;"><i class="fa-solid fa-flag-checkered"></i></div>
+                        <div style="font-size:10.5px; font-weight:600; color:#94a3b8; margin-top:4px;">Delivered</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Partner Information Card -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:42px; height:42px; border-radius:50%; background:#cbd5e1; display:flex; align-items:center; justify-content:center; font-size:18px; color:#475569;">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:13.5px; font-weight:800; color:#0f172a;">Ramesh Kumar</div>
+                        <div style="font-size:11.5px; color:#64748b;">Hero Electric Scooter (TN-23-AB-1024)</div>
+                        <div style="font-size:11px; color:#f59e0b; margin-top:2px;"><i class="fa-solid fa-star"></i> 4.95 Rating • 2,400+ Campus Trips</div>
+                    </div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="font-size:10.5px; color:#64748b; font-weight:600;">Delivery OTP</div>
+                    <div style="font-size:16px; font-weight:800; color:#4f46e5; letter-spacing:1px; background:#e0e7ff; padding:3px 8px; border-radius:6px; margin-top:2px;">4921</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display:flex; gap:10px;">
+                <button class="btn-buy" style="background:#475569; flex:1;" onclick="alert('Calling delivery partner Ramesh Kumar: +91 98765 43210')">
+                    <i class="fa-solid fa-phone"></i> Call Partner
+                </button>
+                <button class="btn-buy" style="background:#10b981; flex:1;" onclick="closeTrackingModal()">
+                    <i class="fa-solid fa-check"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
