@@ -4,6 +4,10 @@ Student: S Hemal (24MIS0050)
 Course: ISWE406 Agile Development Process and DevOps
 School: School of Computer Science Engineering and Information Systems (SCOPE)
 Institution: Vellore Institute of Technology (VIT), Vellore Campus
+
+Updates:
+- Cropped bottom taskbar/tabs part from all screenshots.
+- Removed top side-heading badges and sub-headings above images for clean, seamless aesthetic.
 """
 
 import os
@@ -24,7 +28,7 @@ prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 blank_layout = prs.slide_layouts[6]
 
-# Professional Palette
+# Professional Academic Palette
 NAVY = RGBColor(15, 23, 42)         # #0F172A
 SLATE = RGBColor(30, 41, 59)        # #1E293B
 DARK_BLUE = RGBColor(3, 105, 161)   # #0369A1
@@ -39,8 +43,8 @@ RED = RGBColor(239, 68, 68)         # #EF4444
 GREEN = RGBColor(34, 197, 94)       # #22C55E
 BORDER_COLOR = RGBColor(203, 213, 225) # #CBD5E1
 
-def add_header(slide, title_text, category_text=""):
-    """Adds formal, branded academic header banner across top of slide."""
+def add_header(slide, title_text):
+    """Adds clean, authoritative header banner with student credentials across top of slide."""
     shape = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(13.333), Inches(1.15))
     shape.fill.solid()
     shape.fill.fore_color.rgb = NAVY
@@ -51,28 +55,18 @@ def add_header(slide, title_text, category_text=""):
     accent.fill.fore_color.rgb = BLUE
     accent.line.fill.background()
     
-    txBox = slide.shapes.add_textbox(Inches(0.8), Inches(0.16), Inches(9.5), Inches(0.85))
+    txBox = slide.shapes.add_textbox(Inches(0.8), Inches(0.24), Inches(9.2), Inches(0.72))
     tf = txBox.text_frame
     tf.word_wrap = True
     
-    if category_text:
-        p0 = tf.paragraphs[0]
-        p0.text = category_text.upper()
-        p0.font.name = "Arial"
-        p0.font.size = Pt(9.5)
-        p0.font.bold = True
-        p0.font.color.rgb = CYAN
-        p1 = tf.add_paragraph()
-    else:
-        p1 = tf.paragraphs[0]
-        
+    p1 = tf.paragraphs[0]
     p1.text = title_text
     p1.font.name = "Arial"
-    p1.font.size = Pt(19)
+    p1.font.size = Pt(20)
     p1.font.bold = True
     p1.font.color.rgb = WHITE
     
-    metaBox = slide.shapes.add_textbox(Inches(9.5), Inches(0.18), Inches(3.2), Inches(0.85))
+    metaBox = slide.shapes.add_textbox(Inches(9.5), Inches(0.20), Inches(3.2), Inches(0.80))
     mtf = metaBox.text_frame
     mtf.word_wrap = True
     mp = mtf.paragraphs[0]
@@ -102,7 +96,7 @@ def add_bullet(tf, bold_prefix, text, pt_size=11.5, space_before=7):
     r_t.font.color.rgb = TEXT_DARK
 
 def get_fitted_dimensions(img_path, max_w, max_h):
-    """Calculates fitted width and height preserving aspect ratio."""
+    """Calculates fitted width and height preserving exact aspect ratio."""
     with Image.open(img_path) as im:
         orig_w, orig_h = im.size
     aspect = orig_w / float(orig_h)
@@ -114,8 +108,8 @@ def get_fitted_dimensions(img_path, max_w, max_h):
         w = h * aspect
     return w, h
 
-def add_image_card(slide, img_path, left, top, max_w, max_h, badge_text=""):
-    """Places an image with high-definition frame and optional badge."""
+def add_image_card(slide, img_path, left, top, max_w, max_h):
+    """Places an image with high-definition subtle frame without any intrusive top badges."""
     if not os.path.exists(img_path):
         return
         
@@ -125,28 +119,12 @@ def add_image_card(slide, img_path, left, top, max_w, max_h, badge_text=""):
     actual_left = left + (max_w - w) / 2
     actual_top = top + (max_h - h) / 2
     
-    if badge_text:
-        badge = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, actual_left, actual_top - Inches(0.32), w, Inches(0.28))
-        badge.fill.solid()
-        badge.fill.fore_color.rgb = RGBColor(241, 245, 249)
-        badge.line.color.rgb = RGBColor(203, 213, 225)
-        badge.line.width = Pt(1)
-        btf = badge.text_frame
-        btf.word_wrap = True
-        bp = btf.paragraphs[0]
-        bp.text = badge_text.upper()
-        bp.font.name = "Arial"
-        bp.font.size = Pt(8.5)
-        bp.font.bold = True
-        bp.font.color.rgb = RGBColor(30, 41, 59)
-        bp.alignment = PP_ALIGN.CENTER
-    
-    # Outer frame container
-    frame = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, actual_left - Inches(0.04), actual_top - Inches(0.04), w + Inches(0.08), h + Inches(0.08))
+    # Outer frame container for crisp presentation
+    frame = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, actual_left - Inches(0.025), actual_top - Inches(0.025), w + Inches(0.05), h + Inches(0.05))
     frame.fill.solid()
     frame.fill.fore_color.rgb = RGBColor(226, 232, 240)
     frame.line.color.rgb = RGBColor(148, 163, 184)
-    frame.line.width = Pt(1.5)
+    frame.line.width = Pt(1.2)
     
     slide.shapes.add_picture(img_path, actual_left, actual_top, w, h)
 
@@ -203,7 +181,7 @@ p_meta.space_before = Pt(14)
 # SLIDE 2: PROBLEM STATEMENT & PROJECT SCOPE
 # ==============================================================================
 slide2 = prs.slides.add_slide(blank_layout)
-add_header(slide2, "Executive Problem Statement & Project Scope", "Project Overview")
+add_header(slide2, "Executive Problem Statement & Project Scope")
 
 tx2_l = slide2.shapes.add_textbox(Inches(0.8), Inches(1.45), Inches(5.6), Inches(5.4))
 tf2_l = tx2_l.text_frame
@@ -237,9 +215,9 @@ add_bullet(tf2_r, "Defensive Client Shielding:", "SPA client intercepts HTTP 500
 # SLIDE 3: SYSTEM ARCHITECTURE
 # ==============================================================================
 slide3 = prs.slides.add_slide(blank_layout)
-add_header(slide3, "Decoupled Three-Tier System Architecture & Boundary Separation", "System Architecture")
+add_header(slide3, "Decoupled Three-Tier System Architecture & Boundary Separation")
 
-tx3 = slide3.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx3 = slide3.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf3 = tx3.text_frame
 tf3.word_wrap = True
 tf3.paragraphs[0].text = "Three-Tier Decoupled Pipeline:"
@@ -253,15 +231,15 @@ add_bullet(tf3, "Tier 2 (Compute & Execution):", "Decoupled AWS Lambda microserv
 add_bullet(tf3, "Tier 3 (Cloud Services & Agile Backlog):", "AWS CloudWatch Metric Filters, Amazon S3 forensic vault (401537512022), and GitHub Issues Agile backlog.")
 add_bullet(tf3, "Architectural Invariant:", "Total blast radius isolation: crashes in target application logic cannot degrade or block the watchdog telemetry pipeline.")
 
-add_image_card(slide3, os.path.join(base_dir, "architecture_diagram.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.4), "Figure 1: Decoupled Three-Tier System Topology")
+add_image_card(slide3, os.path.join(base_dir, "architecture_diagram.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 4: MODULE 1A - STOREFRONT CATALOG & DARK STORES
 # ==============================================================================
 slide4 = prs.slides.add_slide(blank_layout)
-add_header(slide4, "Module 1A: Storefront Catalog, Search & Campus Dark Stores", "Storefront Presentation")
+add_header(slide4, "Module 1A: Storefront Catalog, Search & Campus Dark Stores")
 
-tx4 = slide4.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx4 = slide4.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf4 = tx4.text_frame
 tf4.word_wrap = True
 tf4.paragraphs[0].text = "Catalog & Routing Architecture:"
@@ -275,15 +253,15 @@ add_bullet(tf4, "Dynamic Search & Category Chips:", "Client-side category filter
 add_bullet(tf4, "6 Geofenced Dark Store Nodes:", "Simulates dynamic micro-fulfillment routing across VIT Vellore Hostels (Men's Q-Block, Ladies L-Block), Tech Tower, and Anna Auditorium.")
 add_bullet(tf4, "Active Student Session Banner:", "Verified student header: S Hemal (24MIS0050) | ISWE406 Agile & DevOps | VIT Vellore Campus (SCOPE).")
 
-add_image_card(slide4, os.path.join(real_dir, "real_storefront_catalog.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic Live System Capture: Storefront Browser View (Port 5000)")
+add_image_card(slide4, os.path.join(real_dir, "real_storefront_catalog.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 5: MODULE 1B - INTERACTIVE CART & CAMPUS PAYMENTS
 # ==============================================================================
 slide5 = prs.slides.add_slide(blank_layout)
-add_header(slide5, "Module 1B: Interactive Cart Drawer & Campus Payment Gateways", "Checkout Engine")
+add_header(slide5, "Module 1B: Interactive Cart Drawer & Campus Payment Gateways")
 
-tx5 = slide5.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx5 = slide5.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf5 = tx5.text_frame
 tf5.word_wrap = True
 tf5.paragraphs[0].text = "Cart & Transaction Management:"
@@ -297,15 +275,15 @@ add_bullet(tf5, "Campus Promotional Coupon Engine:", "REST endpoint validates st
 add_bullet(tf5, "4 Campus Payment Gateways:", "Supports Instant UPI (GPay/PhonePe), VIT Student RFID Smart Card tap-and-pay, Debit/Credit Card, and Cash on Delivery.")
 add_bullet(tf5, "Client-Side Order Validation:", "Secures itemized billing details before transmitting JSON checkout payload to backend worker endpoint.")
 
-add_image_card(slide5, os.path.join(real_dir, "real_cart_checkout_modal.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic Live System Capture: Cart Drawer & Applied VITFEST50 Coupon")
+add_image_card(slide5, os.path.join(real_dir, "real_cart_checkout_modal.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 6: MODULE 1C - 10-MIN MICRO-FULFILLMENT & LIVE TRACKING
 # ==============================================================================
 slide6 = prs.slides.add_slide(blank_layout)
-add_header(slide6, "Module 1C: Sub-10-Minute Micro-Fulfillment & Live Order Tracking", "Delivery Lifecycle")
+add_header(slide6, "Module 1C: Sub-10-Minute Micro-Fulfillment & Live Order Tracking")
 
-tx6 = slide6.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx6 = slide6.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf6 = tx6.text_frame
 tf6.word_wrap = True
 tf6.paragraphs[0].text = "Micro-Fulfillment & Driver Telemetry:"
@@ -319,15 +297,15 @@ add_bullet(tf6, "Live Countdown Timer:", "Active countdown clock simulating hype
 add_bullet(tf6, "Assigned Courier Profile:", "Features verified delivery partner Ramesh Kumar (⚡ Fast Express Courier, 4.9★ rating) on Electric Scooter TN-23-AB-1024.")
 add_bullet(tf6, "Secure Handover OTP:", "Generates 4-digit verification code (OTP: 4921) ensuring zero-tamper physical delivery at Men's Hostel Q-Block.")
 
-add_image_card(slide6, os.path.join(real_dir, "real_live_tracking_modal.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic Live System Capture: 10-Min Live Tracking, Courier & OTP")
+add_image_card(slide6, os.path.join(real_dir, "real_live_tracking_modal.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 7: MODULE 3 - RUNTIME ZERO DIVISION ERROR CRASH
 # ==============================================================================
 slide7 = prs.slides.add_slide(blank_layout)
-add_header(slide7, "Module 3: Dark Store Stockout Edge-Case & Runtime Server Crash", "Incident Reproduction")
+add_header(slide7, "Module 3: Dark Store Stockout Edge-Case & Runtime Server Crash")
 
-tx7 = slide7.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx7 = slide7.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf7 = tx7.text_frame
 tf7.word_wrap = True
 tf7.paragraphs[0].text = "Runtime Microservice Failure:"
@@ -341,15 +319,15 @@ add_bullet(tf7, "Unhandled Python Runtime Exception:", "Raises fatal ZeroDivisio
 add_bullet(tf7, "Structured Telemetry Emission:", "Logger immediately intercepts stack trace and emits structured JSON stdout: [CRITICAL_ALERT] INCIDENT_DETECTED.")
 add_bullet(tf7, "Forensic Metadata Captured:", "Includes incident ID INC-1791945923-07CD12B5, ISO 8601 timestamp, target service, error type, and complete traceback.")
 
-add_image_card(slide7, os.path.join(real_dir, "real_terminal_crash.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic PowerShell Server Terminal: ZeroDivisionError & Critical Alert")
+add_image_card(slide7, os.path.join(real_dir, "real_terminal_crash.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 8: MODULE 2 - CLIENT EXCEPTION SHIELD & CUSTOMER INSULATION
 # ==============================================================================
 slide8 = prs.slides.add_slide(blank_layout)
-add_header(slide8, "Module 2: Client Exception Interception & Customer Insulation", "Customer Insulation")
+add_header(slide8, "Module 2: Client Exception Interception & Customer Insulation")
 
-tx8 = slide8.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx8 = slide8.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf8 = tx8.text_frame
 tf8.word_wrap = True
 tf8.paragraphs[0].text = "Defensive Client Safeguards:"
@@ -363,15 +341,15 @@ add_bullet(tf8, "Polite Waitlist Modal:", "Renders 'Item Not Deliverable to Your
 add_bullet(tf8, "Customer Trust & Retention:", "Offers a 'Notify Me When Available' waitlist subscription button and alternative dark store pickup selection, preserving brand reputation.")
 add_bullet(tf8, "Seamless User Experience:", "Shields end users from raw infrastructure failures while background SRE automation handles the incident.")
 
-add_image_card(slide8, os.path.join(real_dir, "real_stockout_waitlist_drawer.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic Live System Capture: Graceful Stockout Waitlist Customer Shield")
+add_image_card(slide8, os.path.join(real_dir, "real_stockout_waitlist_drawer.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 9: MODULE 4 - CLOUDWATCH METRIC INGESTION & SRE CONSOLE
 # ==============================================================================
 slide9 = prs.slides.add_slide(blank_layout)
-add_header(slide9, "Module 4: AWS CloudWatch Metric Ingestion & SRE Backstage Console", "SRE Observability")
+add_header(slide9, "Module 4: AWS CloudWatch Metric Ingestion & SRE Backstage Console")
 
-tx9 = slide9.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx9 = slide9.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf9 = tx9.text_frame
 tf9.word_wrap = True
 tf9.paragraphs[0].text = "Sub-5-Second Incident Ingestion:"
@@ -385,15 +363,15 @@ add_bullet(tf9, "Zero Polling Latency:", "Fires CloudWatch alarm state asynchron
 add_bullet(tf9, "Dedicated SRE Backstage Console:", "Web-based operator dashboard (/?view=devops) surfaces live incident metrics, CloudWatch alarm status, and Agile backlog sync.")
 add_bullet(tf9, "Mean Time to Acknowledge (MTTA):", "Reduces incident discovery latency from 2-8 hours of manual log grepping down to < 24 seconds.")
 
-add_image_card(slide9, os.path.join(real_dir, "real_sre_backstage_dashboard.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic Live System Capture: SRE Backstage Dashboard & Telemetry Stream")
+add_image_card(slide9, os.path.join(real_dir, "real_sre_backstage_dashboard.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 10: MODULE 5 - IMMUTABLE CLOUD FORENSICS IN S3 (DUAL SCREENSHOTS)
 # ==============================================================================
 slide10 = prs.slides.add_slide(blank_layout)
-add_header(slide10, "Module 5: Cryptographic Forensic Archival in Amazon S3 Console", "Forensic Compliance")
+add_header(slide10, "Module 5: Cryptographic Forensic Archival in Amazon S3 Console")
 
-tx10 = slide10.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx10 = slide10.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf10 = tx10.text_frame
 tf10.word_wrap = True
 tf10.paragraphs[0].text = "Tamper-Proof Audit Compliance:"
@@ -406,19 +384,19 @@ add_bullet(tf10, "Comprehensive Forensic JSON Schema:", "Captures uncompressed t
 add_bullet(tf10, "11 9's Durability Guarantee:", "Stored in private S3 bucket devops-incident-watchdog-logs-401537512022 with Block Public Access and AES-256 encryption.")
 add_bullet(tf10, "Cryptographic INC-ID Naming:", "Mints immutable key: incidents/2026-10-14/INC-1791945923-07CD12B5.json for tamper-proof audit trails.")
 
-# Top Image: S3 Bucket View
-add_image_card(slide10, os.path.join(real_dir, "real_aws_s3_bucket_incidents.png"), Inches(5.8), Inches(1.68), Inches(6.8), Inches(2.45), "Real Amazon S3 Console: Target Bucket & Incident Folders View")
+# Top Image: S3 Bucket View (Cleanly cropped)
+add_image_card(slide10, os.path.join(real_dir, "real_aws_s3_bucket_incidents.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(2.70))
 
-# Bottom Image: S3 Dump Object View
-add_image_card(slide10, os.path.join(real_dir, "real_aws_s3_incident_dump.png"), Inches(5.8), Inches(4.55), Inches(6.8), Inches(2.45), "Real Amazon S3 Console: Incident Forensic Dump Object Properties")
+# Bottom Image: S3 Dump Object View (Cleanly cropped)
+add_image_card(slide10, os.path.join(real_dir, "real_aws_s3_incident_dump.png"), Inches(5.8), Inches(4.30), Inches(6.8), Inches(2.70))
 
 # ==============================================================================
 # SLIDE 11: MODULE 6 - AUTONOMOUS BUG STORY MINTING ON GITHUB
 # ==============================================================================
 slide11 = prs.slides.add_slide(blank_layout)
-add_header(slide11, "Module 6: Autonomous Bug Story Minting on GitHub Issues", "Agile Backlog Integration")
+add_header(slide11, "Module 6: Autonomous Bug Story Minting on GitHub Issues")
 
-tx11 = slide11.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx11 = slide11.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf11 = tx11.text_frame
 tf11.word_wrap = True
 tf11.paragraphs[0].text = "Zero-Touch Sprint Integration:"
@@ -432,15 +410,15 @@ add_bullet(tf11, "Standardized Agile Bug Story:", "Formatted as: 'As an SRE on-c
 add_bullet(tf11, "Automated Diagnostics Table:", "Embeds incident ID, error type, target microservice, VIT campus hub, and direct S3 forensic URI link.")
 add_bullet(tf11, "6 Definition of Done (DoD) Criteria:", "Includes explicit acceptance checkboxes for code guard, customer insulation, and pytest CI regression verification.")
 
-add_image_card(slide11, os.path.join(real_dir, "real_github_issue.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic GitHub Issues Capture: Issue #1 with Diagnostics & 6 DoD Criteria")
+add_image_card(slide11, os.path.join(real_dir, "real_github_issue.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 12: MODULE 7 - CI/CD PIPELINE & SMART COMMIT CLOSURE (DUAL)
 # ==============================================================================
 slide12 = prs.slides.add_slide(blank_layout)
-add_header(slide12, "Module 7: GitHub Actions CI/CD & Smart Commit Automated Closure", "Continuous Remediation")
+add_header(slide12, "Module 7: GitHub Actions CI/CD & Smart Commit Automated Closure")
 
-tx12 = slide12.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx12 = slide12.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf12 = tx12.text_frame
 tf12.word_wrap = True
 tf12.paragraphs[0].text = "GitOps Automated Lifecycle:"
@@ -454,19 +432,19 @@ add_bullet(tf12, "GitHub Actions CI Runner:", "Triggers automated CI regression 
 add_bullet(tf12, "Green Checkmark Build Status:", "GitHub repository confirms passing build with green checkmark next to the commit SHA in main branch.")
 add_bullet(tf12, "Zero-Touch Issue Transition:", "Merging to main automatically transitions GitHub Issue #1 to Closed (Done), updating sprint burn-down without human overhead.")
 
-# Top Image: GitHub Repo CI Pass
-add_image_card(slide12, os.path.join(real_dir, "real_github_repo_ci_pass.png"), Inches(5.8), Inches(1.68), Inches(6.8), Inches(2.45), "Authentic GitHub Repo: Commit with Green Checkmark CI/CD Build Pass")
+# Top Image: GitHub Repo CI Pass (Cleanly cropped)
+add_image_card(slide12, os.path.join(real_dir, "real_github_repo_ci_pass.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(2.70))
 
 # Bottom Image: Terminal GitOps
-add_image_card(slide12, os.path.join(real_dir, "real_terminal_gitops.png"), Inches(5.8), Inches(4.55), Inches(6.8), Inches(2.45), "Authentic PowerShell Terminal: GitOps Smart Commit & Branch Tracking")
+add_image_card(slide12, os.path.join(real_dir, "real_terminal_gitops.png"), Inches(5.8), Inches(4.30), Inches(6.8), Inches(2.70))
 
 # ==============================================================================
 # SLIDE 13: MODULE 8 - AUTOMATED PYTEST REGRESSION (17/17 PASSED)
 # ==============================================================================
 slide13 = prs.slides.add_slide(blank_layout)
-add_header(slide13, "Module 8: Automated Pytest Regression Verification (17/17 Passed)", "Quality Assurance")
+add_header(slide13, "Module 8: Automated Pytest Regression Verification (17/17 Passed)")
 
-tx13 = slide13.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx13 = slide13.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf13 = tx13.text_frame
 tf13.word_wrap = True
 tf13.paragraphs[0].text = "100% Automated Test Pass Rate:"
@@ -480,15 +458,15 @@ add_bullet(tf13, "ZeroDivision Guard Verification:", "Verifies that stock = 0 tr
 add_bullet(tf13, "Campus Feature Verification:", "Tests coupon validation (VITFEST50), 10-min live order tracking endpoint, 6 dark store inventory allocations, and cart calculations.")
 add_bullet(tf13, "Execution Performance:", "Executes all 17 tests in 1.14 seconds with 100% test pass rate and zero regression failures.")
 
-add_image_card(slide13, os.path.join(real_dir, "real_terminal_pytest.png"), Inches(5.8), Inches(1.75), Inches(6.8), Inches(5.1), "Authentic PowerShell Terminal: Pytest 17/17 Tests Passing (100% Pass Rate)")
+add_image_card(slide13, os.path.join(real_dir, "real_terminal_pytest.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
 # SLIDE 14: AWS SERVERLESS TOPOLOGY & CONSOLE HOME (DUAL)
 # ==============================================================================
 slide14 = prs.slides.add_slide(blank_layout)
-add_header(slide14, "AWS Serverless Production Deployment & Cost Breakdown", "Cloud Infrastructure")
+add_header(slide14, "AWS Serverless Production Deployment & Cost Breakdown")
 
-tx14 = slide14.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.5))
+tx14 = slide14.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf14 = tx14.text_frame
 tf14.word_wrap = True
 tf14.paragraphs[0].text = "Production Cloud Parameters:"
@@ -501,19 +479,19 @@ add_bullet(tf14, "AWS Region & Account:", "Deployed serverless in Sydney (ap-sou
 add_bullet(tf14, "Microservice Compute Sizing:", "Both target app and incident creator configured with 128 MB RAM (sub-300ms cold start latency).")
 add_bullet(tf14, "100% Free Tier Eligible ($0.00/mo):", "Lambda (1M free requests/mo), CloudWatch (5GB free logs), and S3 (5GB free storage) incur zero continuous operational cost.")
 
-# Top Image: AWS Console Home
-add_image_card(slide14, os.path.join(real_dir, "real_aws_console_home.png"), Inches(5.8), Inches(1.68), Inches(6.8), Inches(2.45), "Real AWS Management Console Home: Active Account & Sydney Region")
+# Top Image: AWS Console Home (Cleanly cropped)
+add_image_card(slide14, os.path.join(real_dir, "real_aws_console_home.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(2.70))
 
 # Bottom Image: AWS Topology
-add_image_card(slide14, os.path.join(base_dir, "figure4_aws_topology.png"), Inches(5.8), Inches(4.55), Inches(6.8), Inches(2.45), "AWS Serverless Microservice Topology & Security Boundaries")
+add_image_card(slide14, os.path.join(base_dir, "figure4_aws_topology.png"), Inches(5.8), Inches(4.30), Inches(6.8), Inches(2.70))
 
 # ==============================================================================
 # SLIDE 15: 7-STAGE END-TO-END WORKFLOW
 # ==============================================================================
 slide15 = prs.slides.add_slide(blank_layout)
-add_header(slide15, "Summary of the 7-Stage End-to-End Incident Lifecycle", "Workflow Lifecycle")
+add_header(slide15, "Summary of the 7-Stage End-to-End Incident Lifecycle")
 
-tx15 = slide15.shapes.add_textbox(Inches(0.8), Inches(1.35), Inches(11.733), Inches(0.55))
+tx15 = slide15.shapes.add_textbox(Inches(0.8), Inches(1.35), Inches(11.733), Inches(0.50))
 tf15 = tx15.text_frame
 tf15.word_wrap = True
 p15 = tf15.paragraphs[0]
@@ -522,9 +500,9 @@ p15.font.name = "Arial"
 p15.font.size = Pt(13.5)
 p15.font.color.rgb = SLATE
 
-add_image_card(slide15, os.path.join(base_dir, "figure2_workflow.png"), Inches(0.8), Inches(1.95), Inches(11.733), Inches(4.3), "Figure 2: 7-Stage Autonomous Incident Ingestion & Sprint Remediation Lifecycle")
+add_image_card(slide15, os.path.join(base_dir, "figure2_workflow.png"), Inches(0.8), Inches(1.85), Inches(11.733), Inches(4.5))
 
-tx15_b = slide15.shapes.add_textbox(Inches(0.8), Inches(6.4), Inches(11.733), Inches(0.75))
+tx15_b = slide15.shapes.add_textbox(Inches(0.8), Inches(6.45), Inches(11.733), Inches(0.70))
 tf15_b = tx15_b.text_frame
 tf15_b.word_wrap = True
 p15_b = tf15_b.paragraphs[0]
