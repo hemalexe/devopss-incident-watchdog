@@ -1982,6 +1982,27 @@
         }
 
         checkState();
+
+        // Query param router for presentation screenshots & automated tests
+        const urlParams = new URLSearchParams(window.location.search);
+        const autoView = urlParams.get('view');
+        if (autoView === 'cart') {
+            openCart();
+            setTimeout(() => {
+                const cInput = document.getElementById('coupon-input');
+                if (cInput) cInput.value = 'VITFEST50';
+                applyPromoCoupon();
+            }, 100);
+        } else if (autoView === 'tracking') {
+            openTrackingModal();
+        } else if (autoView === 'stockout') {
+            openCheckout('OnePlus 11R 5G (Sonic Black, 16GB)', 34999, 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&auto=format&fit=crop&q=60', 3);
+            document.getElementById('checkout-form-view').style.display = 'none';
+            document.getElementById('checkout-not-deliverable-view').style.display = 'block';
+            document.getElementById('alert-address-text').innerText = "VIT Vellore Campus (Men's Hostel Q-Block)";
+        } else if (autoView === 'devops') {
+            setRole('devops');
+        }
     </script>
 
     <!-- 7. LIVE 10-MINUTE ORDER TRACKING MODAL -->
