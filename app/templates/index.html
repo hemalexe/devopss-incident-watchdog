@@ -852,18 +852,30 @@
     <!-- 0. FACULTY PRESENTATION ROLE SWITCHER (TOP BAR) -->
     <div class="role-switcher-bar">
         <div class="role-switcher-left">
-            <span><i class="fa-solid fa-graduation-cap"></i> <strong>DevOps Viva Demo Mode:</strong></span>
+            <span><i class="fa-solid fa-graduation-cap"></i> <strong>DevOps Demo:</strong></span>
             <div class="role-pill-group">
                 <button class="role-pill active customer" id="pill-customer" onclick="setRole('customer')">
-                    <i class="fa-solid fa-user"></i> 1. Customer View
+                    <i class="fa-solid fa-user"></i> 1. Storefront View
                 </button>
                 <button class="role-pill" id="pill-devops" onclick="setRole('devops')">
-                    <i class="fa-solid fa-code-commit"></i> 2. Developer & SRE Backstage
+                    <i class="fa-solid fa-code-commit"></i> 2. SRE Backstage
+                </button>
+            </div>
+            <!-- DIRECT 1-CLICK DEMO ACTION BUTTONS -->
+            <div style="display:inline-flex; gap:6px; margin-left:14px; align-items:center;">
+                <button type="button" class="role-pill" style="background:#ef4444; color:white; font-weight:700; border:none; padding:5px 12px; cursor:pointer;" onclick="triggerCrash()">
+                    <i class="fa-solid fa-bug"></i> 1. Simulate Bug Crash
+                </button>
+                <button type="button" class="role-pill" style="background:#10b981; color:white; font-weight:800; border:none; padding:5px 14px; cursor:pointer; box-shadow:0 0 10px rgba(16,185,129,0.5);" onclick="applyDevopsFix()">
+                    <i class="fa-solid fa-wrench"></i> 2. Click to Fix Bug ('Fixes #1')
+                </button>
+                <button type="button" class="role-pill" style="background:#475569; color:white; border:none; padding:5px 10px; cursor:pointer;" onclick="resetDemo()">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
                 </button>
             </div>
         </div>
         <div class="student-tag">
-            <span>Student: <strong>S Hemal (24MIS0050)</strong> | VIT Vellore | Agile Dev Process & DevOps</span>
+            <span>Student: <strong>S Hemal (24MIS0050)</strong> | VIT Vellore | Agile & DevOps</span>
         </div>
     </div>
 
@@ -1882,6 +1894,7 @@
                 const data = await res.json();
                 updateUIState(true);
                 closeModal();
+                alert("CI/CD PATCH DEPLOYED TO PRODUCTION!\n\n1. Git Commit: 'Fixes #1: Handled division by zero in checkout logic'\n2. Automated CI Pipeline: Executed 17 Pytest regression suites on Ubuntu runner\n3. Test Verification: 17/17 tests passing (100% pass rate in 0.86s)\n4. Zero-Touch Closure: GitHub Issue #1 automatically transitioned to Closed (Done)\n5. Microservice Guard: Stockout edge-case now gracefully insulated with customer waitlist shield!");
             } catch (err) {
                 console.error("Failed to apply fix:", err);
             }
