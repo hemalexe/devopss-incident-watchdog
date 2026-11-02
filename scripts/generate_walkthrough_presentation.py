@@ -486,28 +486,29 @@ add_bullet(tf14, "Execution Performance:", "Executes all 17 tests in 0.86 second
 add_image_card(slide14, os.path.join(real_dir, "real_terminal_pytest.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(5.6))
 
 # ==============================================================================
-# SLIDE 15: AWS SERVERLESS TOPOLOGY & CONSOLE HOME (DUAL)
+# SLIDE 15: AWS SERVERLESS LAMBDA CODE HANDLER & CLOUD TOPOLOGY (DUAL)
 # ==============================================================================
 slide15 = prs.slides.add_slide(blank_layout)
-add_header(slide15, "AWS Serverless Production Deployment & Cost Breakdown")
+add_header(slide15, "AWS Lambda Backend Microservice & Cloud Deployment")
 
 tx15 = slide15.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(4.8), Inches(5.6))
 tf15 = tx15.text_frame
 tf15.word_wrap = True
-tf15.paragraphs[0].text = "Production Cloud Parameters:"
+tf15.paragraphs[0].text = "Serverless Cloud Implementation:"
 tf15.paragraphs[0].font.name = "Arial"
 tf15.paragraphs[0].font.size = Pt(15)
 tf15.paragraphs[0].font.bold = True
 tf15.paragraphs[0].font.color.rgb = BLUE
 
-add_bullet(tf15, "AWS Region & Account:", "Deployed serverless in Sydney (ap-southeast-2) region under verified AWS Account 401537512022.")
-add_bullet(tf15, "Microservice Compute Sizing:", "Both target app and incident creator configured with 128 MB RAM (sub-300ms cold start latency).")
-add_bullet(tf15, "100% Free Tier Eligible ($0.00/mo):", "Lambda (1M free requests/mo), CloudWatch (5GB free logs), and S3 (5GB free storage) incur zero continuous operational cost.")
+add_bullet(tf15, "Live AWS Lambda Code Handler:", "Hosts app/lambda_app_adapter.py on AWS Lambda. def lambda_handler() serves /api/checkout and emits structured [CRITICAL_ALERT] incident telemetry upon stockouts.")
+add_bullet(tf15, "In-Browser Cloud IDE & Controls:", "Real AWS Lambda Monaco editor showing active watchdog-target-app function with native Deploy (Ctrl+Shift+U) and Test event execution hooks.")
+add_bullet(tf15, "AWS Region & Verified Account:", "Active in Sydney (ap-southeast-2) region under verified student AWS Account ID 401537512022 with 128 MB microservice compute sizing.")
+add_bullet(tf15, "100% Free Tier Eligible ($0.00/mo):", "Lambda (1M free requests/mo), CloudWatch (5GB logs), and S3 (5GB storage) incur zero continuous operational hosting cost.")
 
-# Top Image: AWS Console Home (Cleanly cropped)
-add_image_card(slide15, os.path.join(real_dir, "real_aws_console_home.png"), Inches(5.8), Inches(1.45), Inches(6.8), Inches(2.70))
+# Top Image: Real AWS Lambda Code Editor (Cleanly cropped authentic screenshot)
+add_image_card(slide15, os.path.join(real_dir, "real_aws_lambda_code_editor.png"), Inches(5.8), Inches(1.40), Inches(6.8), Inches(2.75))
 
-# Bottom Image: AWS Topology
+# Bottom Image: AWS Serverless Cloud Topology
 add_image_card(slide15, os.path.join(base_dir, "figure4_aws_topology.png"), Inches(5.8), Inches(4.30), Inches(6.8), Inches(2.70))
 
 # ==============================================================================
